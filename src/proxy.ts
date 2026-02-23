@@ -52,8 +52,8 @@ export async function proxy(request: NextRequest) {
     return supabaseResponse;
   }
 
-  // API routes: pass through untouched (no locale prefixing)
-  if (pathname.startsWith("/api/")) {
+  // API + auth routes: pass through untouched (no locale prefixing)
+  if (pathname.startsWith("/api/") || pathname.startsWith("/auth/")) {
     return NextResponse.next();
   }
 

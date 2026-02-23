@@ -34,7 +34,7 @@ function ToggleButton({
 
 export default function PricingTable({ rows }: PricingTableProps) {
   const t = useTranslations("accommodation");
-  const [showEur, setShowEur] = useState(false);
+  const [showEur, setShowEur] = useState(true);
   const [spaVariant, setSpaVariant] = useState(false);
 
   const filtered = rows.filter((r) => r.spa_variant === spaVariant);

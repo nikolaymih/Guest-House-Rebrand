@@ -31,7 +31,7 @@ export default function AdminLoginPage() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/admin/gallery`,
+        redirectTo: `${window.location.origin}/auth/callback?next=/admin/gallery`,
       },
     });
   }
