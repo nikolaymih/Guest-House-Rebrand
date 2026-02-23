@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Home",
+    "accommodation": "Accommodation",
+    "gallery": "Gallery",
+    "landmarks": "Landmarks",
+    "reservation": "Reservation",
+    "contacts": "Contacts",
+    "rules": "Rules",
+    "personalData": "Privacy Policy"
+  },
+  "header": {
+    "phone_label": "Reservation phone",
+    "phone": "(+359) 885 771 328"
+  },
+  "gallery": {
+    "categories": {
+      "garden": "Garden",
+      "tavern": "Tavern",
+      "spa": "Spa",
+      "rooms": "Interior",
+      "overview": "Overview"
+    }
+  },
+  "reservation": {
+    "title": "Reservation",
+    "subtitle": "Get in touch",
+    "fullName": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "subject": "Subject",
+    "message": "Message",
+    "consent": "I agree to have my personal data processed",
+    "submit": "Send",
+    "submitting": "Sending...",
+    "success": "Your message was sent successfully!",
+    "error": "Something went wrong. Please try again.",
+    "errors": {
+      "fullNameRequired": "Please enter your full name",
+      "fullNameInvalid": "Please enter a valid full name",
+      "emailRequired": "Please enter your email",
+      "emailInvalid": "Invalid email address",
+      "phoneRequired": "Please enter your phone number",
+      "phoneInvalid": "Invalid phone number",
+      "subjectRequired": "Please enter a subject",
+      "subjectMin": "Minimum 3 characters",
+      "messageRequired": "Please enter a message",
+      "messageMin": "Minimum 10 characters",
+      "consentRequired": "Consent is required"
+    }
+  },
+  "accommodation": {
+    "title": "Accommodation",
+    "guests": "guests",
+    "daily": "1 night",
+    "twoDays": "2 nights",
+    "threePlus": "3+ nights",
+    "noSpa": "Without SPA",
+    "withSpa": "With SPA",
+    "bgn": "BGN",
+    "eur": "EUR",
+    "discounts": {
+      "weekday": "15% discount Monday–Thursday",
+      "earlyBook": "5% discount for early booking"
+    }
+  },
+  "contacts": {
+    "title": "Contacts",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "findUs": "Find us"
+  },
+  "footer": {
+    "rights": "All rights reserved"
+  },
+  "meta": {
+    "home": {
+      "title": "Guest House Stanovets — Relaxation in Nature",
+      "description": "Enjoy a cozy stay at Guest House Stanovets. Spa zone, tavern, beautiful nature."
+    },
+    "gallery": {
+      "title": "Gallery — Guest House Stanovets",
+      "description": "Browse photos of the guest house, spa zone, tavern and garden."
+    },
+    "accommodation": {
+      "title": "Accommodation & Pricing — Guest House Stanovets",
+      "description": "Information about accommodation, pricing and rental terms."
+    },
+    "reservation": {
+      "title": "Reservation — Guest House Stanovets",
+      "description": "Send a reservation inquiry for Guest House Stanovets."
+    },
+    "landmarks": {
+      "title": "Landmarks — Guest House Stanovets",
+      "description": "Discover nearby landmarks — Pliska, Madara Rider and more."
+    },
+    "contacts": {
+      "title": "Contacts — Guest House Stanovets",
+      "description": "Contact us for reservations and information."
+    },
+    "rules": {
+      "title": "Rules — Guest House Stanovets",
+      "description": "House rules for Guest House Stanovets."
+    },
+    "personalData": {
+      "title": "Privacy Policy — Guest House Stanovets",
+      "description": "Personal data protection policy."
+    }
+  }
+}
