@@ -26,13 +26,27 @@ export default async function HomePage({ params }: Props) {
   const distances = t.raw("distances") as Array<{ city: string; distance: string }>;
 
   const supabase = await createClient();
-  const { data: carouselData } = await supabase
-    .from("gallery_images")
-    .select("id, storage_path")
-    .eq("category", "overview")
-    .order("created_at");
+
+  const [{ data: carouselData }, { data: welcomeData }] = await Promise.all([
+    supabase
+      .from("gallery_images")
+      .select("id, storage_path")
+      .eq("category", "overview")
+      .order("created_at"),
+    supabase
+      .from("gallery_images")
+      .select("id, storage_path")
+      .eq("category", "welcome")
+      .order("created_at")
+      .limit(3),
+  ]);
 
   const carouselImages = (carouselData ?? []).map((row) => ({
+    id: row.id,
+    url: supabase.storage.from("gallery").getPublicUrl(row.storage_path).data.publicUrl,
+  }));
+
+  const welcomeImages = (welcomeData ?? []).map((row) => ({
     id: row.id,
     url: supabase.storage.from("gallery").getPublicUrl(row.storage_path).data.publicUrl,
   }));
@@ -78,8 +92,36 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      {/* Welcome Section */}
+      {welcomeImages.length > 0 && (
+        <section className="py-16 px-4 bg-[var(--color-linen)]">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-3 text-center">
+              {t("welcomeHeading")}
+            </h2>
+            <p className="text-[var(--color-text-secondary)] text-center mb-10 max-w-xl mx-auto">
+              {t("welcomeSubtitle")}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {welcomeImages.map((img) => (
+                <div
+                  key={img.id}
+                  className="overflow-hidden rounded-2xl shadow-[var(--shadow-medium)] aspect-[3/4] group"
+                >
+                  <img
+                    src={img.url}
+                    alt=""
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Location */}
-      <section className="bg-[var(--color-linen)] py-16 px-4">
+      <section className="bg-[var(--color-bg-primary)] py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-8 text-center">
             {t("locationHeading")}

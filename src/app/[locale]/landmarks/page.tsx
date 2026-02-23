@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -12,6 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 interface Landmark {
+  slug: string;
   name: string;
   distance: string;
   description: string;
@@ -31,15 +33,21 @@ export default async function LandmarksPage({ params }: Props) {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {landmarks.map((lm) => (
-            <div key={lm.name} className="bg-[var(--color-bg-card)] rounded-2xl p-6 shadow-[var(--shadow-soft)] border border-[var(--color-border-soft)]">
+            <Link
+              key={lm.slug}
+              href={`/landmarks/${lm.slug}`}
+              className="block bg-[var(--color-bg-card)] rounded-2xl p-6 shadow-[var(--shadow-soft)] border border-[var(--color-border-soft)] hover:shadow-[var(--shadow-medium)] hover:border-[var(--color-caramel)] transition-all group"
+            >
               <div className="flex items-start justify-between gap-4 mb-3">
-                <h3 className="font-serif text-lg text-[var(--color-espresso)]">{lm.name}</h3>
+                <h3 className="font-serif text-lg text-[var(--color-espresso)] group-hover:text-[var(--color-caramel-deep)] transition-colors">
+                  {lm.name}
+                </h3>
                 <span className="text-xs font-semibold bg-[var(--color-linen)] text-[var(--color-caramel-deep)] px-3 py-1 rounded-full flex-shrink-0">
                   {lm.distance}
                 </span>
               </div>
               <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">{lm.description}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
