@@ -52,6 +52,11 @@ export async function proxy(request: NextRequest) {
     return supabaseResponse;
   }
 
+  // API routes: pass through untouched (no locale prefixing)
+  if (pathname.startsWith("/api/")) {
+    return NextResponse.next();
+  }
+
   // All public routes: next-intl handles locale routing (/ → bg, /en → en)
   return intlMiddleware(request);
 }
