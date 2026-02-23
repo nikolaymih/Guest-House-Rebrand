@@ -48,28 +48,13 @@ export default function PricingTable({ rows }: PricingTableProps) {
         <ToggleButton active={spaVariant} onClick={() => setSpaVariant(true)}>
           {t("withSpa")}
         </ToggleButton>
-        <div className="ml-auto flex items-center gap-1">
-          <button
-            onClick={() => setShowEur(true)}
-            className={`px-3 py-1.5 rounded-full text-sm font-semibold transition-colors ${
-              showEur
-                ? "text-[var(--color-caramel)]"
-                : "text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"
-            }`}
-          >
+        <div className="ml-auto flex items-center gap-3">
+          <ToggleButton active={showEur} onClick={() => setShowEur(true)}>
             {t("eur")}
-          </button>
-          <span className="text-[var(--color-text-muted)] text-sm">|</span>
-          <button
-            onClick={() => setShowEur(false)}
-            className={`px-3 py-1.5 rounded-full text-sm font-semibold transition-colors ${
-              !showEur
-                ? "text-[var(--color-caramel)]"
-                : "text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"
-            }`}
-          >
+          </ToggleButton>
+          <ToggleButton active={!showEur} onClick={() => setShowEur(false)}>
             {t("bgn")}
-          </button>
+          </ToggleButton>
         </div>
       </div>
 
