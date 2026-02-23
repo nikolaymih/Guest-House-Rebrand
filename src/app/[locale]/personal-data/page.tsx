@@ -11,35 +11,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: t("title"), description: t("description") };
 }
 
-export default async function PersonalDataPage() {
+export default async function PersonalDataPage({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "personalDataPage" });
+
   return (
     <div>
       <section className="bg-[var(--color-espresso)] text-[var(--color-warm-white)] py-16 px-4 text-center">
-        <h1 className="font-serif text-4xl text-[var(--color-candlelight)]">Лични данни</h1>
+        <h1 className="font-serif text-4xl text-[var(--color-candlelight)]">{t("heroTitle")}</h1>
       </section>
       <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-6">
-          Политика за защита на личните данни
-        </h2>
+        <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-6">{t("heading")}</h2>
         <div className="space-y-6 text-[var(--color-text-secondary)] leading-relaxed">
+          <p>{t("p1")}</p>
+          <p>{t("p2")}</p>
+          <p>{t("p3")}</p>
           <p>
-            Гостилница Становец събира и обработва лични данни единствено за целите на управление на
-            резервации и комуникация с гостите.
-          </p>
-          <p>Данните, които събираме: три имена, имейл адрес и телефонен номер.</p>
-          <p>
-            Данните се съхраняват сигурно и не се споделят с трети страни без вашето съгласие.
-          </p>
-          <p>
-            Имате право да поискате достъп, корекция или изтриване на вашите данни по всяко време,
-            като се свържете с нас на{" "}
-            <a
-              href="mailto:stanovets.eu@gmail.com"
-              className="text-[var(--color-caramel)] hover:text-[var(--color-caramel-deep)]"
-            >
-              stanovets.eu@gmail.com
-            </a>
-            .
+            {t("p4")}
           </p>
         </div>
       </section>

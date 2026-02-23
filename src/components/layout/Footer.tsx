@@ -1,5 +1,7 @@
+"use client";
+
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 const QUICK_LINKS = [
   { label_key: "gallery", href: "/gallery/garden" },
@@ -17,35 +19,26 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-serif text-lg text-[var(--color-candlelight)] mb-4">
-              Становец
-            </h3>
-            <p className="text-sm leading-relaxed">
-              Уютна почивка сред природата с спа зона, механа и красива градина.
-            </p>
+            <h3 className="font-serif text-lg text-[var(--color-candlelight)] mb-4">Становец</h3>
+            <p className="text-sm leading-relaxed">{t("tagline")}</p>
           </div>
-
           <div>
             <h4 className="font-semibold text-[var(--color-warm-white)] mb-4 text-sm uppercase tracking-wider">
-              Бързи връзки
+              {t("quickLinksHeading")}
             </h4>
             <ul className="space-y-2 text-sm">
               {QUICK_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="hover:text-[var(--color-candlelight)] transition-colors"
-                  >
+                  <Link href={link.href} className="hover:text-[var(--color-candlelight)] transition-colors">
                     {tn(link.label_key)}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-
           <div>
             <h4 className="font-semibold text-[var(--color-warm-white)] mb-4 text-sm uppercase tracking-wider">
-              Контакти
+              {t("contactsHeading")}
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -61,7 +54,6 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-
         <div className="border-t border-[var(--color-walnut)] mt-8 pt-6 text-center text-xs">
           © {new Date().getFullYear()} Становец. {t("rights")}.
         </div>
