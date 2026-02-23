@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import ReservationForm from "@/components/reservation/ReservationForm";
 import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
+import { createClient } from "@/lib/supabase/server";
+import HeroCarousel from "@/components/home/HeroCarousel";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -23,6 +25,18 @@ export default async function HomePage({ params }: Props) {
   const amenities = t.raw("amenities") as string[];
   const distances = t.raw("distances") as Array<{ city: string; distance: string }>;
 
+  const supabase = await createClient();
+  const { data: carouselData } = await supabase
+    .from("gallery_images")
+    .select("id, storage_path")
+    .eq("category", "overview")
+    .order("created_at");
+
+  const carouselImages = (carouselData ?? []).map((row) => ({
+    id: row.id,
+    url: supabase.storage.from("gallery").getPublicUrl(row.storage_path).data.publicUrl,
+  }));
+
   return (
     <div>
       <LocalBusinessSchema />
@@ -37,6 +51,9 @@ export default async function HomePage({ params }: Props) {
           </p>
         </div>
       </section>
+
+      {/* Hero Carousel */}
+      <HeroCarousel images={carouselImages} />
 
       {/* About */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
