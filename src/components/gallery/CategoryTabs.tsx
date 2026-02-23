@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import { type GalleryCategory } from "@/types";
 
-const CATEGORIES: GalleryCategory[] = ["garden", "tavern", "spa", "rooms", "overview"];
+const CATEGORIES: GalleryCategory[] = ["garden", "tavern", "spa", "rooms"];
 
 interface CategoryTabsProps {
   active: GalleryCategory;

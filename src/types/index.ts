@@ -1,6 +1,6 @@
 // src/types/index.ts
 
-export type GalleryCategory = "garden" | "tavern" | "spa" | "rooms" | "overview";
+export type GalleryCategory = "garden" | "tavern" | "spa" | "rooms" | "overview" | "welcome";
 
 export interface GalleryImage {
   id: string;
@@ -9,6 +9,14 @@ export interface GalleryImage {
   display_order: number;
   created_at: string;
   url?: string; // resolved public URL, populated at runtime
+}
+
+export interface LandmarkImage {
+  id: string;
+  slug: string;
+  storage_path: string;
+  created_at: string;
+  url?: string;
 }
 
 export interface PricingRow {
