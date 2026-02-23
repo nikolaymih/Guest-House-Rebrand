@@ -37,6 +37,10 @@ export default function PhotoGrid({ images }: PhotoGridProps) {
         onClick={({ index }) => setLightboxIndex(index)}
         rowConstraints={{ maxPhotos: 4 }}
         targetRowHeight={250}
+        renderPhoto={({ imageProps: { alt, style, ...rest } }) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img alt={alt} style={{ ...style, objectFit: "cover" }} {...rest} />
+        )}
       />
       <LightboxViewer
         slides={slides}
