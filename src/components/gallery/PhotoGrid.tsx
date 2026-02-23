@@ -23,18 +23,18 @@ export default function PhotoGrid({ images }: PhotoGridProps) {
 
   return (
     <>
-      <div className="columns-2 sm:columns-3 lg:columns-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
         {images.map((img, i) => (
           <div
             key={img.id}
-            className="break-inside-avoid mb-2 cursor-pointer overflow-hidden rounded-lg"
+            className="aspect-[4/3] overflow-hidden rounded-lg cursor-pointer"
             onClick={() => setLightboxIndex(i)}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={img.url ?? img.storage_path}
               alt=""
-              className="w-full h-auto block hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             />
           </div>
         ))}
