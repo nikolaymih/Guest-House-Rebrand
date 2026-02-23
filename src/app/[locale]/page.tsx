@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import ReservationForm from "@/components/reservation/ReservationForm";
+import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function HomePage() {
   return (
     <div>
+      <LocalBusinessSchema />
       {/* Hero Section */}
       <section className="relative bg-[var(--color-espresso)] text-[var(--color-warm-white)] py-24 px-4 text-center">
         <div className="max-w-3xl mx-auto">
