@@ -1,11 +1,12 @@
 "use client";
 
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import {
-  reservationSchema,
+  makeReservationSchema,
   type ReservationInput,
 } from "@/lib/validations/reservation";
 import FormField from "./FormField";
@@ -15,13 +16,27 @@ import { Button } from "@/components/ui/button";
 export default function ReservationForm() {
   const t = useTranslations("reservation");
 
+  const schema = useMemo(
+    () =>
+      makeReservationSchema({
+        fullNameRequired: t("errors.fullNameRequired"),
+        emailRequired: t("errors.emailRequired"),
+        emailInvalid: t("errors.emailInvalid"),
+        phoneRequired: t("errors.phoneRequired"),
+        subjectRequired: t("errors.subjectRequired"),
+        messageRequired: t("errors.messageRequired"),
+        consentRequired: t("errors.consentRequired"),
+      }),
+    [t]
+  );
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<ReservationInput>({
-    resolver: zodResolver(reservationSchema),
+    resolver: zodResolver(schema),
     mode: "onBlur",
   });
 

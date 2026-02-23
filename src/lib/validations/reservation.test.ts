@@ -20,8 +20,13 @@ describe("reservationSchema", () => {
     expect(result.success).toBe(true);
   });
 
-  it("rejects single-word full name", () => {
+  it("passes with single-word name", () => {
     const result = reservationSchema.safeParse({ ...valid, fullName: "Иван" });
+    expect(result.success).toBe(true);
+  });
+
+  it("rejects empty full name", () => {
+    const result = reservationSchema.safeParse({ ...valid, fullName: "" });
     expect(result.success).toBe(false);
   });
 
@@ -30,13 +35,13 @@ describe("reservationSchema", () => {
     expect(result.success).toBe(false);
   });
 
-  it("rejects subject shorter than 3 chars", () => {
-    const result = reservationSchema.safeParse({ ...valid, subject: "ab" });
+  it("rejects empty subject", () => {
+    const result = reservationSchema.safeParse({ ...valid, subject: "" });
     expect(result.success).toBe(false);
   });
 
-  it("rejects message shorter than 10 chars", () => {
-    const result = reservationSchema.safeParse({ ...valid, message: "short" });
+  it("rejects empty message", () => {
+    const result = reservationSchema.safeParse({ ...valid, message: "" });
     expect(result.success).toBe(false);
   });
 
