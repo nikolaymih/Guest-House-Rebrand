@@ -12,7 +12,7 @@
     "test": "vitest",
     "test:run": "vitest run",
     "postbuild": "next-sitemap",
-    "migrate:images": "npx ts-node --project tsconfig.json scripts/migrate-images.ts"
+    "migrate:images": "dotenv -e .env.local -- npx ts-node --project tsconfig.json scripts/migrate-images.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -46,6 +46,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^5.1.4",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "eslint-config-prettier": "^10.1.8",
