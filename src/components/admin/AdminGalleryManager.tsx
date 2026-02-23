@@ -30,7 +30,7 @@ export default function AdminGalleryManager() {
         .from("gallery_images")
         .select("*")
         .eq("category", activeCategory)
-        .order("display_order");
+        .order("created_at", { ascending: false });
 
       setImages(
         (data ?? []).map((row) => ({

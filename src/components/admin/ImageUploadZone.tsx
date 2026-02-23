@@ -22,17 +22,6 @@ export default function ImageUploadZone({
     setError(null);
     const supabase = createClient();
 
-    // Find current max display_order for this category so new images append at the end
-    const { data: maxRow } = await supabase
-      .from("gallery_images")
-      .select("display_order")
-      .eq("category", category)
-      .order("display_order", { ascending: false })
-      .limit(1)
-      .single();
-
-    let nextOrder = (maxRow?.display_order ?? -1) + 1;
-
     for (const file of Array.from(files)) {
       const ext = file.name.split(".").pop() ?? "jpg";
       const path = `${category}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
@@ -49,7 +38,7 @@ export default function ImageUploadZone({
       await supabase.from("gallery_images").insert({
         category,
         storage_path: path,
-        display_order: nextOrder++,
+        display_order: 0,
       });
     }
 
