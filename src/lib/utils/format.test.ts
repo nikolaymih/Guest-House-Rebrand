@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { bgnToEur, formatBgn, formatEur } from "./format";
+import { bgnToEur, eurToBgn, formatBgn, formatEur } from "./format";
 
 describe("bgnToEur", () => {
   it("converts BGN to EUR using fixed rate 1.9558", () => {
@@ -8,6 +8,16 @@ describe("bgnToEur", () => {
 
   it("rounds to 2 decimal places", () => {
     expect(bgnToEur(100)).toBe(51.13);
+  });
+});
+
+describe("eurToBgn", () => {
+  it("converts EUR to BGN using fixed rate 1.9558", () => {
+    expect(eurToBgn(100)).toBe(196);
+  });
+
+  it("rounds to nearest integer", () => {
+    expect(eurToBgn(200)).toBe(391);
   });
 });
 

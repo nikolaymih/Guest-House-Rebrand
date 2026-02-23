@@ -14,9 +14,9 @@ export interface GalleryImage {
 export interface PricingRow {
   id: string;
   guest_count: number;
-  daily_rate_bgn: number;
-  two_day_bgn: number;
-  three_plus_bgn: number;
+  daily_rate_eur: number;
+  two_day_eur: number;
+  three_plus_eur: number;
   spa_variant: boolean;
   updated_at: string;
 }

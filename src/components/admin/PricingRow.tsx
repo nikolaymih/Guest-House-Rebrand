@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { type PricingRow } from "@/types";
-import { formatBgn } from "@/lib/utils/format";
+import { formatEur } from "@/lib/utils/format";
 
 interface PricingRowProps {
   row: PricingRow;
@@ -13,9 +13,9 @@ interface PricingRowProps {
 export default function AdminPricingRow({ row, onSave }: PricingRowProps) {
   const [editing, setEditing] = useState(false);
   const [values, setValues] = useState({
-    daily_rate_bgn: row.daily_rate_bgn,
-    two_day_bgn: row.two_day_bgn,
-    three_plus_bgn: row.three_plus_bgn,
+    daily_rate_eur: row.daily_rate_eur,
+    two_day_eur: row.two_day_eur,
+    three_plus_eur: row.three_plus_eur,
   });
 
   async function handleSave() {
@@ -31,7 +31,7 @@ export default function AdminPricingRow({ row, onSave }: PricingRowProps) {
   return (
     <tr className="border-b border-[var(--color-border)]">
       <td className="py-3 px-4 text-sm font-medium">{row.guest_count} гости</td>
-      {(["daily_rate_bgn", "two_day_bgn", "three_plus_bgn"] as const).map((field) => (
+      {(["daily_rate_eur", "two_day_eur", "three_plus_eur"] as const).map((field) => (
         <td key={field} className="py-3 px-4">
           {editing ? (
             <input
@@ -41,7 +41,7 @@ export default function AdminPricingRow({ row, onSave }: PricingRowProps) {
               className="w-24 border border-[var(--color-caramel)] rounded px-2 py-1 text-sm"
             />
           ) : (
-            <span className="text-sm">{formatBgn(row[field])}</span>
+            <span className="text-sm">{formatEur(row[field])}</span>
           )}
         </td>
       ))}

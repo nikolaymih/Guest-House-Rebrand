@@ -1,4 +1,4 @@
-import { bgnToEur, formatBgn, formatEur } from "@/lib/utils/format";
+import { eurToBgn, formatBgn, formatEur } from "@/lib/utils/format";
 import { type PricingRow } from "@/types";
 
 interface PriceRowProps {
@@ -7,8 +7,8 @@ interface PriceRowProps {
 }
 
 export default function PriceRow({ row, showEur }: PriceRowProps) {
-  function fmt(value: number): string {
-    return showEur ? formatEur(bgnToEur(value)) : formatBgn(value);
+  function fmt(eur: number): string {
+    return showEur ? formatEur(eur) : formatBgn(eurToBgn(eur));
   }
 
   return (
@@ -17,13 +17,13 @@ export default function PriceRow({ row, showEur }: PriceRowProps) {
         {row.guest_count}
       </td>
       <td className="py-3 px-4 text-sm text-[var(--color-text-secondary)]">
-        {fmt(row.daily_rate_bgn)}
+        {fmt(row.daily_rate_eur)}
       </td>
       <td className="py-3 px-4 text-sm text-[var(--color-text-secondary)]">
-        {fmt(row.two_day_bgn)}
+        {fmt(row.two_day_eur)}
       </td>
       <td className="py-3 px-4 text-sm text-[var(--color-text-secondary)]">
-        {fmt(row.three_plus_bgn)}
+        {fmt(row.three_plus_eur)}
       </td>
     </tr>
   );
