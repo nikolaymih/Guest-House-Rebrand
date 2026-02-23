@@ -17,9 +17,7 @@ export const reservationSchema = z.object({
     .regex(phoneRegex, "phoneInvalid"),
   subject: z.string().min(3, "subjectMin"),
   message: z.string().min(10, "messageMin"),
-  consent: z.literal(true, {
-    errorMap: () => ({ message: "consentRequired" }),
-  }),
+  consent: z.literal(true, { error: "consentRequired" }),
 });
 
 export type ReservationInput = z.infer<typeof reservationSchema>;
