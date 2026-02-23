@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { reservationSchema } from "@/lib/validations/reservation";
-import { createClient } from "@/lib/supabase/server";
 import { sendReservationEmail } from "@/lib/email/mailer";
+
+// Use service role key — this is server-only code, key is never sent to the browser
+function createAdminClient() {
+  return createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 export async function POST(request: NextRequest) {
   let body: unknown;
@@ -21,7 +29,7 @@ export async function POST(request: NextRequest) {
 
   const { fullName, email, phone, subject, message } = result.data;
 
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { error: dbError } = await supabase.from("reservations").insert({
     full_name: fullName,
@@ -32,6 +40,7 @@ export async function POST(request: NextRequest) {
   });
 
   if (dbError) {
+    console.error("[reservation] DB error:", dbError);
     return NextResponse.json(
       { error: "Failed to save reservation" },
       { status: 500 }
@@ -40,8 +49,9 @@ export async function POST(request: NextRequest) {
 
   try {
     await sendReservationEmail({ fullName, email, phone, subject, message });
-  } catch {
+  } catch (err) {
     // Email failure is non-blocking — reservation is already saved to DB
+    console.error("[email] Failed to send reservation email:", err);
   }
 
   return NextResponse.json({ success: true }, { status: 201 });
