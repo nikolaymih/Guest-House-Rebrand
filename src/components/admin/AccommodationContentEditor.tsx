@@ -30,6 +30,7 @@ export default function AccommodationContentEditor() {
   const [features, setFeatures] = useState<FeatureItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [featuresTouched, setFeaturesTouched] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const successTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -71,6 +72,14 @@ export default function AccommodationContentEditor() {
   }
 
   async function handleSave() {
+    setFeaturesTouched(true);
+    const hasEmptyFeature = features.some(
+      (f) => !f.label_bg.trim() || !f.label_en.trim()
+    );
+    if (hasEmptyFeature) {
+      setError("Всички характеристики трябва да имат попълнени и двата полета (BG и EN).");
+      return;
+    }
     setSaving(true);
     setError(null);
     setSuccess(false);
@@ -175,17 +184,25 @@ export default function AccommodationContentEditor() {
             <div key={feat.clientId} className="flex items-center gap-3">
               <input
                 type="text"
-                placeholder="BG"
+                placeholder="BG *"
                 value={feat.label_bg}
                 onChange={(e) => setFeatureField(idx, "label_bg", e.target.value)}
-                className="flex-1 rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
+                className={`flex-1 rounded-lg border px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)] ${
+                  featuresTouched && !feat.label_bg.trim()
+                    ? "border-red-400"
+                    : "border-[var(--color-border)]"
+                }`}
               />
               <input
                 type="text"
-                placeholder="EN"
+                placeholder="EN *"
                 value={feat.label_en}
                 onChange={(e) => setFeatureField(idx, "label_en", e.target.value)}
-                className="flex-1 rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
+                className={`flex-1 rounded-lg border px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)] ${
+                  featuresTouched && !feat.label_en.trim()
+                    ? "border-red-400"
+                    : "border-[var(--color-border)]"
+                }`}
               />
               <button
                 onClick={() => setFeatures((prev) => prev.filter((_, i) => i !== idx))}
