@@ -266,7 +266,18 @@ export default function AdminLandmarkManager() {
     }
 
     if (id === "new") {
-      const slug = slugify(formData.name_bg ?? "landmark");
+      let slug = slugify(formData.name_bg ?? "landmark");
+
+      // Deduplicate slug against existing ones
+      const existingSlugs = new Set(landmarks.map((l) => l.slug));
+      if (existingSlugs.has(slug)) {
+        let suffix = 2;
+        while (existingSlugs.has(`${slug}-${suffix}`)) {
+          suffix += 1;
+        }
+        slug = `${slug}-${suffix}`;
+      }
+
       const maxOrder = landmarks.length > 0
         ? Math.max(...landmarks.map((l) => l.display_order))
         : -1;
