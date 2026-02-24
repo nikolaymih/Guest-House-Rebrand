@@ -33,7 +33,11 @@ export default function AdminPricingRow({ row, onSave, onDelete }: PricingRowPro
     if (!confirm(`Сигурни ли сте, че искате да изтриете реда за ${row.guest_count} гости?`)) return;
     const supabase = createClient();
     const { error } = await supabase.from("pricing").delete().eq("id", row.id);
-    if (!error) onDelete();
+    if (error) {
+      alert(`Грешка при изтриване: ${error.message}`);
+      return;
+    }
+    onDelete();
   }
 
   return (

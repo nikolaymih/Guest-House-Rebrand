@@ -136,7 +136,7 @@ export default function PricingEditor() {
                 <label className="block text-xs font-semibold text-[var(--color-text-secondary)] mb-1">{label}</label>
                 <input
                   type="number"
-                  min="0"
+                  min="1"
                   value={newRow[key]}
                   onChange={(e) => setNewRow((r) => ({ ...r, [key]: e.target.value }))}
                   className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
