@@ -44,3 +44,6 @@ next-env.d.ts
 # generated sitemap/robots (built by next-sitemap postbuild)
 /public/sitemap*.xml
 /public/robots.txt
+
+# git worktrees
+.worktrees/
