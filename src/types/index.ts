@@ -44,3 +44,23 @@ export interface Reservation {
   message: string;
   created_at: string;
 }
+
+export interface AccommodationContent {
+  id: number;
+  about_heading_bg: string;
+  about_heading_en: string;
+  about_p1_bg: string;
+  about_p1_en: string;
+  about_p2_bg: string;
+  about_p2_en: string;
+  features_heading_bg: string;
+  features_heading_en: string;
+  updated_at: string;
+}
+
+export interface AccommodationFeature {
+  id: string;
+  label_bg: string;
+  label_en: string;
+  display_order: number;
+}
