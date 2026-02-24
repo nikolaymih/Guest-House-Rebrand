@@ -43,25 +43,18 @@
       "Free parking",
       "Wi-Fi"
     ],
+    "locationDescription": "We are happy to invite you to a standalone guest house in the village of Stanovets, Hitrino municipality, nestled among the deciduous forests of the Voyevodsko Plateau, at 400 m altitude, in Ludogorie!",
     "locationHeading": "Location",
     "distances": [
-      {
-        "city": "Shumen",
-        "distance": "32 km"
-      },
-      {
-        "city": "Veliki Preslav",
-        "distance": "15 km"
-      },
-      {
-        "city": "Pliska",
-        "distance": "20 km"
-      }
+      { "city": "Shumen", "distance": "38 km" },
+      { "city": "Veliki Preslav", "distance": "52 km" },
+      { "city": "Pliska", "distance": "35 km" }
     ],
     "inquiryHeading": "Send an inquiry",
     "inquirySubtitle": "Fill in the form and we will get back to you to confirm your reservation.",
     "welcomeHeading": "Welcome to our home",
-    "welcomeSubtitle": "We are happy to welcome you to our cozy guest house in the village of Stanovets."
+    "welcomeSubtitle": "We are happy to welcome you to our cozy guest house in the village of Stanovets.",
+    "facebookLabel": "Facebook"
   },
   "accommodationPage": {
     "heroTitle": "Accommodation",
@@ -227,12 +220,32 @@
     "inquiryHeading": "Inquiry",
     "inquirySubtitle": "Fill in the form and we will get back to you within 24 hours.",
     "phoneLabel": "Phone",
-    "emailLabel": "Email"
+    "emailLabel": "Email",
+    "facebookLabel": "Facebook"
   },
   "footer": {
-    "tagline": "Cozy relaxation in nature with spa zone, tavern and beautiful garden.",
-    "quickLinksHeading": "Quick Links",
-    "contactsHeading": "Contacts",
+    "guestHouseName": "Guest House Stanovets",
+    "address": "Village of Stanovets, Hitrino Municipality, Bulgaria",
+    "amenitiesHeading": "Amenities",
+    "amenities": [
+      "Starlink Wi-Fi",
+      "Spa zone",
+      "Swimming pool",
+      "Japanese jacuzzi"
+    ],
+    "accommodationHeading": "Accommodation",
+    "accommodationItems": [
+      "Whole house",
+      "Single room",
+      "Triple room",
+      "Apartment for four"
+    ],
+    "linksHeading": "Useful Links",
+    "linkHome": "About the house",
+    "linkReservation": "Reservations",
+    "linkRules": "House Policy",
+    "linkPrivacy": "Privacy Policy",
+    "facebookLabel": "Follow us on Facebook",
     "rights": "All rights reserved"
   },
   "reservation": {

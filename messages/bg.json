@@ -43,16 +43,18 @@
       "Безплатен паркинг",
       "Wi-Fi"
     ],
+    "locationDescription": "Щастливи сме да ви поканим в самостоятелна къща за гости в село Становец, община Хитрино, намиращо се сред широколистните гори на Воеводското плато, на 400м надморска височина, в Лудогорието!",
     "locationHeading": "Местоположение",
     "distances": [
-      { "city": "Шумен", "distance": "32 км" },
-      { "city": "Велики Преслав", "distance": "15 км" },
-      { "city": "Плиска", "distance": "20 км" }
+      { "city": "Шумен", "distance": "38 км" },
+      { "city": "Велики Преслав", "distance": "52 км" },
+      { "city": "Плиска", "distance": "35 км" }
     ],
     "inquiryHeading": "Изпратете запитване",
     "inquirySubtitle": "Попълнете формата и ние ще се свържем с вас за потвърждение на резервацията.",
     "welcomeHeading": "Заповядайте при нас",
-    "welcomeSubtitle": "Щастливи сме да ви поканим в нашата самостоятелна къща за гости в село Становец."
+    "welcomeSubtitle": "Щастливи сме да ви поканим в нашата самостоятелна къща за гости в село Становец.",
+    "facebookLabel": "Facebook"
   },
   "accommodationPage": {
     "heroTitle": "Настаняване",
@@ -218,12 +220,32 @@
     "inquiryHeading": "Запитване",
     "inquirySubtitle": "Попълнете формата и ще се свържем с вас в рамките на 24 часа.",
     "phoneLabel": "Телефон",
-    "emailLabel": "Имейл"
+    "emailLabel": "Имейл",
+    "facebookLabel": "Facebook"
   },
   "footer": {
-    "tagline": "Уютна почивка сред природата с спа зона, механа и красива градина.",
-    "quickLinksHeading": "Бързи връзки",
-    "contactsHeading": "Контакти",
+    "guestHouseName": "Къща за гости Становец",
+    "address": "село Становец, община Хитрино, България",
+    "amenitiesHeading": "Удобства",
+    "amenities": [
+      "Starlink Wi-Fi",
+      "Спа зона",
+      "Басейн",
+      "Японско джакузи"
+    ],
+    "accommodationHeading": "Настаняване",
+    "accommodationItems": [
+      "Цяла къща",
+      "Единична стая",
+      "Тройна стая",
+      "Апартамент за четирима"
+    ],
+    "linksHeading": "Полезни връзки",
+    "linkHome": "За къщата",
+    "linkReservation": "Резервации",
+    "linkRules": "Правила",
+    "linkPrivacy": "Лични данни",
+    "facebookLabel": "Следвайте ни във Facebook",
     "rights": "Всички права запазени"
   },
   "reservation": {
