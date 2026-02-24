@@ -28,7 +28,7 @@ export default function MobileMenu() {
     <div className="md:hidden">
       <button
         onClick={() => setOpen(!open)}
-        aria-label={open ? "Close menu" : "Open menu"}
+        aria-label={open ? t("closeMenu") : t("openMenu")}
         aria-expanded={open}
         className="text-[var(--color-candlelight)] p-2"
       >

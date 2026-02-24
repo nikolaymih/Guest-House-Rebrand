@@ -8,7 +8,9 @@
     "contacts": "Contacts",
     "pricing": "Pricing",
     "rules": "House Policy",
-    "personalData": "Privacy Policy"
+    "personalData": "Privacy Policy",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "header": {
     "phone_label": "Reservation phone",

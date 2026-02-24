@@ -24,12 +24,12 @@ export default function NavBar() {
       <div className="relative group">
         <Link
           href="/accommodation"
-          aria-haspopup="true"
+          aria-haspopup="menu"
           className="text-sm font-medium text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
         >
           {t("accommodation")}
         </Link>
-        <div className="absolute top-full left-0 hidden group-hover:block pt-2 z-50">
+        <div className="absolute top-full left-0 hidden group-hover:block group-focus-within:block pt-2 z-50">
           <div role="menu" className="bg-[var(--color-espresso)] border border-[var(--color-walnut)] rounded-lg shadow-lg py-1 min-w-max">
             {ACCOMMODATION_DROPDOWN.map((item) => (
               <Link
