@@ -64,3 +64,29 @@ export interface AccommodationFeature {
   label_en: string;
   display_order: number;
 }
+
+export interface HomeContent {
+  id: number;
+  hero_title_bg: string;
+  hero_title_en: string;
+  hero_subtitle_bg: string;
+  hero_subtitle_en: string;
+  about_heading_bg: string;
+  about_heading_en: string;
+  about_p1_bg: string;
+  about_p1_en: string;
+  about_p2_bg: string;
+  about_p2_en: string;
+  about_p3_bg: string;
+  about_p3_en: string;
+  amenities_heading_bg: string;
+  amenities_heading_en: string;
+  updated_at: string;
+}
+
+export interface HomeAmenity {
+  id: string;
+  label_bg: string;
+  label_en: string;
+  display_order: number;
+}
