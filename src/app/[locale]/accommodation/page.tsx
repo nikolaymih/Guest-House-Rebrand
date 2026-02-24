@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import PricingTable from "@/components/pricing/PricingTable";
 import ReservationForm from "@/components/reservation/ReservationForm";
 import { type PricingRow, type AccommodationContent, type AccommodationFeature } from "@/types";
+import ContactSidebar from "@/components/contact/ContactSidebar";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -73,6 +74,7 @@ export default async function AccommodationPage({ params }: Props) {
             <p className="text-[var(--color-text-secondary)] leading-relaxed">
               {t("inquirySubtitle")}
             </p>
+            <ContactSidebar locale={locale} namespace="home" />
           </div>
           <ReservationForm />
         </div>

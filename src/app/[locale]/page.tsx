@@ -4,6 +4,7 @@ import ReservationForm from "@/components/reservation/ReservationForm";
 import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 import { createClient } from "@/lib/supabase/server";
 import HeroCarousel from "@/components/home/HeroCarousel";
+import ContactSidebar from "@/components/contact/ContactSidebar";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -123,9 +124,12 @@ export default async function HomePage({ params }: Props) {
       {/* Location */}
       <section className="bg-[var(--color-bg-primary)] py-16 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-8 text-center">
+          <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-4 text-center">
             {t("locationHeading")}
           </h2>
+          <p className="text-[var(--color-text-secondary)] leading-relaxed text-center mb-8 max-w-2xl mx-auto">
+            {t("locationDescription")}
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {distances.map((item) => (
               <div key={item.city} className="bg-white rounded-xl p-6 text-center shadow-[var(--shadow-soft)]">
@@ -155,6 +159,7 @@ export default async function HomePage({ params }: Props) {
             <p className="text-[var(--color-text-secondary)] leading-relaxed">
               {t("inquirySubtitle")}
             </p>
+            <ContactSidebar locale={locale} namespace="home" />
           </div>
           <ReservationForm />
         </div>

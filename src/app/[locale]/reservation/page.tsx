@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import ReservationForm from "@/components/reservation/ReservationForm";
+import ContactSidebar from "@/components/contact/ContactSidebar";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -16,11 +17,6 @@ export default async function ReservationPage({ params }: Props) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "reservationPage" });
 
-  const contacts = [
-    { label: t("phoneLabel"), value: "(+359) 885 771 328", href: "tel:+359885771328" },
-    { label: t("emailLabel"), value: "stanovets.eu@gmail.com", href: "mailto:stanovets.eu@gmail.com" },
-  ];
-
   return (
     <div>
       <section className="bg-[var(--color-espresso)] text-[var(--color-warm-white)] py-16 px-4 text-center">
@@ -32,18 +28,7 @@ export default async function ReservationPage({ params }: Props) {
           <div>
             <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-4">{t("inquiryHeading")}</h2>
             <p className="text-[var(--color-text-secondary)] leading-relaxed mb-4">{t("inquirySubtitle")}</p>
-            <div className="space-y-3">
-              {contacts.map((c) => (
-                <div key={c.href} className="flex flex-col">
-                  <span className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
-                    {c.label}
-                  </span>
-                  <a href={c.href} className="text-[var(--color-caramel)] hover:text-[var(--color-caramel-deep)] font-medium">
-                    {c.value}
-                  </a>
-                </div>
-              ))}
-            </div>
+            <ContactSidebar locale={locale} namespace="reservationPage" />
           </div>
           <ReservationForm />
         </div>
