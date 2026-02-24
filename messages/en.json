@@ -62,19 +62,9 @@
   },
   "accommodationPage": {
     "heroTitle": "Accommodation",
-    "aboutHeading": "About the guest house",
-    "aboutP1": "Guest House Stanovets is suitable for groups of up to 12 people. It has 4 bedrooms, 4 bathrooms, a spacious living room, kitchen and dining room.",
-    "aboutP2": "The spa zone includes a hydromassage tub, sauna, shower cabin and fitness equipment. The tavern has an authentic atmosphere and is ideal for family gatherings.",
-    "featuresHeading": "Features",
-    "features": [
-      "10+2 guests",
-      "4 bedrooms",
-      "4 bathrooms",
-      "Spa zone",
-      "Tavern",
-      "Parking"
-    ],
-    "pricingHeading": "Pricing"
+    "pricingHeading": "Pricing",
+    "inquiryHeading": "Send an inquiry",
+    "inquirySubtitle": "Fill in the form and we will get back to you to confirm your reservation."
   },
   "contactsPage": {
     "heroTitle": "Contacts",
