@@ -36,7 +36,7 @@ export default function AdminGalleryManager({ categories }: AdminGalleryManagerP
         .from("gallery_images")
         .select("*")
         .eq("category", activeCategory)
-        .order("created_at", { ascending: false });
+        .order("display_order", { ascending: true });
 
       setImages(
         (data ?? []).map((row) => ({

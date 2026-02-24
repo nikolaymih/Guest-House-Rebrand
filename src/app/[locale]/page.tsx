@@ -32,12 +32,12 @@ export default async function HomePage({ params }: Props) {
       .from("gallery_images")
       .select("id, storage_path")
       .eq("category", "overview")
-      .order("created_at"),
+      .order("display_order"),
     supabase
       .from("gallery_images")
       .select("id, storage_path")
       .eq("category", "welcome")
-      .order("created_at")
+      .order("display_order")
       .limit(3),
   ]);
 
