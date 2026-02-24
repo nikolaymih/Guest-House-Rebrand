@@ -36,12 +36,12 @@ const WELCOME_IMAGES = [
 ];
 
 // ── 4. Landmark images ────────────────────────────────────────────────────────
-const LANDMARK_IMAGES: Array<{ file: string; slug: string }> = [
+const LANDMARK_IMAGES: Array<{ file: string; storageName?: string; slug: string }> = [
   { file: "monastery.jpg", slug: "benediktinski-manastir" },
   { file: "pliska.jpeg", slug: "pliska" },
   { file: "shumenska-krepost.jpeg", slug: "shumenska-krepost" },
   { file: "zandana.jpg", slug: "peshtera-zandana" },
-  { file: "madarski-konnik-цопъ.jpg", slug: "madarski-konnik" },
+  { file: "madarski-konnik-цопъ.jpg", storageName: "madarski-konnik.jpg", slug: "madarski-konnik" },
   { file: "skalenMonastery.jpg", slug: "hankrumovski-skalen-manastir" },
   { file: "osmar.jpg", slug: "okoto-na-osmar" },
   { file: "preslav.jpg", slug: "veliki-preslav" },
@@ -146,14 +146,14 @@ async function migrateWelcomeImages() {
 
 async function migrateLandmarkImages() {
   process.stdout.write("\nUploading landmark images...\n");
-  for (const { file, slug } of LANDMARK_IMAGES) {
+  for (const { file, storageName, slug } of LANDMARK_IMAGES) {
     const filePath = path.join(OLD_UI_ROOT, file);
     if (!fs.existsSync(filePath)) {
       process.stdout.write(`Missing file: ${filePath}\n`);
       continue;
     }
     const buffer = fs.readFileSync(filePath);
-    const storagePath = `landmarks/${file}`;
+    const storagePath = `landmarks/${storageName ?? file}`;
 
     const { error } = await supabase.storage
       .from("gallery")
