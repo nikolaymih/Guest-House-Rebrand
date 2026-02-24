@@ -81,24 +81,145 @@
     "backToLandmarks": "Back to Landmarks"
   },
   "rulesPage": {
-    "heroTitle": "Rules",
-    "heading": "House Rules",
-    "items": [
-      "Check-in is from 15:00, check-out by 12:00.",
-      "Smoking is prohibited in all enclosed spaces.",
-      "Pets are allowed only with prior arrangement.",
-      "Guests are responsible for any damage to the property.",
-      "Noise after 23:00 is not permitted.",
-      "The group leader bears full responsibility for compliance with the rules."
+    "heroTitle": "House Policy",
+    "pageHeading": "House Policy",
+    "sections": [
+      {
+        "header": "Guesthouse \"Stanovets\" — House Rules and General Terms",
+        "paragraphs": [
+          "Dear guests, welcome to Guesthouse \"Stanovets\"!",
+          "We would like to introduce you to the basic rules of this home."
+        ]
+      },
+      {
+        "header": "Reservations, Payment, Cancellation",
+        "paragraphs": [
+          "You can make a reservation at Guesthouse \"Stanovets\" in one of the following ways:",
+          "* via the reservation form on the website, which requires confirmation from our side",
+          "* by email",
+          "* by phone",
+          "* through the booking platforms we work with",
+          "In case of a direct reservation, your reservation is guaranteed with a deposit equal to 50% of the total amount for your stay. The remaining 50% is paid by bank transfer before check-in, or in cash upon check-in.",
+          "Last-minute reservations (up to one week before check-in) require full payment of the stay. If guests have not announced cancellation and have not arrived for check-in, the full prepaid amount is retained as a penalty.",
+          "In case of a cancelled reservation no less than 14 days before the check-in date, the full prepaid amount is refunded. In case of cancellation between 7 and 14 days before check-in, the full prepaid amount will serve as a deposit for a future visit.",
+          "In case of cancellation less than 7 days before check-in, 50% of the prepaid amount is retained as a penalty and 50% will serve as a deposit for a future visit.",
+          "Payment methods:",
+          "* Cash",
+          "* Bank transfer to the following account:",
+          "Bank: ProCredit Bank (Bulgaria) AD",
+          "BIC: PRCBBGSF",
+          "IBAN: BG06PRCB92301052866901 for BGN payments",
+          "Beneficiary: Mihaylov Trade EOOD"
+        ]
+      },
+      {
+        "header": "Check-in and Check-out",
+        "paragraphs": [
+          "Check-in: from 15:00.",
+          "Check-out: by 12:00.",
+          "Early check-in or late check-out are possible only by prior arrangement and subject to availability.",
+          "Check-in and check-out take place in the presence of the owner or their representative."
+        ]
+      },
+      {
+        "header": "Privacy of Your Personal Data",
+        "paragraphs": [
+          "Following national legislation, as owners we are obligated to collect your personal data upon check-in. All collected personal data is confidential and under no circumstances will it be distributed and/or used by us and/or provided to third parties, except to state institutions and only if they have a legal basis for this."
+        ]
+      },
+      {
+        "header": "Damage Deposit",
+        "paragraphs": [
+          "To ensure the proper care of the house and grounds, a deposit of €154.30 / 300 BGN is required upon check-in. The deposit is returned upon departure, after an inspection carried out by the owner in the presence of one of the guests."
+        ]
+      },
+      {
+        "header": "Smoking",
+        "paragraphs": [
+          "Smoking is not permitted in any indoor areas of Guesthouse \"Stanovets\". This includes e-cigarettes, hookahs, cigarettes and cigars.",
+          "Smoking is allowed on all balconies and common outdoor areas. Please use the ashtrays and do not throw cigarette butts in the garden.",
+          "Violation of this policy will result in a deduction of €30.35 / 50 BGN from your deposit."
+        ]
+      },
+      {
+        "header": "Video Surveillance",
+        "paragraphs": [
+          "Guesthouse \"Stanovets\" is equipped with a continuous video surveillance system in common areas.",
+          "From check-in to check-out, every guest grants the right to be filmed, video-recorded, or photographed without payment or compensation.",
+          "By using the services of the house, you agree to video surveillance and compliance with internal security rules."
+        ]
+      },
+      {
+        "header": "Noise",
+        "paragraphs": [
+          "Loud music and noise outside the house are prohibited, especially from 14:00 to 16:00 and after 22:00.",
+          "Inside the house you may enjoy yourselves as you wish, within reasonable limits!"
+        ]
+      },
+      {
+        "header": "Pets",
+        "paragraphs": [
+          "Pets are allowed only as an exception, after prior arrangement and without additional charge."
+        ]
+      }
     ]
   },
   "personalDataPage": {
     "heroTitle": "Privacy Policy",
-    "heading": "Personal Data Protection Policy",
-    "p1": "Guest House Stanovets collects and processes personal data solely for the purposes of managing reservations and communicating with guests.",
-    "p2": "Data we collect: full name, email address and phone number.",
-    "p3": "Data is stored securely and is not shared with third parties without your consent.",
-    "p4": "You have the right to request access, correction or deletion of your data at any time by contacting us at stanovets.eu@gmail.com."
+    "pageHeading": "Personal Data Protection Policy",
+    "sections": [
+      {
+        "header": "Personal Data Protection Policy",
+        "paragraphs": [
+          "Guesthouse \"Stanovets\" respects the privacy of its clients and guarantees maximum protection of their personal data processed during accommodation at the tourist establishment. This Personal Data Protection Policy has been prepared and is based on the current Bulgarian and European legislation in the field of personal data protection.",
+          "All amendments and additions to the Personal Data Protection Policy will be applied only after publication of the updated content, accessible through our website: https://www.stanovets.eu/ and on our social media page.",
+          "The Personal Data Protection Policy applies to your personal data if you are an individual or a representative of a legal entity that is a client of Guesthouse \"Stanovets\"."
+        ]
+      },
+      {
+        "header": "Privacy Policy",
+        "paragraphs": [
+          "MIHAYLOV TRADE EOOD, EIC 127629883 (hereinafter referred to as \"the Company\") is a personal data controller within the meaning of the Personal Data Protection Act and processes personal data in accordance with this act and REGULATION (EU) 2016/679 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 27 April 2016 (General Data Protection Regulation), referred to as \"the Regulation\".",
+          "This Privacy Policy aims to inform you what personal data the Company collects, how and for what purpose it is used, the conditions under which it is provided to third parties and for what purpose. The Privacy Policy may be amended and updated in order to comply with any changes in Bulgarian and applicable European legislation, as well as any changes in the Company's activities.",
+          "MIHAYLOV TRADE EOOD has its registered address at: Shumen, 9a Milin Kamak St., tel. 0888 543 523, e-mail: stanovets.eu@gmail.com.",
+          "The Personal Data Protection Policy applies to your personal data if you are an individual or a representative of a legal entity that is a client of Guesthouse \"Stanovets\"."
+        ]
+      },
+      {
+        "header": "How and What Data the Company Collects",
+        "paragraphs": [
+          "The Company collects personal data that is necessary for the performance of its activities. Personal data is collected directly from the data subjects. Client data collected includes: full name, personal identification number, identity card number (data is recorded in the Tourist Register pursuant to the Tourism Act).",
+          "Purpose of processing personal data: Personal data is processed for the following purposes:",
+          "— To provide tourist accommodation, including for the purposes of communication with clients;",
+          "— To communicate with representatives of the Company's counterparties — legal entities.",
+          "Data is stored for varying periods of time depending on the requirements of applicable legislation: tourist-client data from the date of last check-in, unless the data subject requests to 'be forgotten' before the expiry of that period."
+        ]
+      },
+      {
+        "header": "Sharing Personal Data with Third Parties",
+        "paragraphs": [
+          "The Company does not share personal data with third parties for marketing purposes.",
+          "Personal data is provided to the National Revenue Agency and other legally established recipients when required by law and in compliance with regulatory requirements.",
+          "The Company provides personal data when there is a legal basis or explicit consent from the data subject to the authorities of the Ministry of Interior — in case of non-compliance with established obligations by tourists or in other legally defined cases."
+        ]
+      },
+      {
+        "header": "Rights of Personal Data Subjects",
+        "paragraphs": [
+          "You have the right to be informed of the Company's privacy policy through this document.",
+          "You have the right to confirm whether and what personal data about you is being processed, the right of access to that personal data, and to receive a copy of the information on paper or electronic medium.",
+          "You have the right to request the Company to correct without undue delay any inaccurate personal data, as well as to request that your personal data be updated in case of changes.",
+          "You have the right to request the erasure of personal data if the legal basis for its processing has lapsed or the data is no longer necessary for the Company to establish, exercise or defend legal claims.",
+          "Where there is no legal basis for processing, you have the right to request restriction of processing, to object to processing, or to withdraw consent for the processing of data for market research purposes.",
+          "You have the right to request the transfer of your personal data to another Controller.",
+          "You have the right not to be subject to a decision based solely on automated processing, including profiling. The Company does not apply automated individual decision-making.",
+          "You may exercise the above rights by submitting your request to: stanovets.eu@gmail.com.",
+          "Every person has the right to lodge a complaint with a supervisory authority (CPDP or the competent Court) in connection with the processing of their personal data.",
+          "Accounting information is stored for the following periods: payroll records — 50 years; accounting registers and financial statements — 10 years; tax control documents — up to 5 years after the limitation period expires; financial audit documents — until the next audit; all other records — 3 years.",
+          "Personal data at Guesthouse \"Stanovets\" is stored in accordance with requirements, in a locked room, inaccessible to external persons."
+        ]
+      }
+    ]
   },
   "reservationPage": {
     "heroTitle": "Reservation",
