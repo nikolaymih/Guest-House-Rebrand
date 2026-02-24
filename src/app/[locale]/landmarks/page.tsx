@@ -43,7 +43,7 @@ export default async function LandmarksPage({ params }: Props) {
             return (
               <Link
                 key={lm.slug}
-                href={`/landmarks/${lm.slug}`}
+                href={`/${locale}/landmarks/${lm.slug}`}
                 className="block bg-[var(--color-bg-card)] rounded-2xl p-6 shadow-[var(--shadow-soft)] border border-[var(--color-border-soft)] hover:shadow-[var(--shadow-medium)] hover:border-[var(--color-caramel)] transition-all group"
               >
                 <div className="flex items-start justify-between gap-4 mb-3">

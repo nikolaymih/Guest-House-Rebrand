@@ -318,7 +318,11 @@ export default function AdminLandmarkManager() {
     if (landmark.storage_path) {
       await supabase.storage.from("gallery").remove([landmark.storage_path]);
     }
-    await supabase.from("landmarks").delete().eq("id", landmark.id);
+    const { error } = await supabase.from("landmarks").delete().eq("id", landmark.id);
+    if (error) {
+      setFormError("Грешка при изтриване.");
+      return;
+    }
     void load();
   }
 
@@ -330,18 +334,24 @@ export default function AdminLandmarkManager() {
     const oldIndex = landmarks.findIndex((l) => l.id === active.id);
     const newIndex = landmarks.findIndex((l) => l.id === over.id);
     const reordered = arrayMove(landmarks, oldIndex, newIndex);
+    const previous = landmarks;
 
     setLandmarks(reordered); // optimistic
     setReordering(true);
 
     const supabase = createClient();
-    await Promise.all(
-      reordered.map((lm, idx) =>
-        supabase.from("landmarks").update({ display_order: idx }).eq("id", lm.id)
-      )
-    );
-
-    setReordering(false);
+    try {
+      await Promise.all(
+        reordered.map((lm, idx) =>
+          supabase.from("landmarks").update({ display_order: idx }).eq("id", lm.id)
+        )
+      );
+    } catch {
+      setLandmarks(previous); // revert
+      setFormError("Грешка при запазване на реда.");
+    } finally {
+      setReordering(false);
+    }
   }
 
   return (

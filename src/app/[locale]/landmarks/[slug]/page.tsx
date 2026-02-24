@@ -79,7 +79,7 @@ export default async function LandmarkDetailPage({ params }: Props) {
         </article>
 
         <Link
-          href="/landmarks"
+          href={`/${locale}/landmarks`}
           className="inline-flex items-center gap-2 mt-8 text-sm font-semibold text-[var(--color-caramel)] hover:text-[var(--color-caramel-deep)] transition-colors"
         >
           ← {t("backToLandmarks")}

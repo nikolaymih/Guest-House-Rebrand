@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   DndContext,
   closestCenter,
@@ -83,21 +83,29 @@ interface AdminImageGridProps {
 export default function AdminImageGrid({ images, onDelete }: AdminImageGridProps) {
   const [items, setItems] = useState<GalleryImage[]>(images);
   const [saving, setSaving] = useState(false);
+  const [dragError, setDragError] = useState<string | null>(null);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   // Keep local state in sync when parent refreshes
-  if (
-    images.length !== items.length ||
-    images.some((img, i) => img.id !== items[i]?.id)
-  ) {
+  useEffect(() => {
     setItems(images);
-  }
+  }, [images]);
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }));
 
   async function handleDelete(image: GalleryImage) {
+    setDeleteError(null);
     const supabase = createClient();
-    await supabase.storage.from("gallery").remove([image.storage_path]);
-    await supabase.from("gallery_images").delete().eq("id", image.id);
+    const { error: storageError } = await supabase.storage.from("gallery").remove([image.storage_path]);
+    if (storageError) {
+      setDeleteError("Грешка при изтриване на снимката.");
+      return;
+    }
+    const { error: dbError } = await supabase.from("gallery_images").delete().eq("id", image.id);
+    if (dbError) {
+      setDeleteError("Грешка при изтриване.");
+      return;
+    }
     onDelete();
   }
 
@@ -108,21 +116,28 @@ export default function AdminImageGrid({ images, onDelete }: AdminImageGridProps
     const oldIndex = items.findIndex((i) => i.id === active.id);
     const newIndex = items.findIndex((i) => i.id === over.id);
     const reordered = arrayMove(items, oldIndex, newIndex);
+    const previous = items;
 
     setItems(reordered); // optimistic
     setSaving(true);
+    setDragError(null);
 
     const supabase = createClient();
-    await Promise.all(
-      reordered.map((img, idx) =>
-        supabase
-          .from("gallery_images")
-          .update({ display_order: idx })
-          .eq("id", img.id)
-      )
-    );
-
-    setSaving(false);
+    try {
+      await Promise.all(
+        reordered.map((img, idx) =>
+          supabase
+            .from("gallery_images")
+            .update({ display_order: idx })
+            .eq("id", img.id)
+        )
+      );
+    } catch {
+      setItems(previous); // revert
+      setDragError("Грешка при запазване на реда.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   if (items.length === 0) {
@@ -138,6 +153,8 @@ export default function AdminImageGrid({ images, onDelete }: AdminImageGridProps
       {saving && (
         <p className="text-xs text-[var(--color-text-muted)] mb-2 text-right">Запазване...</p>
       )}
+      {dragError && <p className="text-red-500 text-xs mb-2 text-right">{dragError}</p>}
+      {deleteError && <p className="text-red-500 text-xs mb-2 text-right">{deleteError}</p>}
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={items.map((i) => i.id)} strategy={rectSortingStrategy}>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
