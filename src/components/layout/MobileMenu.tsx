@@ -7,11 +7,16 @@ import LanguageSwitcher from "./LanguageSwitcher";
 
 const NAV_LINKS = [
   { key: "home", href: "/" },
-  { key: "accommodation", href: "/accommodation" },
   { key: "gallery", href: "/gallery/garden" },
   { key: "landmarks", href: "/landmarks" },
   { key: "reservation", href: "/reservation" },
   { key: "contacts", href: "/contacts" },
+] as const;
+
+const ACCOMMODATION_LINKS = [
+  { key: "pricing", href: "/accommodation" },
+  { key: "rules", href: "/rules" },
+  { key: "personalData", href: "/personal-data" },
 ] as const;
 
 export default function MobileMenu() {
@@ -44,6 +49,22 @@ export default function MobileMenu() {
               {t(link.key)}
             </Link>
           ))}
+
+          {/* Accommodation section */}
+          <span className="text-base font-medium text-[var(--color-text-muted)]">
+            {t("accommodation")}
+          </span>
+          {ACCOMMODATION_LINKS.map((link) => (
+            <Link
+              key={link.key}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="pl-4 text-sm font-medium text-[var(--color-warm-white)] hover:text-[var(--color-candlelight)] transition-colors"
+            >
+              {t(link.key)}
+            </Link>
+          ))}
+
           <div className="pt-4 border-t border-[var(--color-walnut)] flex items-center justify-between">
             <a
               href={`tel:${th("phone").replace(/\s/g, "")}`}
