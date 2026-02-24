@@ -95,6 +95,38 @@ CREATE POLICY "Authenticated can manage gallery images"
   ON gallery_images FOR ALL TO authenticated USING (true);
 ```
 
+### 6. Add Welcome Category + Landmark Images Table (SQL Editor)
+
+Run this **after** the initial setup to support the welcome section and landmark detail pages:
+
+```sql
+-- Add 'welcome' category to gallery_images constraint
+ALTER TABLE gallery_images DROP CONSTRAINT gallery_images_category_check;
+ALTER TABLE gallery_images ADD CONSTRAINT gallery_images_category_check
+  CHECK (category IN ('garden', 'tavern', 'spa', 'rooms', 'overview', 'welcome'));
+
+-- Create landmark_images table (one image per landmark slug)
+CREATE TABLE landmark_images (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug TEXT NOT NULL UNIQUE,
+  storage_path TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE landmark_images ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public can read landmark images"
+  ON landmark_images FOR SELECT TO anon USING (true);
+CREATE POLICY "Authenticated can manage landmark images"
+  ON landmark_images FOR ALL TO authenticated USING (true);
+```
+
+Then run the migration script to upload all images (gallery + hero + welcome + landmarks):
+
+```bash
+npm run migrate:images
+```
+
 ### 3. Seed Pricing Data (SQL Editor)
 
 ```sql
