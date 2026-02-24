@@ -1,10 +1,13 @@
+// src/components/admin/AccommodationContentEditor.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { type AccommodationContent, type AccommodationFeature } from "@/types";
 
 type ContentForm = Omit<AccommodationContent, "id" | "updated_at">;
+
+type FeatureItem = { clientId: string; label_bg: string; label_en: string };
 
 function emptyContent(): ContentForm {
   return {
@@ -15,37 +18,49 @@ function emptyContent(): ContentForm {
   };
 }
 
-const TEXT_FIELDS: { key: keyof ContentForm; labelBg: string; multiline?: boolean }[] = [
-  { key: "about_heading_bg",    labelBg: "Заглавие на секция „За Къщата"" },
-  { key: "about_p1_bg",         labelBg: "Параграф 1",                     multiline: true },
-  { key: "about_p2_bg",         labelBg: "Параграф 2",                     multiline: true },
-  { key: "features_heading_bg", labelBg: "Заглавие на характеристиките" },
+const TEXT_FIELDS: { keyBg: keyof ContentForm; keyEn: keyof ContentForm; label: string; multiline?: boolean }[] = [
+  { keyBg: "about_heading_bg",    keyEn: "about_heading_en",    label: "Заглавие на секция „За Къщата"" },
+  { keyBg: "about_p1_bg",         keyEn: "about_p1_en",         label: "Параграф 1",                     multiline: true },
+  { keyBg: "about_p2_bg",         keyEn: "about_p2_en",         label: "Параграф 2",                     multiline: true },
+  { keyBg: "features_heading_bg", keyEn: "features_heading_en", label: "Заглавие на характеристиките" },
 ];
 
 export default function AccommodationContentEditor() {
   const [form, setForm] = useState<ContentForm>(emptyContent());
-  const [features, setFeatures] = useState<{ label_bg: string; label_en: string }[]>([]);
+  const [features, setFeatures] = useState<FeatureItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const successTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     async function load() {
       const supabase = createClient();
-      const [{ data: content }, { data: feats }] = await Promise.all([
-        supabase.from("accommodation_content").select("*").eq("id", 1).maybeSingle(),
-        supabase.from("accommodation_features").select("*").order("display_order"),
-      ]);
-      if (content) {
-        const { id: _id, updated_at: _ts, ...fields } = content as AccommodationContent;
-        setForm(fields);
-      }
-      if (feats) {
-        setFeatures((feats as AccommodationFeature[]).map(({ label_bg, label_en }) => ({ label_bg, label_en })));
+      try {
+        const [{ data: content, error: contentError }, { data: feats, error: featsError }] = await Promise.all([
+          supabase.from("accommodation_content").select("*").eq("id", 1).maybeSingle(),
+          supabase.from("accommodation_features").select("*").order("display_order"),
+        ]);
+        if (contentError || featsError) {
+          setError("Грешка при зареждане на съдържанието.");
+          return;
+        }
+        if (content) {
+          const { id: _id, updated_at: _ts, ...fields } = content as AccommodationContent;
+          setForm(fields);
+        }
+        if (feats) {
+          setFeatures((feats as AccommodationFeature[]).map(({ label_bg, label_en }) => ({ clientId: crypto.randomUUID(), label_bg, label_en })));
+        }
+      } finally {
+        setLoading(false);
       }
     }
     void load();
   }, []);
+
+  useEffect(() => () => { if (successTimerRef.current) clearTimeout(successTimerRef.current); }, []);
 
   function setField(key: keyof ContentForm, value: string) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -61,96 +76,95 @@ export default function AccommodationContentEditor() {
     setSuccess(false);
     const supabase = createClient();
 
-    const { error: contentError } = await supabase
-      .from("accommodation_content")
-      .upsert({ id: 1, ...form, updated_at: new Date().toISOString() });
+    try {
+      const { error: contentError } = await supabase
+        .from("accommodation_content")
+        .upsert({ id: 1, ...form, updated_at: new Date().toISOString() });
 
-    if (contentError) {
-      setError(`Грешка при запазване: ${contentError.message}`);
-      setSaving(false);
-      return;
-    }
-
-    const { error: deleteError } = await supabase
-      .from("accommodation_features")
-      .delete()
-      .gte("display_order", 0);
-
-    if (deleteError) {
-      setError(`Грешка при изтриване на характеристики: ${deleteError.message}`);
-      setSaving(false);
-      return;
-    }
-
-    if (features.length > 0) {
-      const { error: insertError } = await supabase
-        .from("accommodation_features")
-        .insert(features.map((f, idx) => ({ ...f, display_order: idx })));
-
-      if (insertError) {
-        setError(`Грешка при запазване на характеристики: ${insertError.message}`);
-        setSaving(false);
+      if (contentError) {
+        setError(`Грешка при запазване: ${contentError.message}`);
         return;
       }
-    }
 
-    setSaving(false);
-    setSuccess(true);
-    setTimeout(() => setSuccess(false), 3000);
+      const { error: deleteError } = await supabase
+        .from("accommodation_features")
+        .delete()
+        .not("id", "is", null);
+
+      if (deleteError) {
+        setError(`Грешка при изтриване на характеристики: ${deleteError.message}`);
+        return;
+      }
+
+      if (features.length > 0) {
+        const { error: insertError } = await supabase
+          .from("accommodation_features")
+          .insert(features.map(({ label_bg, label_en }, idx) => ({ label_bg, label_en, display_order: idx })));
+
+        if (insertError) {
+          setError(`Грешка при запазване на характеристики: ${insertError.message}`);
+          return;
+        }
+      }
+
+      setSuccess(true);
+      if (successTimerRef.current) clearTimeout(successTimerRef.current);
+      successTimerRef.current = setTimeout(() => setSuccess(false), 3000);
+    } finally {
+      setSaving(false);
+    }
   }
+
+  if (loading) return <p className="text-sm text-[var(--color-text-muted)] py-8">Зареждане...</p>;
 
   return (
     <div className="space-y-8">
       {/* Text fields — BG + EN side by side */}
       <div className="space-y-6">
-        {TEXT_FIELDS.map(({ key, labelBg, multiline }) => {
-          const enKey = key.replace("_bg", "_en") as keyof ContentForm;
-          const labelEn = labelBg + " (EN)";
-          return (
-            <div key={key} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-[var(--color-text-secondary)] mb-1">
-                  {labelBg} (BG)
-                </label>
-                {multiline ? (
-                  <textarea
-                    rows={3}
-                    value={form[key]}
-                    onChange={(e) => setField(key, e.target.value)}
-                    className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)] resize-y"
-                  />
-                ) : (
-                  <input
-                    type="text"
-                    value={form[key]}
-                    onChange={(e) => setField(key, e.target.value)}
-                    className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
-                  />
-                )}
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-[var(--color-text-secondary)] mb-1">
-                  {labelEn}
-                </label>
-                {multiline ? (
-                  <textarea
-                    rows={3}
-                    value={form[enKey]}
-                    onChange={(e) => setField(enKey, e.target.value)}
-                    className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)] resize-y"
-                  />
-                ) : (
-                  <input
-                    type="text"
-                    value={form[enKey]}
-                    onChange={(e) => setField(enKey, e.target.value)}
-                    className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
-                  />
-                )}
-              </div>
+        {TEXT_FIELDS.map(({ keyBg, keyEn, label, multiline }) => (
+          <div key={keyBg} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-[var(--color-text-secondary)] mb-1">
+                {label} (BG)
+              </label>
+              {multiline ? (
+                <textarea
+                  rows={3}
+                  value={form[keyBg]}
+                  onChange={(e) => setField(keyBg, e.target.value)}
+                  className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)] resize-y"
+                />
+              ) : (
+                <input
+                  type="text"
+                  value={form[keyBg]}
+                  onChange={(e) => setField(keyBg, e.target.value)}
+                  className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
+                />
+              )}
             </div>
-          );
-        })}
+            <div>
+              <label className="block text-xs font-semibold text-[var(--color-text-secondary)] mb-1">
+                {label} (EN)
+              </label>
+              {multiline ? (
+                <textarea
+                  rows={3}
+                  value={form[keyEn]}
+                  onChange={(e) => setField(keyEn, e.target.value)}
+                  className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)] resize-y"
+                />
+              ) : (
+                <input
+                  type="text"
+                  value={form[keyEn]}
+                  onChange={(e) => setField(keyEn, e.target.value)}
+                  className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
+                />
+              )}
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Features list */}
@@ -158,7 +172,7 @@ export default function AccommodationContentEditor() {
         <h3 className="font-serif text-lg text-[var(--color-espresso)] mb-4">Характеристики</h3>
         <div className="space-y-2">
           {features.map((feat, idx) => (
-            <div key={idx} className="flex items-center gap-3">
+            <div key={feat.clientId} className="flex items-center gap-3">
               <input
                 type="text"
                 placeholder="BG"
@@ -184,7 +198,7 @@ export default function AccommodationContentEditor() {
           ))}
         </div>
         <button
-          onClick={() => setFeatures((prev) => [...prev, { label_bg: "", label_en: "" }])}
+          onClick={() => setFeatures((prev) => [...prev, { clientId: crypto.randomUUID(), label_bg: "", label_en: "" }])}
           className="mt-3 text-sm font-semibold text-[var(--color-caramel)] hover:text-[var(--color-caramel-deep)] transition-colors"
         >
           + Добави характеристика
