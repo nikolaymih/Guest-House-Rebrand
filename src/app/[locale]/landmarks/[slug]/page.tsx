@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 interface Props {
@@ -94,12 +95,12 @@ export default async function LandmarkDetailPage({ params }: Props) {
         </article>
 
         {/* Back link */}
-        <a
-          href="../landmarks"
+        <Link
+          href="/landmarks"
           className="inline-flex items-center gap-2 mt-8 text-sm font-semibold text-[var(--color-caramel)] hover:text-[var(--color-caramel-deep)] transition-colors"
         >
           ← {t("backToLandmarks")}
-        </a>
+        </Link>
       </section>
     </div>
   );
