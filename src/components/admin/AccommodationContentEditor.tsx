@@ -130,6 +130,14 @@ export default function AccommodationContentEditor() {
     <div className="space-y-8">
       {/* Text fields — BG + EN side by side */}
       <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+            БГ — Български
+          </div>
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+            EN — English
+          </div>
+        </div>
         {TEXT_FIELDS.map(({ keyBg, keyEn, label, multiline }) => (
           <div key={keyBg} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -179,6 +187,15 @@ export default function AccommodationContentEditor() {
       {/* Features list */}
       <div>
         <h3 className="font-serif text-lg text-[var(--color-espresso)] mb-4">Характеристики</h3>
+        <div className="grid grid-cols-[1fr_1fr_2rem] gap-3 mb-1">
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+            Характеристика (БГ)
+          </div>
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+            Characteristic (EN)
+          </div>
+          <div />
+        </div>
         <div className="space-y-2">
           {features.map((feat, idx) => (
             <div key={feat.clientId} className="flex items-center gap-3">
