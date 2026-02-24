@@ -8,15 +8,21 @@ export interface GalleryImage {
   storage_path: string;
   display_order: number;
   created_at: string;
-  url?: string; // resolved public URL, populated at runtime
+  url?: string;
 }
 
-export interface LandmarkImage {
+export interface Landmark {
   id: string;
   slug: string;
-  storage_path: string;
+  name_bg: string;
+  name_en: string;
+  description_bg: string;
+  description_en: string;
+  distance: string;
+  storage_path: string | null;
+  display_order: number;
   created_at: string;
-  url?: string;
+  url?: string; // resolved at runtime
 }
 
 export interface PricingRow {
