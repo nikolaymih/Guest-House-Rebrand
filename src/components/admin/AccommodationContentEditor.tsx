@@ -19,7 +19,7 @@ function emptyContent(): ContentForm {
 }
 
 const TEXT_FIELDS: { keyBg: keyof ContentForm; keyEn: keyof ContentForm; label: string; multiline?: boolean }[] = [
-  { keyBg: "about_heading_bg",    keyEn: "about_heading_en",    label: "Заглавие на секция „За Къщата"" },
+  { keyBg: "about_heading_bg",    keyEn: "about_heading_en",    label: 'Заглавие на секция „За Къщата"' },
   { keyBg: "about_p1_bg",         keyEn: "about_p1_en",         label: "Параграф 1",                     multiline: true },
   { keyBg: "about_p2_bg",         keyEn: "about_p2_en",         label: "Параграф 2",                     multiline: true },
   { keyBg: "features_heading_bg", keyEn: "features_heading_en", label: "Заглавие на характеристиките" },
