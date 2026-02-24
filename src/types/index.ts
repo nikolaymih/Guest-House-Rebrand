@@ -46,7 +46,7 @@ export interface Reservation {
 }
 
 export interface AccommodationContent {
-  id: number;
+  id: string;
   about_heading_bg: string;
   about_heading_en: string;
   about_p1_bg: string;
