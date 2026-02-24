@@ -1,12 +1,5 @@
-import PricingEditor from "@/components/admin/PricingEditor";
+import { redirect } from "next/navigation";
 
 export default function AdminPricingPage() {
-  return (
-    <div>
-      <h1 className="font-serif text-3xl text-[var(--color-espresso)] mb-8">
-        Управление на цени
-      </h1>
-      <PricingEditor />
-    </div>
-  );
+  redirect("/admin/accommodation");
 }

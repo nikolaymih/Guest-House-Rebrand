@@ -28,10 +28,10 @@ export default function AdminLayout({
             Галерия
           </Link>
           <Link
-            href="/admin/pricing"
+            href="/admin/accommodation"
             className="text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
           >
-            Цени
+            Настаняване
           </Link>
         </nav>
       </div>
