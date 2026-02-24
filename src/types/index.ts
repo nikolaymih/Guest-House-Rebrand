@@ -66,7 +66,7 @@ export interface AccommodationFeature {
 }
 
 export interface HomeContent {
-  id: number;
+  id: string;
   hero_title_bg: string;
   hero_title_en: string;
   hero_subtitle_bg: string;
