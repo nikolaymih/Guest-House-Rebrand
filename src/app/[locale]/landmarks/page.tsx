@@ -47,7 +47,7 @@ export default async function LandmarksPage({ params }: Props) {
                 className="block bg-[var(--color-bg-card)] rounded-2xl p-6 shadow-[var(--shadow-soft)] border border-[var(--color-border-soft)] hover:shadow-[var(--shadow-medium)] hover:border-[var(--color-caramel)] transition-all group"
               >
                 <div className="flex items-start justify-between gap-4 mb-3">
-                  <h3 className="font-serif text-lg text-[var(--color-espresso)] group-hover:text-[var(--color-caramel-deep)] transition-colors">
+                  <h3 className="font-serif text-lg font-semibold text-[var(--color-espresso)] group-hover:text-[var(--color-caramel-deep)] transition-colors">
                     {name}
                   </h3>
                   <span className="text-xs font-semibold bg-[var(--color-linen)] text-[var(--color-caramel-deep)] px-3 py-1 rounded-full flex-shrink-0">
