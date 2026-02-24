@@ -256,7 +256,7 @@ export default function AdminLandmarkManager() {
 
       const { error: uploadError } = await supabase.storage
         .from("gallery")
-        .upload(storagePath, file, { cacheControl: "3600", upsert: true });
+        .upload(storagePath, file, { cacheControl: "3600", upsert: false });
 
       if (uploadError) {
         setFormError(`Грешка при качване: ${uploadError.message}`);
