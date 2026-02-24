@@ -51,19 +51,21 @@ export default function MobileMenu() {
           ))}
 
           {/* Accommodation section */}
-          <span className="text-base font-medium text-[var(--color-text-muted)]">
-            {t("accommodation")}
-          </span>
-          {ACCOMMODATION_LINKS.map((link) => (
-            <Link
-              key={link.key}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="pl-4 text-sm font-medium text-[var(--color-warm-white)] hover:text-[var(--color-candlelight)] transition-colors"
-            >
-              {t(link.key)}
-            </Link>
-          ))}
+          <div role="group" aria-label={t("accommodation")} className="flex flex-col gap-4">
+            <span aria-hidden="true" className="text-base font-medium text-[var(--color-text-muted)]">
+              {t("accommodation")}
+            </span>
+            {ACCOMMODATION_LINKS.map((link) => (
+              <Link
+                key={link.key}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="pl-4 text-sm font-medium text-[var(--color-warm-white)] hover:text-[var(--color-candlelight)] transition-colors"
+              >
+                {t(link.key)}
+              </Link>
+            ))}
+          </div>
 
           <div className="pt-4 border-t border-[var(--color-walnut)] flex items-center justify-between">
             <a
