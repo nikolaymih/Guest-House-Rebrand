@@ -10,7 +10,13 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const supabase = await createClient();
+  // Cannot use the SSR createClient here — cookies() throws outside a request scope.
+  // Use the base supabase-js client directly with the anon key.
+  const { createClient: createSupabaseClient } = await import("@supabase/supabase-js");
+  const supabase = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
   const { data } = await supabase.from("landmarks").select("slug");
   const slugs = (data ?? []).map((r: { slug: string }) => r.slug);
   const locales = ["bg", "en"];
@@ -70,7 +76,7 @@ export default async function LandmarkDetailPage({ params }: Props) {
           </div>
         )}
 
-        <article>
+        <article className="prose max-w-none">
           {paragraphs.map((para, i) => (
             <p key={i} className="text-[var(--color-text-secondary)] leading-relaxed mb-5 text-base">
               {para}
