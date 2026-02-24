@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { type GalleryCategory } from "@/types";
 
+const MAX_BYTES = 15 * 1024 * 1024; // 15 MB
+
 interface ImageUploadZoneProps {
   category: GalleryCategory;
   onUploadComplete: () => void;
@@ -22,7 +24,23 @@ export default function ImageUploadZone({
     setError(null);
     const supabase = createClient();
 
+    // Fetch current max display_order for this category
+    const { data: maxRow } = await supabase
+      .from("gallery_images")
+      .select("display_order")
+      .eq("category", category)
+      .order("display_order", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    let nextOrder = (maxRow?.display_order ?? -1) + 1;
+
     for (const file of Array.from(files)) {
+      if (file.size > MAX_BYTES) {
+        setError(`Снимката "${file.name}" е твърде голяма. Максималният размер е 15 МБ.`);
+        continue;
+      }
+
       const ext = file.name.split(".").pop() ?? "jpg";
       const path = `${category}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
 
@@ -31,15 +49,17 @@ export default function ImageUploadZone({
         .upload(path, file, { cacheControl: "3600", upsert: false });
 
       if (uploadError) {
-        setError(`Failed to upload ${file.name}`);
+        setError(`Грешка при качване на "${file.name}".`);
         continue;
       }
 
       await supabase.from("gallery_images").insert({
         category,
         storage_path: path,
-        display_order: 0,
+        display_order: nextOrder,
       });
+
+      nextOrder += 1;
     }
 
     setUploading(false);
@@ -53,9 +73,7 @@ export default function ImageUploadZone({
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
           e.preventDefault();
-          if (e.dataTransfer.files.length) {
-            void handleFiles(e.dataTransfer.files);
-          }
+          if (e.dataTransfer.files.length) void handleFiles(e.dataTransfer.files);
         }}
         className="border-2 border-dashed border-[var(--color-caramel)] rounded-xl p-10 text-center cursor-pointer hover:bg-[var(--color-linen)] transition-colors"
         role="button"
@@ -76,15 +94,11 @@ export default function ImageUploadZone({
           }}
         />
         <p className="text-[var(--color-text-secondary)] font-medium">
-          {uploading
-            ? "Качване..."
-            : "Плъзни снимки тук или кликни за избор"}
+          {uploading ? "Качване..." : "Плъзни снимки тук или кликни за избор"}
         </p>
-        <p className="text-xs text-[var(--color-text-muted)] mt-1">PNG, JPG, WEBP</p>
+        <p className="text-xs text-[var(--color-text-muted)] mt-1">PNG, JPG, WEBP · макс. 15 МБ</p>
       </div>
-      {error && (
-        <p className="text-red-500 text-sm mt-2">{error}</p>
-      )}
+      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
     </div>
   );
 }
