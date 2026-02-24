@@ -42,9 +42,18 @@
     ],
     "locationHeading": "Location",
     "distances": [
-      { "city": "Shumen", "distance": "32 km" },
-      { "city": "Veliki Preslav", "distance": "15 km" },
-      { "city": "Pliska", "distance": "20 km" }
+      {
+        "city": "Shumen",
+        "distance": "32 km"
+      },
+      {
+        "city": "Veliki Preslav",
+        "distance": "15 km"
+      },
+      {
+        "city": "Pliska",
+        "distance": "20 km"
+      }
     ],
     "inquiryHeading": "Send an inquiry",
     "inquirySubtitle": "Fill in the form and we will get back to you to confirm your reservation.",
@@ -57,7 +66,14 @@
     "aboutP1": "Guest House Stanovets is suitable for groups of up to 12 people. It has 4 bedrooms, 4 bathrooms, a spacious living room, kitchen and dining room.",
     "aboutP2": "The spa zone includes a hydromassage tub, sauna, shower cabin and fitness equipment. The tavern has an authentic atmosphere and is ideal for family gatherings.",
     "featuresHeading": "Features",
-    "features": ["10+2 guests", "4 bedrooms", "4 bathrooms", "Spa zone", "Tavern", "Parking"],
+    "features": [
+      "10+2 guests",
+      "4 bedrooms",
+      "4 bathrooms",
+      "Spa zone",
+      "Tavern",
+      "Parking"
+    ],
     "pricingHeading": "Pricing"
   },
   "contactsPage": {
@@ -69,98 +85,7 @@
   "landmarksPage": {
     "heroTitle": "Landmarks",
     "heroSubtitle": "Discover the historical and natural landmarks in the area",
-    "backToLandmarks": "Back to Landmarks",
-    "items": [
-      {
-        "slug": "benediktinski-manastir",
-        "name": "Benedictine Monastery (Tsarev Brod)",
-        "distance": "23.7 km",
-        "description": "The only active Benedictine monastery in Northeastern Bulgaria. Founded in 1914, known for the healing marigold ointment prepared by the nuns.",
-        "longDescription": [
-          "The Catholic monastery 'St. Benedict' is located 10 km from Shumen and is the only active Benedictine monastery in Northeastern Bulgaria. Founded in 1914 by four Benedictine sisters from Germany (a teacher, a farmer, a nurse and a seamstress), it is known for its healing ointment for skin burns. This officially marked the beginning of the monastery, which celebrated its 100th anniversary in 2014. The monastery is active and is home to nuns from various countries — Bulgaria, Germany, the Philippines and South Korea. They carry out charitable activities in the village and the surrounding area.",
-          "The monastery's story began more than a century ago, and even today the nuns in the Shumen village of Tsarev Brod continue to welcome anyone in need and produce a miraculous ointment whose recipe they keep secret, but say has helped thousands. The monastery is known for the healing ointment produced by the sisters. Its main ingredient is marigold, which the nuns grow themselves in their garden. For more than 100 years, the Benedictine sisters in Tsarev Brod have helped both the spiritual and physical health of people."
-        ]
-      },
-      {
-        "slug": "pliska",
-        "name": "Pliska — First Bulgarian Capital",
-        "distance": "35.2 km",
-        "description": "The national historical and archaeological reserve and cradle of the Bulgarian state since 681 AD. Explore the ruins of the Great Basilica and the fortress walls.",
-        "longDescription": [
-          "The National Historical and Archaeological Reserve 'Pliska' is located 28 km northeast of Shumen and 3 km from the modern town of Pliska. It is part of the 100 National Tourist Sites of Bulgaria.",
-          "Pliska was the first capital of Bulgaria and the cradle of the modern Bulgarian state. From the founding of the Bulgarian state in 681 AD by Khan Asparuh until 893 AD, Pliska was not only the capital but also one of the largest and richest cities in Europe and the world. It is remarkable for its architecture, which the Bulgarians brought from their previous settlements.",
-          "The Bulgarians built their capital in the middle of a plain surrounded by heights that formed a natural barrier against enemies. Three defensive belts were constructed. The first was a deep earthen ditch with a high embankment encircling the Outer Town. The second was made of enormous stone blocks forming fortress walls about 12 meters high, with two pentagonal towers and a gate on each wall. The third belt was a brick fortification protecting the citadel. The entire walled complex covered 0.5 sq. km. The city was gigantic by medieval standards — 23.3 sq. km. 1.3 km from the eastern gate stands the Great Basilica — the largest Christian church in Southeastern Europe from the time of the Christianization of the Bulgarian people.",
-          "The uncovered remains have been preserved as an open-air museum that can be visited at any time. Finds from the reserve are displayed in the museum exhibition, mainly related to the daily life and culture of the inhabitants of the old capital."
-        ]
-      },
-      {
-        "slug": "madarski-konnik",
-        "name": "Madara Rider",
-        "distance": "42.7 km",
-        "description": "A unique rock relief from the 8th century, listed by UNESCO. The only early medieval rock monument in the open air in the world.",
-        "longDescription": [
-          "The Madara Rider is a rock bas-relief depicting a triumphant ruler — a symbol of the might of the First Bulgarian state. It is carved into a vertical rock face near the Shumen village of Madara.",
-          "The bas-relief depicts a rider of natural size, followed by a dog, who has speared a lion lying prostrate before the horse's front hooves. It is located 23 meters above the base of the cliff.",
-          "According to one theory, the bas-relief depicts Khan Tervel — the second ruler of the Bulgarian state after Khan Asparuh. This is supported by an inscription next to the rider indicating that the deposed Byzantine Emperor Justinian II came to Tervel to ask for help.",
-          "The bas-relief is part of a large archaeological complex. Steep steps to the left of the rider lead to the Madara Plateau at 431 meters altitude, where the remains of a medieval fortress can be found.",
-          "The archaeological reserve has summer opening hours from 08:00 to 19:00 and winter hours from 08:00 to 16:00. The viewing platform below the bas-relief is reached via a staircase of nearly 100 meters."
-        ]
-      },
-      {
-        "slug": "shumenska-krepost",
-        "name": "Shumen Fortress",
-        "distance": "41.5 km",
-        "description": "A medieval fortress with a millennia-long history, offering a magnificent panorama of Shumen and the surroundings.",
-        "longDescription": [
-          "The Shumen Fortress is as old as Priam's Troy, and is not inferior to it in grandeur or historical richness. Located at the top of the Shumen Plateau, 2 km from the city, its first wall was built in the 5th century BC. It became one of the most significant trade centers during the Second Bulgarian Empire — crafts flourished, coins were minted and trade was conducted with cities throughout the country. Its strategic location also made it one of the most important military observation posts.",
-          "Besides the magnificent natural landscapes, at the Shumen Fortress you can see a large part of its preserved walls, the restored main gate and one of the guard towers. The fortress walls were both outer and inner, with a deep moat between them. You will be struck by the brilliantly white stones against the backdrop of centuries-old gray structures — these are the restored parts of the fortress.",
-          "In the area there is also a museum with a rich collection — gold jewelry, coins, gilded household vessels, bone ornaments, spears, maces, ceramic vessels, decorative rosettes, and lanterns. These are just some of the valuable objects found among the glorious ruins."
-        ]
-      },
-      {
-        "slug": "peshtera-zandana",
-        "name": "Zandana Cave",
-        "distance": "42 km",
-        "description": "A picturesque cave with rich stalactite decoration, an ideal destination for nature lovers.",
-        "longDescription": [
-          "'Biserna' ('Zandana') Cave is the longest and most beautiful cave on the Shumen Plateau.",
-          "'Biserna' Cave is located in the 'Kyoshkove' area, 1 km west of Shumen at an altitude of 404 meters. It is inclined, ascending, branched, two-tiered and water-bearing, with water constantly flowing from it. The cave is developed on two levels (Upper and Lower Gallery). The lower level is an underground river with an average flow of 8 l/s. The cave is inhabited by 14 species of bats forming numerous colonies in its interior. Currently, the natural entrance is closed to protect the cave river, fauna and cave formations.",
-          "We recommend calling 054/800 765 before visiting, as opening hours vary depending on the season and bat population."
-        ]
-      },
-      {
-        "slug": "hankrumovski-skalen-manastir",
-        "name": "Hankrum Rock Monastery",
-        "distance": "46.5 km",
-        "description": "One of the best-preserved medieval rock monasteries in the Shumen Plateau area, carved into soft limestone with views over Kalugerov gorge.",
-        "longDescription": [
-          "In the Shumen Plateau area there is a whole complex of medieval rock monasteries inhabited by hermit monks during the Middle Ages. They were built into soft limestone rocks that were easy to work with. Due to natural erosion, almost no traces of frescoes remain in the rock caves today. The Hankrum Monastery is one of the best preserved. A natural cave was used for its construction and further worked. It consists of three rooms, one of which is a church with a well-formed altar. Next to it is another room used as a dormitory by the monks.",
-          "The church is reached via a narrow staircase carved into the rocks. From its windows a beautiful view of the Kalugerov gorge opens up."
-        ]
-      },
-      {
-        "slug": "okoto-na-osmar",
-        "name": "Eye of Osmar",
-        "distance": "48.2 km",
-        "description": "A unique rock formation and medieval rock monasteries near the village of Osmar on the Shumen Plateau.",
-        "longDescription": [
-          "Osmar is a village in the Shumen Plateau region that most people associate with the famous Osmar wormwood. However, the main attraction is the rock monasteries above the village.",
-          "Like the Hankrum Rock Monastery, they were also built into soft limestone rocks. Hermit monks lived in them.",
-          "The largest and best preserved is Kostadin's Monastery, carved into a vertical cliff at a height of 8–10 meters from the ground, accessible via a recently installed metal ladder. About a hundred meters away stands another rock church — the Dirckliya, named after the pillar ('direk' in Turkish) built at its entrance. According to locals, it was used as a prison for monks who had misbehaved.",
-          "At the top of the cliff of Kostadin's Monastery there is an interesting rock formation called the Eye or the Ring — a large boulder with a gap resembling a human eye."
-        ]
-      },
-      {
-        "slug": "veliki-preslav",
-        "name": "Veliki Preslav — Second Bulgarian Capital",
-        "distance": "52.1 km",
-        "description": "A rich archaeological reserve — capital of the First Bulgarian Empire since 893 AD, with the Preslav and Patriarchal complexes.",
-        "longDescription": [
-          "The city originated in the second half of the 9th century during the reign of Prince Boris I (852–889) as a military camp with a fortified palace and garrison, 30 km from the capital Pliska. In 893 AD, following the Preslav Church-National Council, the city was declared the capital of Bulgaria and became the seat of the first Bulgarian literary school. The Preslav Literary School developed as an important literary and cultural center in the Slavic world, where distinguished medieval writers served, including Naum of Ohrid, Constantine of Preslav, John the Exarch and others.",
-          "The pinnacle of culture in Preslav was witnessed in the period 893–972 AD. The city became one of the most beautiful and magnificent cities in Southeastern Europe. The Outer Town was surrounded by white stone walls, while the Inner Town contained the royal palace complex: grand stone palaces, the Throne Hall with columns, and the richly decorated Round Church adorned with mosaics, marble and ceramic icons."
-        ]
-      }
-    ]
+    "backToLandmarks": "Back to Landmarks"
   },
   "rulesPage": {
     "heroTitle": "Rules",
