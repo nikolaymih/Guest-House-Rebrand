@@ -92,27 +92,33 @@ function LandmarkForm({
         <label className="block text-xs font-semibold text-[var(--color-text-secondary)] mb-1">
           Снимка
         </label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            const f = e.target.files?.[0] ?? null;
-            if (f && f.size > MAX_BYTES) {
-              setFileError("Снимката е твърде голяма. Максималният размер е 15 МБ.");
-              setFile(null);
-            } else {
-              setFileError(null);
-              setFile(f);
-            }
-          }}
-          className="text-sm"
-        />
-        {!file && initial.storage_path && (
-          <p className="text-xs text-[var(--color-text-muted)] mt-1">
-            Текуща снимка:{" "}
-            <span className="font-medium">{initial.storage_path.split("/").pop()}</span>
-          </p>
-        )}
+        <label className="flex items-center gap-2 cursor-pointer w-fit">
+          <span className="px-3 py-1.5 rounded-lg border border-[var(--color-border)] bg-white text-xs font-medium text-[var(--color-text-secondary)] hover:bg-[var(--color-linen)] transition-colors">
+            Избери файл
+          </span>
+          <span className="text-xs text-[var(--color-text-muted)] truncate max-w-[220px]">
+            {file
+              ? file.name
+              : initial.storage_path
+                ? initial.storage_path.split("/").pop()
+                : "Няма избран файл"}
+          </span>
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0] ?? null;
+              if (f && f.size > MAX_BYTES) {
+                setFileError("Снимката е твърде голяма. Максималният размер е 15 МБ.");
+                setFile(null);
+              } else {
+                setFileError(null);
+                setFile(f);
+              }
+            }}
+          />
+        </label>
         {fileError && <p className="text-red-500 text-xs mt-0.5">{fileError}</p>}
       </div>
 
