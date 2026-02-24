@@ -12,7 +12,8 @@
     "test": "vitest",
     "test:run": "vitest run",
     "postbuild": "next-sitemap",
-    "migrate:images": "dotenv -e .env.local -- npx ts-node --project tsconfig.json scripts/migrate-images.ts"
+    "migrate:images": "dotenv -e .env.local -- npx ts-node --project tsconfig.json scripts/migrate-images.ts",
+    "upload:madara": "dotenv -e .env.local -- npx ts-node --project tsconfig.json scripts/upload-madara.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
