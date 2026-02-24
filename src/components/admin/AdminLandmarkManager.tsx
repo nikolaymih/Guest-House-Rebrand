@@ -107,6 +107,12 @@ function LandmarkForm({
           }}
           className="text-sm"
         />
+        {!file && initial.storage_path && (
+          <p className="text-xs text-[var(--color-text-muted)] mt-1">
+            Текуща снимка:{" "}
+            <span className="font-medium">{initial.storage_path.split("/").pop()}</span>
+          </p>
+        )}
         {fileError && <p className="text-red-500 text-xs mt-0.5">{fileError}</p>}
       </div>
 

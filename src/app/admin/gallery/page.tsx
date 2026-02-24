@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
 import AdminLandmarkManager from "@/components/admin/AdminLandmarkManager";
 
@@ -13,8 +14,17 @@ const SECTIONS: { id: AdminSection; label: string }[] = [
   { id: "landmarks", label: "Забележителности" },
 ];
 
-export default function AdminGalleryPage() {
-  const [activeSection, setActiveSection] = useState<AdminSection>("gallery");
+const VALID: Set<string> = new Set(SECTIONS.map((s) => s.id));
+
+function AdminGalleryPageInner() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const raw = searchParams.get("tab") ?? "gallery";
+  const activeSection = (VALID.has(raw) ? raw : "gallery") as AdminSection;
+
+  function setActiveSection(id: AdminSection) {
+    router.push(`?tab=${id}`, { scroll: false });
+  }
 
   return (
     <div>
@@ -39,9 +49,7 @@ export default function AdminGalleryPage() {
         ))}
       </div>
 
-      {activeSection === "gallery" && (
-        <AdminGalleryManager />
-      )}
+      {activeSection === "gallery" && <AdminGalleryManager />}
       {activeSection === "hero" && (
         <div>
           <p className="text-sm text-[var(--color-text-muted)] mb-6">
@@ -67,5 +75,13 @@ export default function AdminGalleryPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function AdminGalleryPage() {
+  return (
+    <Suspense>
+      <AdminGalleryPageInner />
+    </Suspense>
   );
 }
