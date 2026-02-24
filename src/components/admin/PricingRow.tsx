@@ -8,9 +8,10 @@ import { formatEur } from "@/lib/utils/format";
 interface PricingRowProps {
   row: PricingRow;
   onSave: () => void;
+  onDelete: () => void;
 }
 
-export default function AdminPricingRow({ row, onSave }: PricingRowProps) {
+export default function AdminPricingRow({ row, onSave, onDelete }: PricingRowProps) {
   const [editing, setEditing] = useState(false);
   const [values, setValues] = useState({
     daily_rate_eur: row.daily_rate_eur,
@@ -26,6 +27,13 @@ export default function AdminPricingRow({ row, onSave }: PricingRowProps) {
       .eq("id", row.id);
     setEditing(false);
     onSave();
+  }
+
+  async function handleDelete() {
+    if (!confirm(`Сигурни ли сте, че искате да изтриете реда за ${row.guest_count} гости?`)) return;
+    const supabase = createClient();
+    const { error } = await supabase.from("pricing").delete().eq("id", row.id);
+    if (!error) onDelete();
   }
 
   return (
@@ -62,13 +70,22 @@ export default function AdminPricingRow({ row, onSave }: PricingRowProps) {
             </button>
           </div>
         ) : (
-          <button
-            onClick={() => setEditing(true)}
-            aria-label="Редактирай"
-            className="text-[var(--color-caramel)] hover:opacity-70"
-          >
-            ✏️
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setEditing(true)}
+              aria-label="Редактирай"
+              className="text-[var(--color-caramel)] hover:opacity-70"
+            >
+              ✏️
+            </button>
+            <button
+              onClick={() => void handleDelete()}
+              aria-label="Изтрий"
+              className="text-red-400 hover:text-red-600 text-sm font-bold"
+            >
+              ✕
+            </button>
+          </div>
         )}
       </td>
     </tr>
