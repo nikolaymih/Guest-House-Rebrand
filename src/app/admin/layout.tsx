@@ -22,6 +22,12 @@ export default function AdminLayout({
         </Link>
         <nav className="flex gap-6 text-sm font-medium">
           <Link
+            href="/admin/home"
+            className="text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
+          >
+            Начало
+          </Link>
+          <Link
             href="/admin/gallery"
             className="text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
           >
