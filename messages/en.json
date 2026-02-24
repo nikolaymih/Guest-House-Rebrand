@@ -54,6 +54,8 @@
     "inquirySubtitle": "Fill in the form and we will get back to you to confirm your reservation.",
     "welcomeHeading": "Welcome to our home",
     "welcomeSubtitle": "We are happy to welcome you to our cozy guest house in the village of Stanovets.",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
     "facebookLabel": "Facebook"
   },
   "accommodationPage": {
