@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
-import AdminLandmarkImageManager from "@/components/admin/AdminLandmarkImageManager";
+import AdminLandmarkManager from "@/components/admin/AdminLandmarkManager";
 
 type AdminSection = "gallery" | "hero" | "welcome" | "landmarks";
 
@@ -63,7 +63,7 @@ export default function AdminGalleryPage() {
           <p className="text-sm text-[var(--color-text-muted)] mb-6">
             По една снимка за всяка забележителност, показвана на детайлната страница.
           </p>
-          <AdminLandmarkImageManager />
+          <AdminLandmarkManager />
         </div>
       )}
     </div>
