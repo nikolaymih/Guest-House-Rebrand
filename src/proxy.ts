@@ -2,6 +2,7 @@ import createIntlMiddleware from "next-intl/middleware";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "@/i18n/routing";
+import { parseAdminEmails } from "@/lib/utils/parseAdminEmails";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
@@ -45,7 +46,8 @@ export async function proxy(request: NextRequest) {
     if (!user) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
-    if (user.email !== process.env.ADMIN_EMAIL) {
+    const allowedEmails = parseAdminEmails(process.env.ADMIN_EMAILS);
+    if (!allowedEmails.includes(user.email ?? "")) {
       return NextResponse.redirect(new URL("/403", request.url));
     }
 
