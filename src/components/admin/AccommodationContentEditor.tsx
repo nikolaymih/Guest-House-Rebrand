@@ -129,12 +129,15 @@ export default function AccommodationContentEditor() {
   return (
     <div className="space-y-8">
       {/* Text fields — BG + EN side by side */}
+      <div className="space-y-4">
+        <h3 className="font-serif text-lg text-[var(--color-espresso)]">Заглавие на секция „За Къщата"</h3>
+      </div>
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider pb-1">
             БГ — Български
           </div>
-          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider pb-1">
             EN — English
           </div>
         </div>

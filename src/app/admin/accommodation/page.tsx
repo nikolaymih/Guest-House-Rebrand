@@ -20,7 +20,7 @@ export default function AdminAccommodationPage() {
         Управление на настаняване
       </h1>
 
-      <div className="flex flex-wrap gap-2 mb-8 border-b border-[var(--color-border)] pb-4">
+      <div className="flex flex-wrap gap-2 mb-8 pb-4">
         {TABS.map(({ id, label }) => (
           <button
             key={id}
