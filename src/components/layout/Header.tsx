@@ -26,7 +26,7 @@ export default async function Header() {
             aria-label="Становец"
           >
             {logoUrl
-              ? <img src={logoUrl} alt="Становец" className="h-32 w-auto object-contain" />
+              ? <img src={logoUrl} alt="Становец" className="h-[100px] w-auto object-contain" />
               : "Становец"
             }
           </Link>
