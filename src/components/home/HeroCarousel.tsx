@@ -29,7 +29,7 @@ export default function HeroCarousel({ images }: HeroCarouselProps) {
   if (!images.length) return null;
 
   return (
-    <div className="relative w-full h-[70vh] overflow-hidden bg-[var(--color-espresso)]">
+    <div className="relative w-full h-[75vh] overflow-hidden bg-[var(--color-espresso)]">
       {images.map((img, i) => (
         <div
           key={img.id}
