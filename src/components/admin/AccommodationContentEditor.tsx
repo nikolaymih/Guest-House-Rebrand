@@ -129,12 +129,15 @@ export default function AccommodationContentEditor() {
   return (
     <div className="space-y-8">
       {/* Text fields — BG + EN side by side */}
+      <div className="space-y-4">
+        <h3 className="font-serif text-lg text-[var(--color-espresso)]">Заглавие на секция „За Къщата"</h3>
+      </div>
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider pb-1">
             БГ — Български
           </div>
-          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider pb-1">
             EN — English
           </div>
         </div>
@@ -188,10 +191,10 @@ export default function AccommodationContentEditor() {
       <div>
         <h3 className="font-serif text-lg text-[var(--color-espresso)] mb-4">Характеристики</h3>
         <div className="grid grid-cols-[1fr_1fr_2rem] gap-3 mb-1">
-          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider pb-1">
             Характеристика (БГ)
           </div>
-          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider pb-1">
             Characteristic (EN)
           </div>
           <div />

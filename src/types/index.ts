@@ -90,3 +90,10 @@ export interface HomeAmenity {
   label_en: string;
   display_order: number;
 }
+
+export interface SiteSettings {
+  id: string;
+  logo_url: string | null;
+  favicon_url: string | null;
+  updated_at: string;
+}

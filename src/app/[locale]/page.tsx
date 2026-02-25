@@ -33,6 +33,7 @@ export default async function HomePage({ params }: Props) {
     { data: welcomeData },
     { data: homeContentData },
     { data: homeAmenitiesData },
+    { data: siteSettingsData },
   ] = await Promise.all([
     supabase
       .from("gallery_images")
@@ -47,6 +48,7 @@ export default async function HomePage({ params }: Props) {
       .limit(3),
     supabase.from("home_content").select("*").eq("id", 1).maybeSingle(),
     supabase.from("home_amenities").select("*").order("display_order"),
+    supabase.from("site_settings").select("logo_url").eq("id", 1).maybeSingle(),
   ]);
 
   const carouselImages = (carouselData ?? []).map((row) => ({
@@ -61,6 +63,7 @@ export default async function HomePage({ params }: Props) {
 
   const homeContent = homeContentData as HomeContent | null;
   const dbAmenities = (homeAmenitiesData ?? []) as HomeAmenity[];
+  const logoUrl = siteSettingsData?.logo_url ?? null;
 
   // Derive content from DB fields; DB is now the sole source of truth
   const heroTitle =
@@ -85,9 +88,9 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <div>
-      <LocalBusinessSchema />
+      <LocalBusinessSchema logoUrl={logoUrl} />
       {/* Hero */}
-      <section className="relative bg-[var(--color-espresso)] text-[var(--color-warm-white)] py-12 px-4 text-center">
+      <section className="relative bg-[var(--color-espresso)] text-[var(--color-warm-white)] p-6 text-center">
         <div className="max-w-3xl mx-auto">
           <h1 className="font-serif text-5xl md:text-6xl text-[var(--color-candlelight)] mb-6">
             {heroTitle}

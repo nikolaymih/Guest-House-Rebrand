@@ -30,11 +30,11 @@ const TEXT_FIELDS: {
 }[] = [
   { keyBg: "hero_title_bg",        keyEn: "hero_title_en",        label: "Заглавен текст" },
   { keyBg: "hero_subtitle_bg",     keyEn: "hero_subtitle_en",     label: "Заглавна снимка",               multiline: true },
-  { keyBg: "about_heading_bg",     keyEn: "about_heading_en",     label: 'Заглавие „Добре дошли"',        sectionBreak: 'Секция „Добре дошли"' },
+  { keyBg: "about_heading_bg",     keyEn: "about_heading_en",     label: 'Заглавие „Добре дошли"',        sectionBreak: 'Добре дошли' },
   { keyBg: "about_p1_bg",          keyEn: "about_p1_en",          label: "Параграф 1",                    multiline: true },
   { keyBg: "about_p2_bg",          keyEn: "about_p2_en",          label: "Параграф 2",                    multiline: true },
   { keyBg: "about_p3_bg",          keyEn: "about_p3_en",          label: "Параграф 3",                    multiline: true },
-  { keyBg: "amenities_heading_bg", keyEn: "amenities_heading_en", label: "Заглавие на удобствата" },
+  { keyBg: "amenities_heading_bg", keyEn: "amenities_heading_en", label: "Заглавие на удобствата", sectionBreak: "Удобства" },
 ];
 
 export default function HomeContentEditor() {
@@ -46,14 +46,27 @@ export default function HomeContentEditor() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const successTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const faviconInputRef = useRef<HTMLInputElement>(null);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [faviconUrl, setFaviconUrl] = useState<string | null>(null);
+  const [logoUploading, setLogoUploading] = useState(false);
+  const [faviconUploading, setFaviconUploading] = useState(false);
+  const [logoError, setLogoError] = useState<string | null>(null);
+  const [faviconError, setFaviconError] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
       const supabase = createClient();
       try {
-        const [{ data: content, error: contentError }, { data: ams, error: amsError }] = await Promise.all([
+        const [
+          { data: content, error: contentError },
+          { data: ams, error: amsError },
+          { data: settings },
+        ] = await Promise.all([
           supabase.from("home_content").select("*").eq("id", 1).maybeSingle(),
           supabase.from("home_amenities").select("*").order("display_order"),
+          supabase.from("site_settings").select("logo_url, favicon_url").eq("id", 1).maybeSingle(),
         ]);
         if (contentError || amsError) {
           setError("Грешка при зареждане на съдържанието.");
@@ -71,6 +84,10 @@ export default function HomeContentEditor() {
               label_en,
             }))
           );
+        }
+        if (settings) {
+          setLogoUrl(settings.logo_url ?? null);
+          setFaviconUrl(settings.favicon_url ?? null);
         }
       } finally {
         setLoading(false);
@@ -90,6 +107,40 @@ export default function HomeContentEditor() {
 
   function setAmenityField(idx: number, key: "label_bg" | "label_en", value: string) {
     setAmenities((prev) => prev.map((a, i) => (i === idx ? { ...a, [key]: value } : a)));
+  }
+
+  async function handleAssetUpload(
+    type: "logo" | "favicon",
+    file: File
+  ) {
+    const setUploading = type === "logo" ? setLogoUploading : setFaviconUploading;
+    const setLocalError = type === "logo" ? setLogoError : setFaviconError;
+    setUploading(true);
+    setLocalError(null);
+    const supabase = createClient();
+    const ext = file.name.split(".").pop() ?? "png";
+    const path = `${type}-${Date.now()}.${ext}`;
+    const { error: uploadError } = await supabase.storage
+      .from("assets")
+      .upload(path, file, { cacheControl: "3600", upsert: false });
+    if (uploadError) {
+      setLocalError(type === "logo" ? "Неуспешно качване на лого." : "Неуспешно качване на икона.");
+      setUploading(false);
+      return;
+    }
+    const { data: { publicUrl } } = supabase.storage.from("assets").getPublicUrl(path);
+    const { error: dbError } = await supabase
+      .from("site_settings")
+      .update({ [`${type}_url`]: publicUrl, updated_at: new Date().toISOString() })
+      .eq("id", 1);
+    if (dbError) {
+      setLocalError(type === "logo" ? "Неуспешно качване на лого." : "Неуспешно качване на икона.");
+      setUploading(false);
+      return;
+    }
+    if (type === "logo") setLogoUrl(publicUrl);
+    else setFaviconUrl(publicUrl);
+    setUploading(false);
   }
 
   async function handleSave() {
@@ -147,7 +198,102 @@ export default function HomeContentEditor() {
 
   return (
     <div className="space-y-8">
+      {/* Logo & Favicon upload */}
+      <div className="space-y-4">
+        <h3 className="font-serif text-lg text-[var(--color-espresso)]">Лого и икона на сайта</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+          {/* Logo */}
+          <div className="space-y-2">
+            <p className="text-xs font-bold text-[var(--color-espresso)] tracking-wider">Лого</p>
+            {logoUrl && (
+              <div className="bg-[var(--color-parchment)] rounded-lg h-28 flex items-center justify-center overflow-hidden">
+                <img src={logoUrl} alt="Лого" className="h-20 w-auto object-contain" />
+              </div>
+            )}
+            <div
+              onClick={() => logoInputRef.current?.click()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                const f = e.dataTransfer.files?.[0];
+                if (f) void handleAssetUpload("logo", f);
+              }}
+              className="border-2 border-dashed border-[var(--color-caramel)] rounded-xl p-8 text-center cursor-pointer hover:bg-[var(--color-linen)] transition-colors"
+              role="button"
+              tabIndex={0}
+              aria-label="Качи лого"
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") logoInputRef.current?.click(); }}
+            >
+              <input
+                ref={logoInputRef}
+                type="file"
+                accept="image/png"
+                disabled={logoUploading}
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) void handleAssetUpload("logo", f);
+                  e.target.value = "";
+                }}
+              />
+              <p className="text-[var(--color-text-secondary)] font-medium text-sm">
+                {logoUploading ? "Качване..." : "Плъзни тук или кликни за избор"}
+              </p>
+              <p className="text-xs text-[var(--color-text-muted)] mt-1">PNG · прозрачен фон</p>
+            </div>
+            {logoError && <p className="text-red-500 text-sm">{logoError}</p>}
+          </div>
+
+          {/* Favicon */}
+          <div className="space-y-2">
+            <p className="text-xs font-bold text-[var(--color-espresso)] tracking-wider">Икона (Favicon)</p>
+            {faviconUrl && (
+              <div className="bg-[var(--color-parchment)] rounded-lg h-28 flex items-center justify-center overflow-hidden">
+                <img src={faviconUrl} alt="Favicon" className="h-20 w-20 object-contain" />
+              </div>
+            )}
+            <div
+              onClick={() => faviconInputRef.current?.click()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                const f = e.dataTransfer.files?.[0];
+                if (f) void handleAssetUpload("favicon", f);
+              }}
+              className="border-2 border-dashed border-[var(--color-caramel)] rounded-xl p-8 text-center cursor-pointer hover:bg-[var(--color-linen)] transition-colors"
+              role="button"
+              tabIndex={0}
+              aria-label="Качи икона"
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") faviconInputRef.current?.click(); }}
+            >
+              <input
+                ref={faviconInputRef}
+                type="file"
+                accept="image/png"
+                disabled={faviconUploading}
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) void handleAssetUpload("favicon", f);
+                  e.target.value = "";
+                }}
+              />
+              <p className="text-[var(--color-text-secondary)] font-medium text-sm">
+                {faviconUploading ? "Качване..." : "Плъзни тук или кликни за избор"}
+              </p>
+              <p className="text-xs text-[var(--color-text-muted)] mt-1">PNG · квадратно изображение</p>
+            </div>
+            {faviconError && <p className="text-red-500 text-sm">{faviconError}</p>}
+          </div>
+
+        </div>
+      </div>
+
       {/* Text fields — BG + EN side by side */}
+      <div className="space-y-4">
+        <h3 className="font-serif text-lg text-[var(--color-espresso)]">Заглавен текст</h3>
+      </div>
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
@@ -160,13 +306,7 @@ export default function HomeContentEditor() {
         {TEXT_FIELDS.map(({ keyBg, keyEn, label, multiline, sectionBreak }) => (
           <div key={keyBg}>
           {sectionBreak && (
-            <div className="flex items-center gap-3 pt-4 pb-2">
-              <hr className="flex-1 border-[var(--color-border)]" />
-              <span className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider whitespace-nowrap">
-                {sectionBreak}
-              </span>
-              <hr className="flex-1 border-[var(--color-border)]" />
-            </div>
+            <h3 className="font-serif text-lg text-[var(--color-espresso)] pt-2 mb-4">{sectionBreak}</h3>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
