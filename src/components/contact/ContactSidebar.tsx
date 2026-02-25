@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
-const FB_URL =
-  "https://www.facebook.com/people/%D0%A1%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B5%D1%86/100063453006216/";
+const FB_URL = "https://www.facebook.com/p/%D0%9A%D1%8A%D1%89%D0%B0-%D0%B7%D0%B0-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%A1%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B5%D1%86-100088378700640/";
+const IG_URL = "https://www.instagram.com/stanovets.guesthouse/";
 
 interface Props {
   locale: string;
@@ -26,6 +26,11 @@ export default async function ContactSidebar({ locale, namespace }: Props) {
       label: t("facebookLabel"),
       value: "Становец / Stanovets",
       href: FB_URL,
+    },
+    {
+      label: t("instagramLabel"),
+      value: "@stanovets.guesthouse",
+      href: IG_URL,
     },
   ];
 

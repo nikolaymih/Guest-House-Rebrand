@@ -29,17 +29,21 @@
     "locationDescription": "We are happy to invite you to a standalone guest house in the village of Stanovets, Hitrino municipality, nestled among the deciduous forests of the Voyevodsko Plateau, at 400 m altitude, in Ludogorie!",
     "locationHeading": "Location",
     "distances": [
-      { "city": "Shumen", "distance": "38 km" },
-      { "city": "Veliki Preslav", "distance": "52 km" },
-      { "city": "Pliska", "distance": "35 km" }
+      { "city": "Shumen",       "distance": "38 km" },
+      { "city": "Razgrad",      "distance": "60 km" },
+      { "city": "Targovishte",  "distance": "65 km" },
+      { "city": "Silistra",     "distance": "85 km" },
+      { "city": "Dobrich",      "distance": "95 km" },
+      { "city": "Varna",        "distance": "110 km" },
+      { "city": "Ruse",         "distance": "130 km" }
     ],
     "inquiryHeading": "Send an inquiry",
     "inquirySubtitle": "Fill in the form and we will get back to you to confirm your reservation.",
     "welcomeHeading": "Welcome to our home",
-    "welcomeSubtitle": "We are happy to welcome you to our cozy guest house in the village of Stanovets.",
     "phoneLabel": "Phone",
     "emailLabel": "Email",
-    "facebookLabel": "Facebook"
+    "facebookLabel": "Facebook",
+    "instagramLabel": "Instagram"
   },
   "accommodationPage": {
     "heroTitle": "Accommodation",
@@ -51,7 +55,8 @@
     "heroTitle": "Contacts",
     "phoneLabel": "Phone",
     "emailLabel": "Email",
-    "facebookLabel": "Facebook"
+    "facebookLabel": "Facebook",
+    "instagramLabel": "Instagram"
   },
   "landmarksPage": {
     "heroTitle": "Landmarks",
@@ -206,7 +211,8 @@
     "inquirySubtitle": "Fill in the form and we will get back to you within 24 hours.",
     "phoneLabel": "Phone",
     "emailLabel": "Email",
-    "facebookLabel": "Facebook"
+    "facebookLabel": "Facebook",
+    "instagramLabel": "Instagram"
   },
   "footer": {
     "guestHouseName": "Guest House Stanovets",
@@ -226,11 +232,10 @@
       "Apartment for four"
     ],
     "linksHeading": "Useful Links",
-    "linkHome": "About the house",
+    "linkHome": "Gallery",
     "linkReservation": "Reservations",
     "linkRules": "House Policy",
     "linkPrivacy": "Privacy Policy",
-    "facebookLabel": "Follow us on Facebook",
     "rights": "All rights reserved"
   },
   "reservation": {

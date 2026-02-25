@@ -128,12 +128,9 @@ export default async function HomePage({ params }: Props) {
       {welcomeImages.length > 0 && (
         <section className="py-16 px-4 bg-[var(--color-linen)]">
           <div className="max-w-5xl mx-auto">
-            <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-3 text-center">
+            <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-10 text-center">
               {t("welcomeHeading")}
             </h2>
-            <p className="text-[var(--color-text-secondary)] text-center mb-10 max-w-xl mx-auto">
-              {t("welcomeSubtitle")}
-            </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {welcomeImages.map((img) => (
                 <div
@@ -161,7 +158,7 @@ export default async function HomePage({ params }: Props) {
           <p className="text-[var(--color-text-secondary)] leading-relaxed text-center mb-8 max-w-2xl mx-auto">
             {t("locationDescription")}
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
             {distances.map((item) => (
               <div key={item.city} className="bg-white rounded-xl p-6 text-center shadow-[var(--shadow-soft)]">
                 <p className="font-semibold text-[var(--color-espresso)]">{item.city}</p>
