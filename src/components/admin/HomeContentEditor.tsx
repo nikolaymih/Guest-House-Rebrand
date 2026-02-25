@@ -26,10 +26,11 @@ const TEXT_FIELDS: {
   keyEn: keyof ContentForm;
   label: string;
   multiline?: boolean;
+  sectionBreak?: string;
 }[] = [
   { keyBg: "hero_title_bg",        keyEn: "hero_title_en",        label: "Заглавен текст" },
   { keyBg: "hero_subtitle_bg",     keyEn: "hero_subtitle_en",     label: "Заглавна снимка",               multiline: true },
-  { keyBg: "about_heading_bg",     keyEn: "about_heading_en",     label: 'Заглавие „Добре дошли"' },
+  { keyBg: "about_heading_bg",     keyEn: "about_heading_en",     label: 'Заглавие „Добре дошли"',        sectionBreak: "Секция „Добре дошли"" },
   { keyBg: "about_p1_bg",          keyEn: "about_p1_en",          label: "Параграф 1",                    multiline: true },
   { keyBg: "about_p2_bg",          keyEn: "about_p2_en",          label: "Параграф 2",                    multiline: true },
   { keyBg: "about_p3_bg",          keyEn: "about_p3_en",          label: "Параграф 3",                    multiline: true },
@@ -156,8 +157,18 @@ export default function HomeContentEditor() {
             EN — English
           </div>
         </div>
-        {TEXT_FIELDS.map(({ keyBg, keyEn, label, multiline }) => (
-          <div key={keyBg} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {TEXT_FIELDS.map(({ keyBg, keyEn, label, multiline, sectionBreak }) => (
+          <div key={keyBg}>
+          {sectionBreak && (
+            <div className="flex items-center gap-3 pt-4 pb-2">
+              <hr className="flex-1 border-[var(--color-border)]" />
+              <span className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider whitespace-nowrap">
+                {sectionBreak}
+              </span>
+              <hr className="flex-1 border-[var(--color-border)]" />
+            </div>
+          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-[var(--color-text-secondary)] mb-1">
                 {label} (BG)
@@ -198,6 +209,7 @@ export default function HomeContentEditor() {
                 />
               )}
             </div>
+          </div>
           </div>
         ))}
       </div>
