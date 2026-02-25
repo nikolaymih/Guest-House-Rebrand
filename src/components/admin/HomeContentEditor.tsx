@@ -46,14 +46,23 @@ export default function HomeContentEditor() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const successTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [faviconUrl, setFaviconUrl] = useState<string | null>(null);
+  const [logoUploading, setLogoUploading] = useState(false);
+  const [faviconUploading, setFaviconUploading] = useState(false);
 
   useEffect(() => {
     async function load() {
       const supabase = createClient();
       try {
-        const [{ data: content, error: contentError }, { data: ams, error: amsError }] = await Promise.all([
+        const [
+          { data: content, error: contentError },
+          { data: ams, error: amsError },
+          { data: settings },
+        ] = await Promise.all([
           supabase.from("home_content").select("*").eq("id", 1).maybeSingle(),
           supabase.from("home_amenities").select("*").order("display_order"),
+          supabase.from("site_settings").select("logo_url, favicon_url").eq("id", 1).maybeSingle(),
         ]);
         if (contentError || amsError) {
           setError("Грешка при зареждане на съдържанието.");
@@ -71,6 +80,10 @@ export default function HomeContentEditor() {
               label_en,
             }))
           );
+        }
+        if (settings) {
+          setLogoUrl(settings.logo_url ?? null);
+          setFaviconUrl(settings.favicon_url ?? null);
         }
       } finally {
         setLoading(false);
@@ -90,6 +103,39 @@ export default function HomeContentEditor() {
 
   function setAmenityField(idx: number, key: "label_bg" | "label_en", value: string) {
     setAmenities((prev) => prev.map((a, i) => (i === idx ? { ...a, [key]: value } : a)));
+  }
+
+  async function handleAssetUpload(
+    type: "logo" | "favicon",
+    file: File
+  ) {
+    const setUploading = type === "logo" ? setLogoUploading : setFaviconUploading;
+    setUploading(true);
+    setError(null);
+    const supabase = createClient();
+    const ext = file.name.split(".").pop() ?? "png";
+    const path = `${type}-${Date.now()}.${ext}`;
+    const { error: uploadError } = await supabase.storage
+      .from("assets")
+      .upload(path, file, { cacheControl: "3600", upsert: false });
+    if (uploadError) {
+      setError(`Грешка при качване: ${uploadError.message}`);
+      setUploading(false);
+      return;
+    }
+    const { data: { publicUrl } } = supabase.storage.from("assets").getPublicUrl(path);
+    const { error: dbError } = await supabase
+      .from("site_settings")
+      .update({ [`${type}_url`]: publicUrl, updated_at: new Date().toISOString() })
+      .eq("id", 1);
+    if (dbError) {
+      setError(`Грешка при запазване: ${dbError.message}`);
+      setUploading(false);
+      return;
+    }
+    if (type === "logo") setLogoUrl(publicUrl);
+    else setFaviconUrl(publicUrl);
+    setUploading(false);
   }
 
   async function handleSave() {
@@ -147,6 +193,70 @@ export default function HomeContentEditor() {
 
   return (
     <div className="space-y-8">
+      {/* Logo & Favicon upload */}
+      <div className="space-y-4">
+        <h3 className="font-serif text-lg text-[var(--color-espresso)]">Лого и икона на сайта</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+          {/* Logo */}
+          <div className="bg-[var(--color-linen)] rounded-xl p-4 flex flex-col gap-3">
+            <p className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider">Лого</p>
+            <div className="bg-[var(--color-espresso)] rounded-lg h-20 flex items-center justify-center overflow-hidden">
+              {logoUrl
+                ? <img src={logoUrl} alt="Лого" className="h-12 w-auto object-contain" />
+                : <span className="text-xs text-[var(--color-text-muted)]">Няма качено лого</span>
+              }
+            </div>
+            <label className="flex flex-col gap-1 cursor-pointer">
+              <span className="text-xs text-[var(--color-caramel)] font-semibold hover:text-[var(--color-caramel-deep)] transition-colors">
+                {logoUploading ? "Качване..." : "Качи лого"}
+              </span>
+              <input
+                type="file"
+                accept="image/png"
+                disabled={logoUploading}
+                className="sr-only"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) void handleAssetUpload("logo", f);
+                  e.target.value = "";
+                }}
+              />
+            </label>
+            <p className="text-xs text-[var(--color-text-muted)]">Препоръчваме PNG с прозрачен фон.</p>
+          </div>
+
+          {/* Favicon */}
+          <div className="bg-[var(--color-linen)] rounded-xl p-4 flex flex-col gap-3">
+            <p className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider">Икона (Favicon)</p>
+            <div className="bg-[var(--color-espresso)] rounded-lg h-20 flex items-center justify-center overflow-hidden">
+              {faviconUrl
+                ? <img src={faviconUrl} alt="Favicon" className="h-12 w-12 object-contain" />
+                : <span className="text-xs text-[var(--color-text-muted)]">Няма качена икона</span>
+              }
+            </div>
+            <label className="flex flex-col gap-1 cursor-pointer">
+              <span className="text-xs text-[var(--color-caramel)] font-semibold hover:text-[var(--color-caramel-deep)] transition-colors">
+                {faviconUploading ? "Качване..." : "Качи икона"}
+              </span>
+              <input
+                type="file"
+                accept="image/png"
+                disabled={faviconUploading}
+                className="sr-only"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) void handleAssetUpload("favicon", f);
+                  e.target.value = "";
+                }}
+              />
+            </label>
+            <p className="text-xs text-[var(--color-text-muted)]">Препоръчваме квадратно PNG изображение.</p>
+          </div>
+
+        </div>
+      </div>
+
       {/* Text fields — BG + EN side by side */}
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
