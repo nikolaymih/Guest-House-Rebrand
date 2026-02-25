@@ -27,7 +27,7 @@ const TEXT_FIELDS: {
   label: string;
   multiline?: boolean;
 }[] = [
-  { keyBg: "hero_title_bg",        keyEn: "hero_title_en",        label: "Заглавие на героя (Становец)" },
+  { keyBg: "hero_title_bg",        keyEn: "hero_title_en",        label: "Заглавен текст" },
   { keyBg: "hero_subtitle_bg",     keyEn: "hero_subtitle_en",     label: "Заглавна снимка",               multiline: true },
   { keyBg: "about_heading_bg",     keyEn: "about_heading_en",     label: 'Заглавие „Добре дошли"' },
   { keyBg: "about_p1_bg",          keyEn: "about_p1_en",          label: "Параграф 1",                    multiline: true },
