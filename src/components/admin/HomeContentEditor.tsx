@@ -34,7 +34,7 @@ const TEXT_FIELDS: {
   { keyBg: "about_p1_bg",          keyEn: "about_p1_en",          label: "Параграф 1",                    multiline: true },
   { keyBg: "about_p2_bg",          keyEn: "about_p2_en",          label: "Параграф 2",                    multiline: true },
   { keyBg: "about_p3_bg",          keyEn: "about_p3_en",          label: "Параграф 3",                    multiline: true },
-  { keyBg: "amenities_heading_bg", keyEn: "amenities_heading_en", label: "Заглавие на удобствата" },
+  { keyBg: "amenities_heading_bg", keyEn: "amenities_heading_en", label: "Заглавие на удобствата", sectionBreak: "Удобства" },
 ];
 
 export default function HomeContentEditor() {
