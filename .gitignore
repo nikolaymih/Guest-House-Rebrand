@@ -46,3 +46,9 @@ next-env.d.ts
 
 # git worktrees
 .worktrees/
+
+# IDE
+.idea/
+
+# Claude Code internals
+.claude/
