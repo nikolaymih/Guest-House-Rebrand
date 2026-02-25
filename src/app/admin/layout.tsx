@@ -15,7 +15,7 @@ export default function AdminLayout({
     <div className="min-h-screen bg-[var(--color-bg-primary)]">
       <div className="bg-[var(--color-espresso)] px-6 py-4 flex items-center justify-between">
         <Link
-          href="/admin"
+          href="/admin/home"
           className="font-serif text-lg text-[var(--color-candlelight)] hover:opacity-90 transition-opacity"
         >
           Становец — Администрация
@@ -28,16 +28,16 @@ export default function AdminLayout({
             Начало
           </Link>
           <Link
-            href="/admin/gallery"
-            className="text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
-          >
-            Галерия
-          </Link>
-          <Link
             href="/admin/accommodation"
             className="text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
           >
             Настаняване
+          </Link>
+          <Link
+            href="/admin/gallery"
+            className="text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
+          >
+            Галерия
           </Link>
         </nav>
       </div>
