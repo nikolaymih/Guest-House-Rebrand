@@ -35,7 +35,8 @@
       { "city": "Silistra",     "distance": "85 km" },
       { "city": "Dobrich",      "distance": "95 km" },
       { "city": "Varna",        "distance": "110 km" },
-      { "city": "Ruse",         "distance": "130 km" }
+      { "city": "Ruse",         "distance": "130 km" },
+      { "city": "Veliki Preslav", "distance": "52 km" }
     ],
     "inquiryHeading": "Send an inquiry",
     "inquirySubtitle": "Fill in the form and we will get back to you to confirm your reservation.",
