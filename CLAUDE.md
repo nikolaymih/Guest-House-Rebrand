@@ -15,10 +15,13 @@ The path `../../.env.local` resolves to the project root from inside `.worktrees
 
 ## Admin Access
 
-Admin emails are controlled by the `ADMIN_EMAILS` env var (comma-separated):
+Admin emails are controlled by the `ADMIN_EMAILS` env var (comma-separated).
+This grants access to the `/admin/*` routes (checked in `src/proxy.ts`).
 
 ```
 ADMIN_EMAILS=stanovets.eu@gmail.com,another@example.com
 ```
 
-To add or remove an admin: edit this value in Vercel → Settings → Environment Variables → redeploy. No code changes needed.
+**Production:** edit in Vercel → Settings → Environment Variables → redeploy (Production environment). No code changes needed.
+
+**Local development:** add `ADMIN_EMAILS=your@email.com` to `.env.local`.
