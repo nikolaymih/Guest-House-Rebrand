@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import LogoutButton from "@/components/admin/LogoutButton";
 
 export const metadata: Metadata = {
   title: "Admin — Становец",
@@ -45,6 +46,7 @@ export default function AdminLayout({
           >
             Забележителности
           </Link>
+          <LogoutButton />
         </nav>
       </div>
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
