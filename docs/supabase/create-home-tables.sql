@@ -32,5 +32,5 @@ alter table home_amenities enable row level security;
 
 create policy "Public read home_content" on home_content for select using (true);
 create policy "Public read home_amenities" on home_amenities for select using (true);
-create policy "Service role write home_content" on home_content for all using (auth.role() = 'service_role');
-create policy "Service role write home_amenities" on home_amenities for all using (auth.role() = 'service_role');
+create policy "Authenticated write home_content" on home_content for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+create policy "Authenticated write home_amenities" on home_amenities for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
