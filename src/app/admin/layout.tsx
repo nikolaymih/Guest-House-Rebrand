@@ -39,6 +39,12 @@ export default function AdminLayout({
           >
             Галерия
           </Link>
+          <Link
+            href="/admin/landmarks"
+            className="text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
+          >
+            Забележителности
+          </Link>
         </nav>
       </div>
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">

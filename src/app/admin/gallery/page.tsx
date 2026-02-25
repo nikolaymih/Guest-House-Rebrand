@@ -3,15 +3,13 @@
 import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import AdminGalleryManager from "@/components/admin/AdminGalleryManager";
-import AdminLandmarkManager from "@/components/admin/AdminLandmarkManager";
 
-type AdminSection = "gallery" | "hero" | "welcome" | "landmarks";
+type AdminSection = "gallery" | "hero" | "welcome";
 
 const SECTIONS: { id: AdminSection; label: string }[] = [
   { id: "gallery", label: "Галерия" },
   { id: "hero", label: "Заглавни снимки" },
   { id: "welcome", label: "Заповядайте при нас" },
-  { id: "landmarks", label: "Забележителности" },
 ];
 
 const VALID: Set<string> = new Set(SECTIONS.map((s) => s.id));
@@ -64,14 +62,6 @@ function AdminGalleryPageInner() {
             Снимките от тази категория се показват в секция „Заповядайте при нас" на началната страница (показват се до 3 снимки).
           </p>
           <AdminGalleryManager categories={["welcome"]} />
-        </div>
-      )}
-      {activeSection === "landmarks" && (
-        <div>
-          <p className="text-sm text-[var(--color-text-muted)] mb-6">
-            По една снимка за всяка забележителност, показвана на детайлната страница.
-          </p>
-          <AdminLandmarkManager />
         </div>
       )}
     </div>
