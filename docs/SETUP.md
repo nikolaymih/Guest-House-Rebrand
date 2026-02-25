@@ -21,7 +21,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
 SUPABASE_SERVICE_ROLE_KEY=eyJ...   # server-only, never expose to browser
 
 # Admin
-ADMIN_EMAIL=stanovets.eu@gmail.com  # only this Google account can access /admin
+ADMIN_EMAILS=stanovets.eu@gmail.com  # comma-separated list of emails that can access /admin
 
 # Email (Nodemailer / Gmail SMTP)
 EMAIL_USER=stanovets.eu@gmail.com
@@ -236,6 +236,6 @@ npm run build     # production build (also generates sitemap)
 ## Admin Panel
 
 - URL: `/admin/login`
-- Auth: Google OAuth (only `ADMIN_EMAIL` can access)
+- Auth: Google OAuth (only emails in `ADMIN_EMAILS` can access)
 - Gallery manager: `/admin/gallery` — upload/delete images per category
 - Pricing editor: `/admin/pricing` — inline edit of all pricing rows
