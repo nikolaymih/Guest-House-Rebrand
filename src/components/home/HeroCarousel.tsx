@@ -29,7 +29,7 @@ export default function HeroCarousel({ images }: HeroCarouselProps) {
   if (!images.length) return null;
 
   return (
-    <div className="relative w-full h-[60vh] overflow-hidden bg-[var(--color-espresso)]">
+    <div className="relative w-full h-[70vh] overflow-hidden bg-[var(--color-espresso)]">
       {images.map((img, i) => (
         <div
           key={img.id}
@@ -40,7 +40,7 @@ export default function HeroCarousel({ images }: HeroCarouselProps) {
           <img
             src={img.url}
             alt=""
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
         </div>
       ))}

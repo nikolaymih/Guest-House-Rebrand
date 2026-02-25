@@ -87,7 +87,7 @@ export default async function HomePage({ params }: Props) {
     <div>
       <LocalBusinessSchema />
       {/* Hero */}
-      <section className="relative bg-[var(--color-espresso)] text-[var(--color-warm-white)] py-24 px-4 text-center">
+      <section className="relative bg-[var(--color-espresso)] text-[var(--color-warm-white)] py-12 px-4 text-center">
         <div className="max-w-3xl mx-auto">
           <h1 className="font-serif text-5xl md:text-6xl text-[var(--color-candlelight)] mb-6">
             {heroTitle}
