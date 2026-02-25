@@ -207,8 +207,8 @@ export default function HomeContentEditor() {
           <div className="space-y-2">
             <p className="text-xs font-bold text-[var(--color-espresso)] tracking-wider">Лого</p>
             {logoUrl && (
-              <div className="bg-[var(--color-espresso)] rounded-lg h-16 flex items-center justify-center overflow-hidden">
-                <img src={logoUrl} alt="Лого" className="h-10 w-auto object-contain" />
+              <div className="bg-[var(--color-espresso)] rounded-lg h-24 flex items-center justify-center overflow-hidden">
+                <img src={logoUrl} alt="Лого" className="h-20 w-auto object-contain" />
               </div>
             )}
             <div
@@ -249,8 +249,8 @@ export default function HomeContentEditor() {
           <div className="space-y-2">
             <p className="text-xs font-bold text-[var(--color-espresso)] tracking-wider">Икона (Favicon)</p>
             {faviconUrl && (
-              <div className="bg-[var(--color-espresso)] rounded-lg h-16 flex items-center justify-center overflow-hidden">
-                <img src={faviconUrl} alt="Favicon" className="h-10 w-10 object-contain" />
+              <div className="bg-[var(--color-espresso)] rounded-lg h-36 flex items-center justify-center overflow-hidden">
+                <img src={faviconUrl} alt="Favicon" className="h-[7.5rem] w-[7.5rem] object-contain" />
               </div>
             )}
             <div
