@@ -5,6 +5,7 @@ import { routing } from "@/i18n/routing";
 import { parseAdminEmails } from "@/lib/utils/parseAdminEmails";
 
 const intlMiddleware = createIntlMiddleware(routing);
+const allowedEmails = parseAdminEmails(process.env.ADMIN_EMAILS);
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -46,8 +47,7 @@ export async function proxy(request: NextRequest) {
     if (!user) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
-    const allowedEmails = parseAdminEmails(process.env.ADMIN_EMAILS);
-    if (!allowedEmails.includes(user.email ?? "")) {
+    if (!user.email || !allowedEmails.includes(user.email)) {
       return NextResponse.redirect(new URL("/403", request.url));
     }
 
