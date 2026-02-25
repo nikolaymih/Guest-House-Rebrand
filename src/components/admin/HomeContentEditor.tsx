@@ -46,12 +46,14 @@ export default function HomeContentEditor() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const successTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const faviconInputRef = useRef<HTMLInputElement>(null);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [faviconUrl, setFaviconUrl] = useState<string | null>(null);
   const [logoUploading, setLogoUploading] = useState(false);
   const [faviconUploading, setFaviconUploading] = useState(false);
-  const [isDraggingLogo, setIsDraggingLogo] = useState(false);
-  const [isDraggingFavicon, setIsDraggingFavicon] = useState(false);
+  const [logoError, setLogoError] = useState<string | null>(null);
+  const [faviconError, setFaviconError] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -112,8 +114,9 @@ export default function HomeContentEditor() {
     file: File
   ) {
     const setUploading = type === "logo" ? setLogoUploading : setFaviconUploading;
+    const setLocalError = type === "logo" ? setLogoError : setFaviconError;
     setUploading(true);
-    setError(null);
+    setLocalError(null);
     const supabase = createClient();
     const ext = file.name.split(".").pop() ?? "png";
     const path = `${type}-${Date.now()}.${ext}`;
@@ -121,7 +124,7 @@ export default function HomeContentEditor() {
       .from("assets")
       .upload(path, file, { cacheControl: "3600", upsert: false });
     if (uploadError) {
-      setError(`Грешка при качване: ${uploadError.message}`);
+      setLocalError(type === "logo" ? "Неуспешно качване на лого." : "Неуспешно качване на икона.");
       setUploading(false);
       return;
     }
@@ -131,7 +134,7 @@ export default function HomeContentEditor() {
       .update({ [`${type}_url`]: publicUrl, updated_at: new Date().toISOString() })
       .eq("id", 1);
     if (dbError) {
-      setError(`Грешка при запазване: ${dbError.message}`);
+      setLocalError(type === "logo" ? "Неуспешно качване на лого." : "Неуспешно качване на икона.");
       setUploading(false);
       return;
     }
@@ -201,81 +204,87 @@ export default function HomeContentEditor() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
           {/* Logo */}
-          <div
-            className={`bg-[var(--color-linen)] rounded-xl p-4 flex flex-col gap-3 transition-colors ${isDraggingLogo ? "ring-2 ring-[var(--color-caramel)] bg-[var(--color-linen)]/70" : ""}`}
-            onDragOver={(e) => { e.preventDefault(); setIsDraggingLogo(true); }}
-            onDragEnter={(e) => { e.preventDefault(); setIsDraggingLogo(true); }}
-            onDragLeave={() => setIsDraggingLogo(false)}
-            onDrop={(e) => {
-              e.preventDefault();
-              setIsDraggingLogo(false);
-              const f = e.dataTransfer.files?.[0];
-              if (f) void handleAssetUpload("logo", f);
-            }}
-          >
+          <div className="space-y-2">
             <p className="text-xs font-bold text-[var(--color-espresso)] tracking-wider">Лого</p>
-            <div className="bg-[var(--color-espresso)] rounded-lg h-20 flex items-center justify-center overflow-hidden">
-              {logoUrl
-                ? <img src={logoUrl} alt="Лого" className="h-12 w-auto object-contain" />
-                : <span className="text-xs text-[var(--color-text-muted)]">Няма качено лого</span>
-              }
-            </div>
-            <label className="flex flex-col gap-1 cursor-pointer">
-              <span className="text-xs text-[var(--color-caramel)] font-semibold hover:text-[var(--color-caramel-deep)] transition-colors">
-                {logoUploading ? "Качване..." : "Качи лого"}
-              </span>
+            {logoUrl && (
+              <div className="bg-[var(--color-espresso)] rounded-lg h-16 flex items-center justify-center overflow-hidden">
+                <img src={logoUrl} alt="Лого" className="h-10 w-auto object-contain" />
+              </div>
+            )}
+            <div
+              onClick={() => logoInputRef.current?.click()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                const f = e.dataTransfer.files?.[0];
+                if (f) void handleAssetUpload("logo", f);
+              }}
+              className="border-2 border-dashed border-[var(--color-caramel)] rounded-xl p-8 text-center cursor-pointer hover:bg-[var(--color-linen)] transition-colors"
+              role="button"
+              tabIndex={0}
+              aria-label="Качи лого"
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") logoInputRef.current?.click(); }}
+            >
               <input
+                ref={logoInputRef}
                 type="file"
                 accept="image/png"
                 disabled={logoUploading}
-                className="sr-only"
+                className="hidden"
                 onChange={(e) => {
                   const f = e.target.files?.[0];
                   if (f) void handleAssetUpload("logo", f);
                   e.target.value = "";
                 }}
               />
-            </label>
-            <p className="text-xs text-[var(--color-text-muted)]">Препоръчваме PNG с прозрачен фон.</p>
+              <p className="text-[var(--color-text-secondary)] font-medium text-sm">
+                {logoUploading ? "Качване..." : "Плъзни тук или кликни за избор"}
+              </p>
+              <p className="text-xs text-[var(--color-text-muted)] mt-1">PNG · прозрачен фон</p>
+            </div>
+            {logoError && <p className="text-red-500 text-sm">{logoError}</p>}
           </div>
 
           {/* Favicon */}
-          <div
-            className={`bg-[var(--color-linen)] rounded-xl p-4 flex flex-col gap-3 transition-colors ${isDraggingFavicon ? "ring-2 ring-[var(--color-caramel)] bg-[var(--color-linen)]/70" : ""}`}
-            onDragOver={(e) => { e.preventDefault(); setIsDraggingFavicon(true); }}
-            onDragEnter={(e) => { e.preventDefault(); setIsDraggingFavicon(true); }}
-            onDragLeave={() => setIsDraggingFavicon(false)}
-            onDrop={(e) => {
-              e.preventDefault();
-              setIsDraggingFavicon(false);
-              const f = e.dataTransfer.files?.[0];
-              if (f) void handleAssetUpload("favicon", f);
-            }}
-          >
+          <div className="space-y-2">
             <p className="text-xs font-bold text-[var(--color-espresso)] tracking-wider">Икона (Favicon)</p>
-            <div className="bg-[var(--color-espresso)] rounded-lg h-20 flex items-center justify-center overflow-hidden">
-              {faviconUrl
-                ? <img src={faviconUrl} alt="Favicon" className="h-12 w-12 object-contain" />
-                : <span className="text-xs text-[var(--color-text-muted)]">Няма качена икона</span>
-              }
-            </div>
-            <label className="flex flex-col gap-1 cursor-pointer">
-              <span className="text-xs text-[var(--color-caramel)] font-semibold hover:text-[var(--color-caramel-deep)] transition-colors">
-                {faviconUploading ? "Качване..." : "Качи икона"}
-              </span>
+            {faviconUrl && (
+              <div className="bg-[var(--color-espresso)] rounded-lg h-16 flex items-center justify-center overflow-hidden">
+                <img src={faviconUrl} alt="Favicon" className="h-10 w-10 object-contain" />
+              </div>
+            )}
+            <div
+              onClick={() => faviconInputRef.current?.click()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                const f = e.dataTransfer.files?.[0];
+                if (f) void handleAssetUpload("favicon", f);
+              }}
+              className="border-2 border-dashed border-[var(--color-caramel)] rounded-xl p-8 text-center cursor-pointer hover:bg-[var(--color-linen)] transition-colors"
+              role="button"
+              tabIndex={0}
+              aria-label="Качи икона"
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") faviconInputRef.current?.click(); }}
+            >
               <input
+                ref={faviconInputRef}
                 type="file"
                 accept="image/png"
                 disabled={faviconUploading}
-                className="sr-only"
+                className="hidden"
                 onChange={(e) => {
                   const f = e.target.files?.[0];
                   if (f) void handleAssetUpload("favicon", f);
                   e.target.value = "";
                 }}
               />
-            </label>
-            <p className="text-xs text-[var(--color-text-muted)]">Препоръчваме квадратно PNG изображение.</p>
+              <p className="text-[var(--color-text-secondary)] font-medium text-sm">
+                {faviconUploading ? "Качване..." : "Плъзни тук или кликни за избор"}
+              </p>
+              <p className="text-xs text-[var(--color-text-muted)] mt-1">PNG · квадратно изображение</p>
+            </div>
+            {faviconError && <p className="text-red-500 text-sm">{faviconError}</p>}
           </div>
 
         </div>
