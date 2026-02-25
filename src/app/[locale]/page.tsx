@@ -5,6 +5,7 @@ import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 import { createClient } from "@/lib/supabase/server";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import ContactSidebar from "@/components/contact/ContactSidebar";
+import { type HomeContent, type HomeAmenity } from "@/types";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -23,12 +24,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "home" });
-  const amenities = t.raw("amenities") as string[];
   const distances = t.raw("distances") as Array<{ city: string; distance: string }>;
 
   const supabase = await createClient();
 
-  const [{ data: carouselData }, { data: welcomeData }] = await Promise.all([
+  const [
+    { data: carouselData },
+    { data: welcomeData },
+    { data: homeContentData },
+    { data: homeAmenitiesData },
+  ] = await Promise.all([
     supabase
       .from("gallery_images")
       .select("id, storage_path")
@@ -40,6 +45,8 @@ export default async function HomePage({ params }: Props) {
       .eq("category", "welcome")
       .order("display_order")
       .limit(3),
+    supabase.from("home_content").select("*").eq("id", 1).maybeSingle(),
+    supabase.from("home_amenities").select("*").order("display_order"),
   ]);
 
   const carouselImages = (carouselData ?? []).map((row) => ({
@@ -52,6 +59,38 @@ export default async function HomePage({ params }: Props) {
     url: supabase.storage.from("gallery").getPublicUrl(row.storage_path).data.publicUrl,
   }));
 
+  const homeContent = homeContentData as HomeContent | null;
+  const dbAmenities = (homeAmenitiesData ?? []) as HomeAmenity[];
+
+  // Fall back to translation-file values when DB fields are empty
+  const heroTitle =
+    (locale === "en" ? homeContent?.hero_title_en : homeContent?.hero_title_bg) ||
+    t("heroTitle");
+  const heroSubtitle =
+    (locale === "en" ? homeContent?.hero_subtitle_en : homeContent?.hero_subtitle_bg) ||
+    t("heroSubtitle");
+  const aboutHeading =
+    (locale === "en" ? homeContent?.about_heading_en : homeContent?.about_heading_bg) ||
+    t("aboutHeading");
+  const aboutP1 =
+    (locale === "en" ? homeContent?.about_p1_en : homeContent?.about_p1_bg) ||
+    t("aboutP1");
+  const aboutP2 =
+    (locale === "en" ? homeContent?.about_p2_en : homeContent?.about_p2_bg) ||
+    t("aboutP2");
+  const aboutP3 =
+    (locale === "en" ? homeContent?.about_p3_en : homeContent?.about_p3_bg) ||
+    t("aboutP3");
+  const amenitiesHeading =
+    (locale === "en" ? homeContent?.amenities_heading_en : homeContent?.amenities_heading_bg) ||
+    t("amenitiesHeading");
+
+  // Use DB amenities if available, fall back to translation-file amenities
+  const amenityLabels: string[] =
+    dbAmenities.length > 0
+      ? dbAmenities.map((a) => (locale === "en" ? a.label_en : a.label_bg))
+      : (t.raw("amenities") as string[]);
+
   return (
     <div>
       <LocalBusinessSchema />
@@ -59,10 +98,10 @@ export default async function HomePage({ params }: Props) {
       <section className="relative bg-[var(--color-espresso)] text-[var(--color-warm-white)] py-24 px-4 text-center">
         <div className="max-w-3xl mx-auto">
           <h1 className="font-serif text-5xl md:text-6xl text-[var(--color-candlelight)] mb-6">
-            {t("heroTitle")}
+            {heroTitle}
           </h1>
           <p className="text-lg text-[var(--color-parchment)] leading-relaxed max-w-xl mx-auto">
-            {t("heroSubtitle")}
+            {heroSubtitle}
           </p>
         </div>
       </section>
@@ -75,15 +114,15 @@ export default async function HomePage({ params }: Props) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-6">
-              {t("aboutHeading")}
+              {aboutHeading}
             </h2>
-            <p className="text-[var(--color-text-secondary)] leading-relaxed mb-4">{t("aboutP1")}</p>
-            <p className="text-[var(--color-text-secondary)] leading-relaxed mb-4">{t("aboutP2")}</p>
-            <p className="text-[var(--color-text-secondary)] leading-relaxed">{t("aboutP3")}</p>
+            <p className="text-[var(--color-text-secondary)] leading-relaxed mb-4">{aboutP1}</p>
+            <p className="text-[var(--color-text-secondary)] leading-relaxed mb-4">{aboutP2}</p>
+            <p className="text-[var(--color-text-secondary)] leading-relaxed">{aboutP3}</p>
           </div>
           <div className="bg-[var(--color-linen)] rounded-2xl p-8 space-y-4">
-            <h3 className="font-serif text-xl text-[var(--color-espresso)]">{t("amenitiesHeading")}</h3>
-            {amenities.map((item) => (
+            <h3 className="font-serif text-xl text-[var(--color-espresso)]">{amenitiesHeading}</h3>
+            {amenityLabels.map((item) => (
               <div key={item} className="flex items-center gap-3 text-[var(--color-text-secondary)]">
                 <span className="w-2 h-2 rounded-full bg-[var(--color-caramel)] flex-shrink-0" />
                 <span className="text-sm">{item}</span>
