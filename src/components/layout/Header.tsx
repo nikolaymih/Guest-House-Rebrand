@@ -19,14 +19,14 @@ export default async function Header() {
   return (
     <header className="sticky top-0 z-50 bg-[var(--color-espresso)] shadow-[var(--shadow-medium)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-3">
+        <div className="flex items-center justify-between py-1">
           <Link
             href="/"
             className="font-serif text-xl text-[var(--color-candlelight)] hover:opacity-90 transition-opacity flex items-center"
             aria-label="Становец"
           >
             {logoUrl
-              ? <img src={logoUrl} alt="Становец" className="h-[100px] w-auto object-contain" />
+              ? <img src={logoUrl} alt="Становец" className="h-[112px] w-[112px] object-contain" />
               : "Становец"
             }
           </Link>
