@@ -26,23 +26,6 @@
     }
   },
   "home": {
-    "heroTitle": "Stanovets",
-    "heroSubtitle": "A cozy guest house in nature. Spa zone, tavern, beautiful garden and unforgettable relaxation.",
-    "aboutHeading": "Welcome to Stanovets",
-    "aboutP1": "Guest House Stanovets offers comfortable accommodation for up to 12 guests. We have 4 bedrooms, 4 bathrooms, a spacious living room and a fully equipped kitchen.",
-    "aboutP2": "Enjoy the spa zone with a hydromassage tub, sauna and fitness equipment, or spend the evening in our cozy tavern with an authentic atmosphere.",
-    "aboutP3": "We are situated in a picturesque area, close to natural landmarks and historical sites.",
-    "amenitiesHeading": "Amenities",
-    "amenities": [
-      "4 bedrooms, 4 bathrooms",
-      "Up to 12 guests",
-      "Spa zone (hydromassage, sauna, fitness)",
-      "Tavern with authentic atmosphere",
-      "Spacious garden",
-      "Fully equipped kitchen",
-      "Free parking",
-      "Wi-Fi"
-    ],
     "locationDescription": "We are happy to invite you to a standalone guest house in the village of Stanovets, Hitrino municipality, nestled among the deciduous forests of the Voyevodsko Plateau, at 400 m altitude, in Ludogorie!",
     "locationHeading": "Location",
     "distances": [

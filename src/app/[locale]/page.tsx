@@ -62,34 +62,26 @@ export default async function HomePage({ params }: Props) {
   const homeContent = homeContentData as HomeContent | null;
   const dbAmenities = (homeAmenitiesData ?? []) as HomeAmenity[];
 
-  // Fall back to translation-file values when DB fields are empty
+  // Derive content from DB fields; DB is now the sole source of truth
   const heroTitle =
-    (locale === "en" ? homeContent?.hero_title_en : homeContent?.hero_title_bg) ||
-    t("heroTitle");
+    (locale === "en" ? homeContent?.hero_title_en : homeContent?.hero_title_bg) || "";
   const heroSubtitle =
-    (locale === "en" ? homeContent?.hero_subtitle_en : homeContent?.hero_subtitle_bg) ||
-    t("heroSubtitle");
+    (locale === "en" ? homeContent?.hero_subtitle_en : homeContent?.hero_subtitle_bg) || "";
   const aboutHeading =
-    (locale === "en" ? homeContent?.about_heading_en : homeContent?.about_heading_bg) ||
-    t("aboutHeading");
+    (locale === "en" ? homeContent?.about_heading_en : homeContent?.about_heading_bg) || "";
   const aboutP1 =
-    (locale === "en" ? homeContent?.about_p1_en : homeContent?.about_p1_bg) ||
-    t("aboutP1");
+    (locale === "en" ? homeContent?.about_p1_en : homeContent?.about_p1_bg) || "";
   const aboutP2 =
-    (locale === "en" ? homeContent?.about_p2_en : homeContent?.about_p2_bg) ||
-    t("aboutP2");
+    (locale === "en" ? homeContent?.about_p2_en : homeContent?.about_p2_bg) || "";
   const aboutP3 =
-    (locale === "en" ? homeContent?.about_p3_en : homeContent?.about_p3_bg) ||
-    t("aboutP3");
+    (locale === "en" ? homeContent?.about_p3_en : homeContent?.about_p3_bg) || "";
   const amenitiesHeading =
-    (locale === "en" ? homeContent?.amenities_heading_en : homeContent?.amenities_heading_bg) ||
-    t("amenitiesHeading");
+    (locale === "en" ? homeContent?.amenities_heading_en : homeContent?.amenities_heading_bg) || "";
 
-  // Use DB amenities if available, fall back to translation-file amenities
   const amenityLabels: string[] =
     dbAmenities.length > 0
       ? dbAmenities.map((a) => (locale === "en" ? a.label_en : a.label_bg))
-      : (t.raw("amenities") as string[]);
+      : [];
 
   return (
     <div>
