@@ -1,11 +1,20 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import NavBar from "./NavBar";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileMenu from "./MobileMenu";
+import { createClient } from "@/lib/supabase/server";
 
-export default function Header() {
-  const t = useTranslations("header");
+export default async function Header() {
+  const t = await getTranslations("header");
+
+  const supabase = await createClient();
+  const { data: settings } = await supabase
+    .from("site_settings")
+    .select("logo_url")
+    .eq("id", 1)
+    .maybeSingle();
+  const logoUrl = settings?.logo_url ?? null;
 
   return (
     <header className="sticky top-0 z-50 bg-[var(--color-espresso)] shadow-[var(--shadow-medium)]">
@@ -13,9 +22,13 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           <Link
             href="/"
-            className="font-serif text-xl text-[var(--color-candlelight)] hover:opacity-90 transition-opacity"
+            className="font-serif text-xl text-[var(--color-candlelight)] hover:opacity-90 transition-opacity flex items-center"
+            aria-label="Становец"
           >
-            Становец
+            {logoUrl
+              ? <img src={logoUrl} alt="Становец" className="h-8 w-auto object-contain" />
+              : "Становец"
+            }
           </Link>
 
           <NavBar />
