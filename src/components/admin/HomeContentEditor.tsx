@@ -30,7 +30,7 @@ const TEXT_FIELDS: {
 }[] = [
   { keyBg: "hero_title_bg",        keyEn: "hero_title_en",        label: "Заглавен текст" },
   { keyBg: "hero_subtitle_bg",     keyEn: "hero_subtitle_en",     label: "Заглавна снимка",               multiline: true },
-  { keyBg: "about_heading_bg",     keyEn: "about_heading_en",     label: 'Заглавие „Добре дошли"',        sectionBreak: 'Секция „Добре дошли"' },
+  { keyBg: "about_heading_bg",     keyEn: "about_heading_en",     label: 'Заглавие „Добре дошли"',        sectionBreak: 'Добре дошли' },
   { keyBg: "about_p1_bg",          keyEn: "about_p1_en",          label: "Параграф 1",                    multiline: true },
   { keyBg: "about_p2_bg",          keyEn: "about_p2_en",          label: "Параграф 2",                    multiline: true },
   { keyBg: "about_p3_bg",          keyEn: "about_p3_en",          label: "Параграф 3",                    multiline: true },
@@ -207,7 +207,7 @@ export default function HomeContentEditor() {
           <div className="space-y-2">
             <p className="text-xs font-bold text-[var(--color-espresso)] tracking-wider">Лого</p>
             {logoUrl && (
-              <div className="bg-[var(--color-espresso)] rounded-lg h-24 flex items-center justify-center overflow-hidden">
+              <div className="bg-[var(--color-parchment)] rounded-lg h-28 flex items-center justify-center overflow-hidden">
                 <img src={logoUrl} alt="Лого" className="h-20 w-auto object-contain" />
               </div>
             )}
@@ -249,8 +249,8 @@ export default function HomeContentEditor() {
           <div className="space-y-2">
             <p className="text-xs font-bold text-[var(--color-espresso)] tracking-wider">Икона (Favicon)</p>
             {faviconUrl && (
-              <div className="bg-[var(--color-espresso)] rounded-lg h-36 flex items-center justify-center overflow-hidden">
-                <img src={faviconUrl} alt="Favicon" className="h-[7.5rem] w-[7.5rem] object-contain" />
+              <div className="bg-[var(--color-parchment)] rounded-lg h-28 flex items-center justify-center overflow-hidden">
+                <img src={faviconUrl} alt="Favicon" className="h-20 w-20 object-contain" />
               </div>
             )}
             <div
@@ -291,6 +291,9 @@ export default function HomeContentEditor() {
       </div>
 
       {/* Text fields — BG + EN side by side */}
+      <div className="space-y-4">
+        <h3 className="font-serif text-lg text-[var(--color-espresso)]">Заглавен текст</h3>
+      </div>
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
@@ -303,13 +306,7 @@ export default function HomeContentEditor() {
         {TEXT_FIELDS.map(({ keyBg, keyEn, label, multiline, sectionBreak }) => (
           <div key={keyBg}>
           {sectionBreak && (
-            <div className="flex items-center gap-3 pt-4 pb-2">
-              <hr className="flex-1 border-[var(--color-border)]" />
-              <span className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider whitespace-nowrap">
-                {sectionBreak}
-              </span>
-              <hr className="flex-1 border-[var(--color-border)]" />
-            </div>
+            <h3 className="font-serif text-lg text-[var(--color-espresso)] pt-2">{sectionBreak}</h3>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

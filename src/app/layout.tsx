@@ -32,7 +32,12 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Guest House Stanovets",
     description: "Guest house website",
-    ...(settings?.favicon_url ? { icons: { icon: settings.favicon_url } } : {}),
+    ...(settings?.favicon_url ? {
+      icons: {
+        icon: [{ url: settings.favicon_url, type: "image/png", sizes: "192x192" }],
+        apple: [{ url: settings.favicon_url, type: "image/png", sizes: "192x192" }],
+      },
+    } : {}),
   };
 }
 

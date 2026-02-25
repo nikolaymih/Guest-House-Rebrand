@@ -14,7 +14,7 @@ export default async function ContactSidebar({ locale, namespace }: Props) {
   return (
     <div className="flex flex-col gap-3 mt-6">
       {/* Phone */}
-      <div className="bg-[var(--color-linen)] rounded-xl px-4 py-3 flex flex-col">
+      <div className="bg-[var(--color-linen)] rounded-xl px-4 py-3 flex flex-col min-h-[56px] justify-center">
         <span className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-0.5">
           {t("phoneLabel")}
         </span>
@@ -27,7 +27,7 @@ export default async function ContactSidebar({ locale, namespace }: Props) {
       </div>
 
       {/* Email */}
-      <div className="bg-[var(--color-linen)] rounded-xl px-4 py-3 flex flex-col">
+      <div className="bg-[var(--color-linen)] rounded-xl px-4 py-3 flex flex-col min-h-[56px] justify-center">
         <span className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-0.5">
           {t("emailLabel")}
         </span>
@@ -44,7 +44,7 @@ export default async function ContactSidebar({ locale, namespace }: Props) {
         href={FB_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-[var(--color-linen)] rounded-xl px-4 py-3 flex items-center gap-3 hover:bg-[var(--color-linen)]/70 transition-colors"
+        className="bg-[var(--color-linen)] rounded-xl px-4 py-3 flex items-center gap-3 min-h-[56px] hover:bg-[var(--color-linen)]/70 transition-colors"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
           className="w-5 h-5 text-[var(--color-caramel)] flex-shrink-0" aria-hidden="true">
@@ -58,7 +58,7 @@ export default async function ContactSidebar({ locale, namespace }: Props) {
         href={IG_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-[var(--color-linen)] rounded-xl px-4 py-3 flex items-center gap-3 hover:bg-[var(--color-linen)]/70 transition-colors"
+        className="bg-[var(--color-linen)] rounded-xl px-4 py-3 flex items-center gap-3 min-h-[56px] hover:bg-[var(--color-linen)]/70 transition-colors"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
           className="w-5 h-5 text-[var(--color-caramel)] flex-shrink-0" aria-hidden="true">
