@@ -18,13 +18,18 @@ const nunito = Nunito({
 });
 
 const getSiteSettings = cache(async () => {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("site_settings")
-    .select("favicon_url")
-    .eq("id", 1)
-    .maybeSingle();
-  return data;
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("site_settings")
+      .select("favicon_url")
+      .eq("id", 1)
+      .maybeSingle();
+    return data;
+  } catch {
+    // No request context during prerendering (e.g. /_global-error) — return null gracefully.
+    return null;
+  }
 });
 
 export async function generateMetadata(): Promise<Metadata> {
