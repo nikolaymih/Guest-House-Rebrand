@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function AdminHomePage() {
   return (
     <div>
-      <h1 className="font-serif text-2xl text-[var(--color-espresso)] mb-8">Начало</h1>
+      <h1 className="font-serif text-3xl text-[var(--color-espresso)] mb-6">Начало</h1>
       <HomeContentEditor />
     </div>
   );
