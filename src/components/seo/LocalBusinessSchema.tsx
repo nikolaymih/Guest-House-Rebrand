@@ -1,5 +1,9 @@
-export default function LocalBusinessSchema() {
-  const schema = {
+interface Props {
+  logoUrl?: string | null;
+}
+
+export default function LocalBusinessSchema({ logoUrl }: Props) {
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
     name: "Гостилница Становец",
@@ -15,6 +19,10 @@ export default function LocalBusinessSchema() {
       longitude: 27.039641,
     },
   };
+
+  if (logoUrl) {
+    schema.logo = logoUrl;
+  }
 
   return (
     <script
