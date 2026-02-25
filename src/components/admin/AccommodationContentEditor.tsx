@@ -188,10 +188,10 @@ export default function AccommodationContentEditor() {
       <div>
         <h3 className="font-serif text-lg text-[var(--color-espresso)] mb-4">Характеристики</h3>
         <div className="grid grid-cols-[1fr_1fr_2rem] gap-3 mb-1">
-          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider pb-1">
             Характеристика (БГ)
           </div>
-          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider border-b border-[var(--color-border)] pb-1">
+          <div className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider pb-1">
             Characteristic (EN)
           </div>
           <div />
