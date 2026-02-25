@@ -50,6 +50,8 @@ export default function HomeContentEditor() {
   const [faviconUrl, setFaviconUrl] = useState<string | null>(null);
   const [logoUploading, setLogoUploading] = useState(false);
   const [faviconUploading, setFaviconUploading] = useState(false);
+  const [isDraggingLogo, setIsDraggingLogo] = useState(false);
+  const [isDraggingFavicon, setIsDraggingFavicon] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -199,8 +201,19 @@ export default function HomeContentEditor() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
           {/* Logo */}
-          <div className="bg-[var(--color-linen)] rounded-xl p-4 flex flex-col gap-3">
-            <p className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider">Лого</p>
+          <div
+            className={`bg-[var(--color-linen)] rounded-xl p-4 flex flex-col gap-3 transition-colors ${isDraggingLogo ? "ring-2 ring-[var(--color-caramel)] bg-[var(--color-linen)]/70" : ""}`}
+            onDragOver={(e) => { e.preventDefault(); setIsDraggingLogo(true); }}
+            onDragEnter={(e) => { e.preventDefault(); setIsDraggingLogo(true); }}
+            onDragLeave={() => setIsDraggingLogo(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setIsDraggingLogo(false);
+              const f = e.dataTransfer.files?.[0];
+              if (f) void handleAssetUpload("logo", f);
+            }}
+          >
+            <p className="text-xs font-bold text-[var(--color-espresso)] tracking-wider">Лого</p>
             <div className="bg-[var(--color-espresso)] rounded-lg h-20 flex items-center justify-center overflow-hidden">
               {logoUrl
                 ? <img src={logoUrl} alt="Лого" className="h-12 w-auto object-contain" />
@@ -227,8 +240,19 @@ export default function HomeContentEditor() {
           </div>
 
           {/* Favicon */}
-          <div className="bg-[var(--color-linen)] rounded-xl p-4 flex flex-col gap-3">
-            <p className="text-xs font-bold text-[var(--color-espresso)] uppercase tracking-wider">Икона (Favicon)</p>
+          <div
+            className={`bg-[var(--color-linen)] rounded-xl p-4 flex flex-col gap-3 transition-colors ${isDraggingFavicon ? "ring-2 ring-[var(--color-caramel)] bg-[var(--color-linen)]/70" : ""}`}
+            onDragOver={(e) => { e.preventDefault(); setIsDraggingFavicon(true); }}
+            onDragEnter={(e) => { e.preventDefault(); setIsDraggingFavicon(true); }}
+            onDragLeave={() => setIsDraggingFavicon(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setIsDraggingFavicon(false);
+              const f = e.dataTransfer.files?.[0];
+              if (f) void handleAssetUpload("favicon", f);
+            }}
+          >
+            <p className="text-xs font-bold text-[var(--color-espresso)] tracking-wider">Икона (Favicon)</p>
             <div className="bg-[var(--color-espresso)] rounded-lg h-20 flex items-center justify-center overflow-hidden">
               {faviconUrl
                 ? <img src={faviconUrl} alt="Favicon" className="h-12 w-12 object-contain" />
