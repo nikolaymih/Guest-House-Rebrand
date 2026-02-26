@@ -7,7 +7,7 @@ import { parseAdminEmails } from "@/lib/utils/parseAdminEmails";
 const intlMiddleware = createIntlMiddleware(routing);
 const allowedEmails = parseAdminEmails(process.env.ADMIN_EMAILS);
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Admin routes: Supabase auth check, skip intl routing
