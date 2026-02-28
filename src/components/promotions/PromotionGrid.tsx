@@ -14,9 +14,11 @@ interface PromotionItem {
 
 export default function PromotionGrid({
   promotions,
+  ctaLabel,
   closeLabel,
 }: {
   promotions: PromotionItem[];
+  ctaLabel: string;
   closeLabel: string;
 }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -68,6 +70,7 @@ export default function PromotionGrid({
           dateRange={selected.dateRange}
           description={selected.description}
           imageUrl={selected.imageUrl}
+          ctaLabel={ctaLabel}
           closeLabel={closeLabel}
           onClose={() => setSelectedId(null)}
         />

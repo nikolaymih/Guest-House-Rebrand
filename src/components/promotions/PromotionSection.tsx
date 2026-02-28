@@ -37,7 +37,7 @@ export default async function PromotionSection({ locale }: { locale: string }) {
       <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-8">
         {t("heading")}
       </h2>
-      <PromotionGrid promotions={items} closeLabel={t("close")} />
+      <PromotionGrid promotions={items} ctaLabel={t("cta")} closeLabel={t("close")} />
     </section>
   );
 }

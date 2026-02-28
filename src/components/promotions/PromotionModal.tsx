@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 
 interface PromotionModalProps {
   title: string;
@@ -8,6 +9,7 @@ interface PromotionModalProps {
   dateRange: string;
   description: string;
   imageUrl: string | null;
+  ctaLabel: string;
   closeLabel: string;
   onClose: () => void;
 }
@@ -18,6 +20,7 @@ export default function PromotionModal({
   dateRange,
   description,
   imageUrl,
+  ctaLabel,
   closeLabel,
   onClose,
 }: PromotionModalProps) {
@@ -76,6 +79,13 @@ export default function PromotionModal({
               <p key={i}>{paragraph}</p>
             ))}
           </div>
+
+          <Link
+            href="/reservation"
+            className="inline-block px-6 py-3 rounded-full bg-[var(--color-caramel)] text-white text-sm font-semibold hover:opacity-90 transition-opacity cursor-pointer"
+          >
+            {ctaLabel}
+          </Link>
         </div>
       </div>
     </div>

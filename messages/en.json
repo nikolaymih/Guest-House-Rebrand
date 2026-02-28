@@ -67,6 +67,7 @@
   "promotions": {
     "heading": "Current Promotions",
     "validUntil": "Valid until",
+    "cta": "Book Now",
     "close": "Close"
   },
   "rulesPage": {

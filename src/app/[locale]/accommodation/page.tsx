@@ -61,12 +61,16 @@ export default async function AccommodationPage({ params }: Props) {
           </div>
         </div>
 
-        <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-6">{t("pricingHeading")}</h2>
-        <PricingTable rows={rows} />
       </section>
 
       {/* Promotions */}
       <PromotionSection locale={locale} />
+
+      {/* Pricing */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-6">{t("pricingHeading")}</h2>
+        <PricingTable rows={rows} />
+      </section>
 
       {/* Reservation form */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
