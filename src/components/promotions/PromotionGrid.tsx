@@ -24,7 +24,7 @@ export default function PromotionGrid({
 
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-6">
+      <div className="flex flex-wrap justify-center gap-10">
         {promotions.map((promo) => (
           <button
             key={promo.id}

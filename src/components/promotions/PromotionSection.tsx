@@ -33,13 +33,11 @@ export default async function PromotionSection({ locale }: { locale: string }) {
   });
 
   return (
-    <section className="py-16 px-4">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-10 text-center">
-          {t("heading")}
-        </h2>
-        <PromotionGrid promotions={items} closeLabel={t("close")} />
-      </div>
+    <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-8">
+        {t("heading")}
+      </h2>
+      <PromotionGrid promotions={items} closeLabel={t("close")} />
     </section>
   );
 }

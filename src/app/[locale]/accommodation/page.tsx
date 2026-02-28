@@ -69,10 +69,10 @@ export default async function AccommodationPage({ params }: Props) {
       <PromotionSection locale={locale} />
 
       {/* Reservation form */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[var(--color-border-soft)]">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-[var(--color-border-soft)]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
-            <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-4">
+            <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-4">
               {t("inquiryHeading")}
             </h2>
             <p className="text-[var(--color-text-secondary)] leading-relaxed">
