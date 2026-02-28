@@ -64,6 +64,11 @@
     "heroSubtitle": "Discover the historical and natural landmarks in the area",
     "backToLandmarks": "Back to Landmarks"
   },
+  "promotions": {
+    "heading": "Current Promotions",
+    "validUntil": "Valid until",
+    "close": "Close"
+  },
   "rulesPage": {
     "heroTitle": "House Policy",
     "pageHeading": "House Policy",
