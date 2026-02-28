@@ -24,22 +24,22 @@ export default function PromotionGrid({
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="flex flex-wrap justify-center gap-6">
         {promotions.map((promo) => (
           <button
             key={promo.id}
             onClick={() => setSelectedId(promo.id)}
-            className="text-left bg-white rounded-2xl shadow-[var(--shadow-soft)] overflow-hidden hover:shadow-[var(--shadow-medium)] transition-shadow cursor-pointer group"
+            className="text-left bg-white rounded-2xl shadow-[var(--shadow-soft)] overflow-hidden hover:shadow-[var(--shadow-medium)] transition-shadow cursor-pointer group w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] max-w-sm"
           >
             {/* Image */}
             {promo.imageUrl ? (
               <img
                 src={promo.imageUrl}
                 alt={promo.title}
-                className="w-full aspect-[16/9] object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105"
               />
             ) : (
-              <div className="w-full aspect-[16/9] bg-[var(--color-linen)] flex items-center justify-center">
+              <div className="w-full aspect-[4/3] bg-[var(--color-linen)] flex items-center justify-center">
                 <span className="text-[var(--color-text-muted)] text-sm">—</span>
               </div>
             )}

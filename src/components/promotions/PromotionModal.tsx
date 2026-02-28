@@ -39,7 +39,7 @@ export default function PromotionModal({
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        className="relative bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
@@ -56,7 +56,7 @@ export default function PromotionModal({
           <img
             src={imageUrl}
             alt={title}
-            className="w-full aspect-[16/9] object-cover rounded-t-2xl"
+            className="w-full aspect-[3/2] object-cover rounded-t-2xl"
           />
         )}
 
