@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import ReservationForm from "@/components/reservation/ReservationForm";
 import ContactSidebar from "@/components/contact/ContactSidebar";
+import PromotionSection from "@/components/promotions/PromotionSection";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -33,6 +34,8 @@ export default async function ReservationPage({ params }: Props) {
           <ReservationForm />
         </div>
       </section>
+      {/* Promotions */}
+      <PromotionSection locale={locale} />
     </div>
   );
 }
