@@ -106,7 +106,7 @@ export default async function HomePage({ params }: Props) {
       <HeroCarousel images={carouselImages} />
 
       {/* About */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-6">
@@ -133,7 +133,7 @@ export default async function HomePage({ params }: Props) {
 
       {/* Welcome Section */}
       {welcomeImages.length > 0 && (
-        <section className="py-16 px-4 bg-[var(--color-linen)]">
+        <section className="pt-8 pb-16 px-4 bg-[var(--color-linen)]">
           <div className="max-w-5xl mx-auto">
             <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-10 text-center">
               {t("welcomeHeading")}
