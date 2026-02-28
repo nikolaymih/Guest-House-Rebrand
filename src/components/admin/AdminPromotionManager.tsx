@@ -58,7 +58,8 @@ function PromotionForm({
   function validate() {
     const textValid = textFields.every((f) => (form[f.key as keyof typeof form] as string ?? "").trim().length > 0);
     const datesValid = !!(form.valid_from as string)?.trim() && !!(form.valid_to as string)?.trim();
-    return textValid && datesValid;
+    const dateOrderValid = !datesValid || (form.valid_from as string) <= (form.valid_to as string);
+    return textValid && datesValid && dateOrderValid;
   }
 
   return (
@@ -117,6 +118,9 @@ function PromotionForm({
           />
           {touched && !(form.valid_to as string)?.trim() && (
             <p className="text-red-500 text-xs mt-0.5">Полето е задължително.</p>
+          )}
+          {touched && (form.valid_from as string)?.trim() && (form.valid_to as string)?.trim() && (form.valid_to as string) < (form.valid_from as string) && (
+            <p className="text-red-500 text-xs mt-0.5">Крайната дата трябва да е след началната.</p>
           )}
         </div>
       </div>
