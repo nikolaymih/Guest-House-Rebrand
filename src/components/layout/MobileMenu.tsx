@@ -5,8 +5,11 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-const NAV_LINKS = [
+const NAV_LINKS_BEFORE = [
   { key: "home", href: "/" },
+] as const;
+
+const NAV_LINKS_AFTER = [
   { key: "gallery", href: "/gallery/garden" },
   { key: "landmarks", href: "/landmarks" },
   { key: "reservation", href: "/reservation" },
@@ -39,7 +42,8 @@ export default function MobileMenu() {
 
       {open && (
         <div className="absolute top-16 left-0 right-0 z-50 bg-[var(--color-espresso)] border-t border-[var(--color-walnut)] px-4 py-6 flex flex-col gap-4">
-          {NAV_LINKS.map((link) => (
+          {/* Home */}
+          {NAV_LINKS_BEFORE.map((link) => (
             <Link
               key={link.key}
               href={link.href}
@@ -50,7 +54,7 @@ export default function MobileMenu() {
             </Link>
           ))}
 
-          {/* Accommodation section */}
+          {/* Accommodation section — 2nd position */}
           <div role="group" aria-label={t("accommodation")} className="flex flex-col gap-4">
             <span aria-hidden="true" className="text-base font-medium text-[var(--color-text-muted)]">
               {t("accommodation")}
@@ -66,6 +70,18 @@ export default function MobileMenu() {
               </Link>
             ))}
           </div>
+
+          {/* Remaining nav links */}
+          {NAV_LINKS_AFTER.map((link) => (
+            <Link
+              key={link.key}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="text-base font-medium text-[var(--color-warm-white)] hover:text-[var(--color-candlelight)] transition-colors"
+            >
+              {t(link.key)}
+            </Link>
+          ))}
 
           <div className="pt-4 border-t border-[var(--color-walnut)] flex items-center justify-between">
             <a
