@@ -25,6 +25,22 @@ export interface Landmark {
   url?: string; // resolved at runtime
 }
 
+export interface Promotion {
+  id: string;
+  slug: string;
+  title_bg: string;
+  title_en: string;
+  description_bg: string;
+  description_en: string;
+  price: string;
+  valid_from: string;
+  valid_to: string;
+  storage_path: string | null;
+  display_order: number;
+  created_at: string;
+  url?: string;
+}
+
 export interface PricingRow {
   id: string;
   guest_count: number;
