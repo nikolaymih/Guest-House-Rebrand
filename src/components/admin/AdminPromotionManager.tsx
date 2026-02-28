@@ -100,6 +100,7 @@ function PromotionForm({
             type="date"
             value={(form.valid_from as string) ?? ""}
             onChange={(e) => setForm({ ...form, valid_from: e.target.value })}
+            style={{ colorScheme: "light" }}
             className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
           />
           {touched && !(form.valid_from as string)?.trim() && (
@@ -114,6 +115,7 @@ function PromotionForm({
             type="date"
             value={(form.valid_to as string) ?? ""}
             onChange={(e) => setForm({ ...form, valid_to: e.target.value })}
+            style={{ colorScheme: "light" }}
             className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
           />
           {touched && !(form.valid_to as string)?.trim() && (
@@ -170,13 +172,13 @@ function PromotionForm({
             onSave(form, file);
           }}
           disabled={saving}
-          className="px-4 py-2 rounded-lg bg-[var(--color-caramel)] text-white text-sm font-semibold disabled:opacity-50"
+          className="px-4 py-2 rounded-lg bg-[var(--color-caramel)] text-white text-sm font-semibold disabled:opacity-50 cursor-pointer"
         >
           {saving ? "Запазване..." : "Запази"}
         </button>
         <button
           onClick={onCancel}
-          className="px-4 py-2 rounded-lg bg-white border border-[var(--color-border)] text-sm font-semibold"
+          className="px-4 py-2 rounded-lg bg-white border border-[var(--color-border)] text-sm font-semibold cursor-pointer"
         >
           Отказ
         </button>

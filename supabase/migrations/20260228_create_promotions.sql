@@ -13,4 +13,4 @@ CREATE TABLE promotions (
   created_at    timestamptz DEFAULT now()
 );
 
-ALTER TABLE promotions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE promotions DISABLE ROW LEVEL SECURITY;
