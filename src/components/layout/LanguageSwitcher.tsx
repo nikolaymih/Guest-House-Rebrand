@@ -17,7 +17,7 @@ export default function LanguageSwitcher() {
     <div className="flex items-center gap-1">
       <button
         onClick={() => switchLocale("bg")}
-        className={`text-sm font-semibold px-2 py-1 rounded transition-colors ${
+        className={`text-sm font-semibold px-2 py-1 rounded transition-colors cursor-pointer ${
           locale === "bg"
             ? "text-[var(--color-candlelight)] underline underline-offset-2"
             : "text-[var(--color-text-muted)] hover:text-[var(--color-warm-white)]"
@@ -29,7 +29,7 @@ export default function LanguageSwitcher() {
       <span className="text-[var(--color-walnut)] text-sm">|</span>
       <button
         onClick={() => switchLocale("en")}
-        className={`text-sm font-semibold px-2 py-1 rounded transition-colors ${
+        className={`text-sm font-semibold px-2 py-1 rounded transition-colors cursor-pointer ${
           locale === "en"
             ? "text-[var(--color-candlelight)] underline underline-offset-2"
             : "text-[var(--color-text-muted)] hover:text-[var(--color-warm-white)]"
