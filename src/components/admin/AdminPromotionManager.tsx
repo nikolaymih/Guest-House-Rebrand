@@ -431,7 +431,7 @@ export default function AdminPromotionManager() {
         </p>
         <button
           onClick={() => setEditingId("new")}
-          className="px-4 py-2 rounded-full bg-[var(--color-caramel)] text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+          className="px-4 py-2 rounded-full bg-[var(--color-caramel)] text-white text-sm font-semibold hover:opacity-90 transition-opacity cursor-pointer"
         >
           + Добави промоция
         </button>
