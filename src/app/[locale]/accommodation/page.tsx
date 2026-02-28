@@ -44,7 +44,7 @@ export default async function AccommodationPage({ params }: Props) {
       </section>
 
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           <div>
             <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-4">{aboutHeading}</h2>
             <p className="text-[var(--color-text-secondary)] leading-relaxed mb-3">{aboutP1}</p>
