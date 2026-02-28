@@ -246,13 +246,13 @@ function SortablePromotionCard({
       <div className="flex gap-2 flex-shrink-0">
         <button
           onClick={() => onEdit(promotion)}
-          className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-[var(--color-linen)] text-[var(--color-caramel-deep)] hover:bg-[var(--color-oatmeal)] transition-colors"
+          className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-[var(--color-linen)] text-[var(--color-caramel-deep)] hover:bg-[var(--color-oatmeal)] transition-colors cursor-pointer"
         >
           Редактирай
         </button>
         <button
           onClick={() => onDelete(promotion)}
-          className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
+          className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors cursor-pointer"
         >
           Изтрий
         </button>
