@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import PricingTable from "@/components/pricing/PricingTable";
+import PromotionSection from "@/components/promotions/PromotionSection";
 import ReservationForm from "@/components/reservation/ReservationForm";
 import { type PricingRow, type AccommodationContent, type AccommodationFeature } from "@/types";
 import ContactSidebar from "@/components/contact/ContactSidebar";
@@ -63,6 +64,9 @@ export default async function AccommodationPage({ params }: Props) {
         <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-6">{t("pricingHeading")}</h2>
         <PricingTable rows={rows} />
       </section>
+
+      {/* Promotions */}
+      <PromotionSection locale={locale} />
 
       {/* Reservation form */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[var(--color-border-soft)]">
