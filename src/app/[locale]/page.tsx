@@ -5,6 +5,7 @@ import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 import { createClient } from "@/lib/supabase/server";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import ContactSidebar from "@/components/contact/ContactSidebar";
+import PromotionSection from "@/components/promotions/PromotionSection";
 import { type HomeContent, type HomeAmenity } from "@/types";
 
 interface Props {
@@ -126,6 +127,9 @@ export default async function HomePage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Promotions */}
+      <PromotionSection locale={locale} />
 
       {/* Welcome Section */}
       {welcomeImages.length > 0 && (
