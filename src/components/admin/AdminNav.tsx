@@ -8,6 +8,7 @@ const links = [
   { href: "/admin/home", label: "Начало" },
   { href: "/admin/accommodation", label: "Настаняване" },
   { href: "/admin/gallery", label: "Галерия" },
+  { href: "/admin/promotions", label: "Промоции" },
   { href: "/admin/landmarks", label: "Забележителности" },
 ];
 
