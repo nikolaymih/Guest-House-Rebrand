@@ -1,7 +1,7 @@
 // src/components/admin/AdminPromotionManager.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   DndContext,
   closestCenter,
@@ -26,6 +26,38 @@ const MAX_BYTES = 15 * 1024 * 1024;
 // ── Empty form state ──────────────────────────────────────────────────────────
 function emptyForm(): Partial<Promotion> {
   return { title_bg: "", title_en: "", description_bg: "", description_en: "", price: "", valid_from: "", valid_to: "" };
+}
+
+// ── Date input with click-to-open picker ─────────────────────────────────────
+function DateInput({
+  label,
+  value,
+  onChange,
+  error,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  error?: string;
+}) {
+  const ref = useRef<HTMLInputElement>(null);
+
+  return (
+    <div>
+      <label className="block text-xs font-semibold text-[var(--color-text-secondary)] mb-1">
+        {label} <span className="text-red-500">*</span>
+      </label>
+      <input
+        ref={ref}
+        type="date"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onClick={() => ref.current?.showPicker?.()}
+        className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)] cursor-pointer [color-scheme:light]"
+      />
+      {error && <p className="text-red-500 text-xs mt-0.5">{error}</p>}
+    </div>
+  );
 }
 
 // ── Inline edit form ──────────────────────────────────────────────────────────
@@ -92,39 +124,24 @@ function PromotionForm({
 
       {/* Date inputs */}
       <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="block text-xs font-semibold text-[var(--color-text-secondary)] mb-1">
-            Валидна от <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="date"
-            value={(form.valid_from as string) ?? ""}
-            onChange={(e) => setForm({ ...form, valid_from: e.target.value })}
-            style={{ colorScheme: "light" }}
-            className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
-          />
-          {touched && !(form.valid_from as string)?.trim() && (
-            <p className="text-red-500 text-xs mt-0.5">Полето е задължително.</p>
-          )}
-        </div>
-        <div>
-          <label className="block text-xs font-semibold text-[var(--color-text-secondary)] mb-1">
-            Валидна до <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="date"
-            value={(form.valid_to as string) ?? ""}
-            onChange={(e) => setForm({ ...form, valid_to: e.target.value })}
-            style={{ colorScheme: "light" }}
-            className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-caramel)]"
-          />
-          {touched && !(form.valid_to as string)?.trim() && (
-            <p className="text-red-500 text-xs mt-0.5">Полето е задължително.</p>
-          )}
-          {touched && (form.valid_from as string)?.trim() && (form.valid_to as string)?.trim() && (form.valid_to as string) < (form.valid_from as string) && (
-            <p className="text-red-500 text-xs mt-0.5">Крайната дата трябва да е след началната.</p>
-          )}
-        </div>
+        <DateInput
+          label="Валидна от"
+          value={(form.valid_from as string) ?? ""}
+          onChange={(v) => setForm({ ...form, valid_from: v })}
+          error={touched && !(form.valid_from as string)?.trim() ? "Полето е задължително." : undefined}
+        />
+        <DateInput
+          label="Валидна до"
+          value={(form.valid_to as string) ?? ""}
+          onChange={(v) => setForm({ ...form, valid_to: v })}
+          error={
+            touched && !(form.valid_to as string)?.trim()
+              ? "Полето е задължително."
+              : touched && (form.valid_from as string)?.trim() && (form.valid_to as string)?.trim() && (form.valid_to as string) < (form.valid_from as string)
+                ? "Крайната дата трябва да е след началната."
+                : undefined
+          }
+        />
       </div>
 
       {/* Image upload */}
@@ -321,17 +338,7 @@ export default function AdminPromotionManager() {
     }
 
     if (id === "new") {
-      let slug = slugify(formData.title_bg ?? "promotion");
-
-      // Deduplicate slug against existing ones
-      const existingSlugs = new Set(promotions.map((p) => p.slug));
-      if (existingSlugs.has(slug)) {
-        let suffix = 2;
-        while (existingSlugs.has(`${slug}-${suffix}`)) {
-          suffix += 1;
-        }
-        slug = `${slug}-${suffix}`;
-      }
+      const slug = slugify(formData.title_bg ?? "promotion");
 
       const maxOrder = promotions.length > 0
         ? Math.max(...promotions.map((p) => p.display_order))

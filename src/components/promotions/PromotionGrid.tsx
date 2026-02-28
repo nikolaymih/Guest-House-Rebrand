@@ -26,12 +26,12 @@ export default function PromotionGrid({
 
   return (
     <>
-      <div className="flex flex-wrap gap-10">
+      <div className="flex flex-wrap gap-6">
         {promotions.map((promo) => (
           <button
             key={promo.id}
             onClick={() => setSelectedId(promo.id)}
-            className="text-left bg-white rounded-2xl shadow-[var(--shadow-soft)] overflow-hidden hover:shadow-[var(--shadow-medium)] transition-shadow cursor-pointer group w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] max-w-sm"
+            className="text-left bg-white rounded-2xl shadow-[var(--shadow-soft)] overflow-hidden hover:shadow-[var(--shadow-medium)] transition-shadow cursor-pointer group w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
           >
             {/* Image */}
             {promo.imageUrl ? (

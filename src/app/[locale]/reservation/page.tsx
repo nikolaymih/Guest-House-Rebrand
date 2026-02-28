@@ -24,6 +24,8 @@ export default async function ReservationPage({ params }: Props) {
         <h1 className="font-serif text-4xl text-[var(--color-candlelight)]">{t("heroTitle")}</h1>
         <p className="mt-3 text-[var(--color-parchment)]">{t("heroSubtitle")}</p>
       </section>
+      {/* Promotions */}
+      <PromotionSection locale={locale} />
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
@@ -34,8 +36,6 @@ export default async function ReservationPage({ params }: Props) {
           <ReservationForm />
         </div>
       </section>
-      {/* Promotions */}
-      <PromotionSection locale={locale} />
     </div>
   );
 }

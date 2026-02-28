@@ -29,12 +29,15 @@ export default async function HomePage({ params }: Props) {
 
   const supabase = await createClient();
 
+  const today = new Date().toISOString().split("T")[0];
+
   const [
     { data: carouselData },
     { data: welcomeData },
     { data: homeContentData },
     { data: homeAmenitiesData },
     { data: siteSettingsData },
+    { count: promotionCount },
   ] = await Promise.all([
     supabase
       .from("gallery_images")
@@ -50,7 +53,10 @@ export default async function HomePage({ params }: Props) {
     supabase.from("home_content").select("*").eq("id", 1).maybeSingle(),
     supabase.from("home_amenities").select("*").order("display_order"),
     supabase.from("site_settings").select("logo_url").eq("id", 1).maybeSingle(),
+    supabase.from("promotions").select("*", { count: "exact", head: true }).gte("valid_to", today),
   ]);
+
+  const hasPromotions = (promotionCount ?? 0) > 0;
 
   const carouselImages = (carouselData ?? []).map((row) => ({
     id: row.id,
@@ -129,11 +135,13 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {/* Promotions */}
-      <PromotionSection locale={locale} />
+      <div className="bg-[var(--color-linen)]">
+        <PromotionSection locale={locale} />
+      </div>
 
       {/* Welcome Section */}
       {welcomeImages.length > 0 && (
-        <section className="pt-8 pb-16 px-4 bg-[var(--color-linen)]">
+        <section className={`pt-8 pb-16 px-4${hasPromotions ? "" : " bg-[var(--color-linen)]"}`}>
           <div className="max-w-5xl mx-auto">
             <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-10 text-center">
               {t("welcomeHeading")}
@@ -157,7 +165,7 @@ export default async function HomePage({ params }: Props) {
       )}
 
       {/* Location */}
-      <section className="bg-[var(--color-bg-primary)] py-16 px-4">
+      <section className={`${hasPromotions ? "bg-[var(--color-linen)]" : ""} py-16 px-4`}>
         <div className="max-w-5xl mx-auto">
           <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-4 text-center">
             {t("locationHeading")}
@@ -185,18 +193,20 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {/* Reservation */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-4">
-              {t("inquiryHeading")}
-            </h2>
-            <p className="text-[var(--color-text-secondary)] leading-relaxed">
-              {t("inquirySubtitle")}
-            </p>
-            <ContactSidebar locale={locale} namespace="home" />
+      <section className={`${hasPromotions ? "" : "bg-[var(--color-linen)]"} py-16 px-4 sm:px-6 lg:px-8`}>
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="font-serif text-3xl text-[var(--color-espresso)] mb-4">
+                {t("inquiryHeading")}
+              </h2>
+              <p className="text-[var(--color-text-secondary)] leading-relaxed">
+                {t("inquirySubtitle")}
+              </p>
+              <ContactSidebar locale={locale} namespace="home" />
+            </div>
+            <ReservationForm />
           </div>
-          <ReservationForm />
         </div>
       </section>
     </div>

@@ -22,11 +22,15 @@ export default async function AccommodationPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "accommodationPage" });
 
   const supabase = await createClient();
-  const [{ data: contentData }, { data: featuresData }, { data: pricingData }] = await Promise.all([
+  const today = new Date().toISOString().split("T")[0];
+  const [{ data: contentData }, { data: featuresData }, { data: pricingData }, { count: promotionCount }] = await Promise.all([
     supabase.from("accommodation_content").select("*").eq("id", 1).maybeSingle(),
     supabase.from("accommodation_features").select("*").order("display_order"),
     supabase.from("pricing").select("*").order("guest_count"),
+    supabase.from("promotions").select("*", { count: "exact", head: true }).gte("valid_to", today),
   ]);
+
+  const hasPromotions = (promotionCount ?? 0) > 0;
 
   const content = contentData as AccommodationContent | null;
   const features = (featuresData ?? []) as AccommodationFeature[];
@@ -43,7 +47,7 @@ export default async function AccommodationPage({ params }: Props) {
         <h1 className="font-serif text-4xl text-[var(--color-candlelight)]">{t("heroTitle")}</h1>
       </section>
 
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
           <div>
             <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-4">{aboutHeading}</h2>
@@ -64,27 +68,33 @@ export default async function AccommodationPage({ params }: Props) {
       </section>
 
       {/* Promotions */}
-      <PromotionSection locale={locale} />
+      <div className="bg-[var(--color-linen)]">
+        <PromotionSection locale={locale} />
+      </div>
 
       {/* Pricing */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-6">{t("pricingHeading")}</h2>
-        <PricingTable rows={rows} />
+      <section className={`${hasPromotions ? "" : "bg-[var(--color-linen)]"} py-12 px-4 sm:px-6 lg:px-8`}>
+        <div className="max-w-5xl mx-auto">
+          <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-6">{t("pricingHeading")}</h2>
+          <PricingTable rows={rows} darkBg={!hasPromotions} />
+        </div>
       </section>
 
       {/* Reservation form */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-4">
-              {t("inquiryHeading")}
-            </h2>
-            <p className="text-[var(--color-text-secondary)] leading-relaxed">
-              {t("inquirySubtitle")}
-            </p>
-            <ContactSidebar locale={locale} namespace="home" />
+      <section className={`${hasPromotions ? "bg-[var(--color-linen)]" : ""} py-12 px-4 sm:px-6 lg:px-8`}>
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="font-serif text-2xl text-[var(--color-espresso)] mb-4">
+                {t("inquiryHeading")}
+              </h2>
+              <p className="text-[var(--color-text-secondary)] leading-relaxed">
+                {t("inquirySubtitle")}
+              </p>
+              <ContactSidebar locale={locale} namespace="home" />
+            </div>
+            <ReservationForm />
           </div>
-          <ReservationForm />
         </div>
       </section>
     </div>

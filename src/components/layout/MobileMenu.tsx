@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const NAV_LINKS_BEFORE = [
@@ -26,6 +27,12 @@ export default function MobileMenu() {
   const [open, setOpen] = useState(false);
   const t = useTranslations("nav");
   const th = useTranslations("header");
+  const pathname = usePathname();
+
+  const bare = pathname.replace(/^\/en/, "") || "/";
+  const isActive = (href: string) =>
+    bare === href || bare.startsWith(href + "/");
+  const accomActive = ["/accommodation", "/rules", "/personal-data"].some((p) => isActive(p));
 
   return (
     <div className="md:hidden">
@@ -48,7 +55,11 @@ export default function MobileMenu() {
               key={link.key}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="text-base font-medium text-[var(--color-warm-white)] hover:text-[var(--color-candlelight)] transition-colors"
+              className={`text-base font-medium transition-colors ${
+                isActive(link.href) && !accomActive
+                  ? "text-[var(--color-candlelight)]"
+                  : "text-[var(--color-warm-white)] hover:text-[var(--color-candlelight)]"
+              }`}
             >
               {t(link.key)}
             </Link>
@@ -56,7 +67,7 @@ export default function MobileMenu() {
 
           {/* Accommodation section — 2nd position */}
           <div role="group" aria-label={t("accommodation")} className="flex flex-col gap-4">
-            <span aria-hidden="true" className="text-base font-medium text-[var(--color-text-muted)]">
+            <span aria-hidden="true" className={`text-base font-medium ${accomActive ? "text-[var(--color-candlelight)]" : "text-[var(--color-text-muted)]"}`}>
               {t("accommodation")}
             </span>
             {ACCOMMODATION_LINKS.map((link) => (
@@ -64,7 +75,11 @@ export default function MobileMenu() {
                 key={link.key}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="pl-4 text-sm font-medium text-[var(--color-warm-white)] hover:text-[var(--color-candlelight)] transition-colors"
+                className={`pl-4 text-sm font-medium transition-colors ${
+                  isActive(link.href)
+                    ? "text-[var(--color-candlelight)]"
+                    : "text-[var(--color-warm-white)] hover:text-[var(--color-candlelight)]"
+                }`}
               >
                 {t(link.key)}
               </Link>
@@ -77,7 +92,11 @@ export default function MobileMenu() {
               key={link.key}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="text-base font-medium text-[var(--color-warm-white)] hover:text-[var(--color-candlelight)] transition-colors"
+              className={`text-base font-medium transition-colors ${
+                isActive(link.href)
+                  ? "text-[var(--color-candlelight)]"
+                  : "text-[var(--color-warm-white)] hover:text-[var(--color-candlelight)]"
+              }`}
             >
               {t(link.key)}
             </Link>

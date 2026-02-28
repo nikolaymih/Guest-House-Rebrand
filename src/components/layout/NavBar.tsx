@@ -1,8 +1,11 @@
+"use client";
+
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
-  { key: "gallery", href: "/gallery/garden" },
+  { key: "gallery", href: "/gallery" },
   { key: "landmarks", href: "/landmarks" },
   { key: "reservation", href: "/reservation" },
   { key: "contacts", href: "/contacts" },
@@ -14,15 +17,29 @@ const ACCOMMODATION_DROPDOWN = [
   { key: "personalData", href: "/personal-data" },
 ] as const;
 
+const ACCOMMODATION_PATHS = ["/accommodation", "/rules", "/personal-data"];
+
 export default function NavBar() {
   const t = useTranslations("nav");
+  const pathname = usePathname();
+
+  // Strip locale prefix (e.g. /en/gallery -> /gallery)
+  const bare = pathname.replace(/^\/en/, "") || "/";
+
+  const isActive = (href: string) =>
+    bare === href || bare.startsWith(href + "/");
+
+  const accomActive = ACCOMMODATION_PATHS.some((p) => isActive(p));
+
+  const activeClass = "text-sm font-medium text-[var(--color-candlelight)] border-b border-[var(--color-candlelight)] pb-0.5";
+  const inactiveClass = "text-sm font-medium text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors";
 
   return (
     <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
       {/* Home */}
       <Link
         href="/"
-        className="text-sm font-medium text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
+        className={isActive("/") && !accomActive ? activeClass : inactiveClass}
       >
         {t("home")}
       </Link>
@@ -32,7 +49,7 @@ export default function NavBar() {
         <Link
           href="/accommodation"
           aria-haspopup="menu"
-          className="text-sm font-medium text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
+          className={accomActive ? activeClass : inactiveClass}
         >
           {t("accommodation")}
         </Link>
@@ -43,7 +60,11 @@ export default function NavBar() {
                 key={item.key}
                 href={item.href}
                 role="menuitem"
-                className="block px-4 py-2 text-sm text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] hover:bg-[var(--color-walnut)] transition-colors"
+                className={`block px-4 py-2 text-sm transition-colors ${
+                  isActive(item.href)
+                    ? "text-[var(--color-candlelight)] bg-[var(--color-walnut)]"
+                    : "text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] hover:bg-[var(--color-walnut)]"
+                }`}
               >
                 {t(item.key)}
               </Link>
@@ -57,7 +78,7 @@ export default function NavBar() {
         <Link
           key={link.key}
           href={link.href}
-          className="text-sm font-medium text-[var(--color-parchment)] hover:text-[var(--color-candlelight)] transition-colors"
+          className={isActive(link.href) ? activeClass : inactiveClass}
         >
           {t(link.key)}
         </Link>
