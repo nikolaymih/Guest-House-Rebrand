@@ -239,7 +239,7 @@ function SortablePromotionCard({
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-[var(--color-espresso)] truncate">{promotion.title_bg}</p>
         <span className="text-xs bg-[var(--color-candlelight)] text-[var(--color-espresso)] px-2 py-0.5 rounded-full font-semibold">{promotion.price}</span>
-        <p className="text-xs text-[var(--color-text-muted)]">{promotion.valid_from} – {promotion.valid_to}</p>
+        <p className="text-xs text-[var(--color-text-muted)]">{promotion.valid_from.split("-").reverse().join(".")} – {promotion.valid_to.split("-").reverse().join(".")}</p>
       </div>
 
       {/* Actions */}
