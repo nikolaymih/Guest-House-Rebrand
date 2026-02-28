@@ -13,4 +13,8 @@ CREATE TABLE promotions (
   created_at    timestamptz DEFAULT now()
 );
 
-ALTER TABLE promotions DISABLE ROW LEVEL SECURITY;
+-- RLS: allow public read, authenticated write
+ALTER TABLE promotions ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public read promotions" ON promotions FOR SELECT USING (true);
+CREATE POLICY "Authenticated write promotions" ON promotions FOR ALL USING (auth.role() = 'authenticated') WITH CHECK (auth.role() = 'authenticated');
